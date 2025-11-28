@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adolf de Guzman - Email Marketing Specialist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .experience {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .specialty {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        
+        .portfolio-section {
+            padding: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #1a2a6c;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #1a2a6c, #fdbb2d);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .campaign-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .campaign-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .iframe-container {
+            height: 400px;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .campaign-card iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .campaign-info {
+            padding: 20px;
+        }
+        
+        .campaign-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+        }
+        
+        .view-link {
+            display: inline-block;
+            background: #1a2a6c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .view-link:hover {
+            background: #0d1a4d;
+        }
+        
+        .philosophy-section {
+            background: white;
+            padding: 50px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .philosophy-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .philosophy-intro strong {
+            color: #1a2a6c;
+        }
+        
+        .blog-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .blog-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .blog-link:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .blog-link i {
+            margin-right: 15px;
+            color: #1a2a6c;
+            font-size: 1.2rem;
+        }
+        
+        .blog-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .blog-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background: #1a2a6c;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .campaigns-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .blog-link {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .blog-link i {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Adolf de Guzman</h1>
+            <p class="subtitle">Email Marketing Specialist / Strategist</p>
+            <p class="experience">3+ years experience</p>
+            <div class="specialty">
+                <i class="fas fa-code"></i> HTML Email Specialist | Focused on Strategy & Performance, Not Just Design
+            </div>
+        </div>
+    </header>
+    
+    <section class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title">Recent Email Campaigns</h2>
+            <div class="campaigns-grid">
+                <!-- Campaign 1 -->
+                <div class="campaign-card">
+                    <div class="iframe-container">
+                        <iframe src="https://mow.soundestlink.com/ce/v/0/68f211bed789427510cb8c12" 
+                                title="Email Campaign 1"></iframe>
+                    </div>
+                    <div class="campaign-info">
+                        <h3 class="campaign-title">Campaign #1</h3>
+                        <a href="https://mow.soundestlink.com/ce/v/0/68f211bed789427510cb8c12" 
+                           class="view-link" target="_blank">View Full Campaign</a>
+                    </div>
+                </div>
+                
+                <!-- Campaign 2 -->
+                <div class="campaign-card">
+                    <div class="iframe-container">
+                        <iframe src="https://mow.soundestlink.com/ce/v/0/69157d374cb61d4f14f6379a" 
+                                title="Email Campaign 2"></iframe>
+                    </div>
+                    <div class="campaign-info">
+                        <h3 class="campaign-title">Campaign #2</h3>
+                        <a href="https://mow.soundestlink.com/ce/v/0/69157d374cb61d4f14f6379a" 
+                           class="view-link" target="_blank">View Full Campaign</a>
+                    </div>
+                </div>
+                
+                <!-- Campaign 3 -->
+                <div class="campaign-card">
+                    <div class="iframe-container">
+                        <iframe src="https://mow.soundestlink.com/ce/v/0/691eb135bd6eb8033d444aa1" 
+                                title="Email Campaign 3"></iframe>
+                    </div>
+                    <div class="campaign-info">
+                        <h3 class="campaign-title">Campaign #3</h3>
+                        <a href="https://mow.soundestlink.com/ce/v/0/691eb135bd6eb8033d444aa1" 
+                           class="view-link" target="_blank">View Full Campaign</a>
+                    </div>
+                </div>
+                
+                <!-- Campaign 4 -->
+                <div class="campaign-card">
+                    <div class="iframe-container">
+                        <iframe src="https://mow.soundestlink.com/ce/v/0/6927ffa713e9c3280e5ed685" 
+                                title="Email Campaign 4"></iframe>
+                    </div>
+                    <div class="campaign-info">
+                        <h3 class="campaign-title">Campaign #4</h3>
+                        <a href="https://mow.soundestlink.com/ce/v/0/6927ffa713e9c3280e5ed685" 
+                           class="view-link" target="_blank">View Full Campaign</a>
+                    </div>
+                </div>
+                
+                <!-- Campaign 5 -->
+                <div class="campaign-card">
+                    <div class="iframe-container">
+                        <iframe src="https://htq.soundestlink.com/ce/v/0/6926999413e9c3280e5eb6fc" 
+                                title="Email Campaign 5"></iframe>
+                    </div>
+                    <div class="campaign-info">
+                        <h3 class="campaign-title">Campaign #5</h3>
+                        <a href="https://htq.soundestlink.com/ce/v/0/6926999413e9c3280e5eb6fc" 
+                           class="view-link" target="_blank">View Full Campaign</a>
+                    </div>
+                </div>
+                
+                <!-- Campaign 6 -->
+                <div class="campaign-card">
+                    <div class="iframe-container">
+                        <iframe src="https://mow.soundestlink.com/ce/v/0/69294972bd6eb8033d45024d" 
+                                title="Email Campaign 6"></iframe>
+                    </div>
+                    <div class="campaign-info">
+                        <h3 class="campaign-title">Campaign #6</h3>
+                        <a href="https://mow.soundestlink.com/ce/v/0/69294972bd6eb8033d45024d" 
+                           class="view-link" target="_blank">View Full Campaign</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="philosophy-section">
+                <h2 class="section-title">My Email Marketing Philosophy</h2>
+                <p class="philosophy-intro">
+                    I specialize in <strong>HTML email development with a strategic focus</strong> - creating emails that drive results through 
+                    clean code, mobile optimization, and performance-focused design. My approach prioritizes <strong>function over flash</strong>, 
+                    ensuring every email delivers maximum impact through strategic execution rather than just artistic design.
+                </p>
+                
+                <div class="blog-links">
+                    <a href="https://resumepro.pages.dev/email-marketing" class="blog-link" target="_blank">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <div>
+                            <div class="blog-title">Strategic Email Marketing</div>
+                            <div class="blog-desc">Understanding the core principles that make email marketing effective beyond just aesthetics</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://resumepro.pages.dev/mobile-optimization" class="blog-link" target="_blank">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <div class="blog-title">Mobile Optimization Essentials</div>
+                            <div class="blog-desc">Why mobile-first design is critical in today's email landscape and how to implement it effectively</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://resumepro.pages.dev/email-list-failure" class="blog-link" target="_blank">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <div class="blog-title">The Truth About Email List Failure</div>
+                            <div class="blog-desc">Common pitfalls in list building and how to create a quality subscriber base that converts</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://resumepro.pages.dev/email-builder-previews" class="blog-link" target="_blank">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <div class="blog-title">Email Builder Previews</div>
+                            <div class="blog-desc">The importance of testing across clients and devices to ensure consistent rendering</div>
+                        </div>
+                    </a>
+                    
+                    <a href="https://resumepro.pages.dev/why-less-is-more" class="blog-link" target="_blank">
+                        <i class="fas fa-minus-circle"></i>
+                        <div>
+                            <div class="blog-title">Why Less is More in Email Design</div>
+                            <div class="blog-desc">How simplicity and focused messaging often outperform complex, visually-heavy designs</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <p>Email Marketing Specialist / Strategist</p>
+                <p>3+ years experience | HTML Email Development Focus</p>
+            </div>
+            <p class="copyright">© 2023 Adolf de Guzman. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
