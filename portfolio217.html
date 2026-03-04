@@ -195,7 +195,7 @@
             font-size: 1.5rem;
         }
 
-        /* ---------- MODAL - CLEAN SIDE BY SIDE ---------- */
+        /* ---------- MODAL - CLEAN SIDE BY SIDE (DESKTOP ONLY) ---------- */
         .modal {
             display: none;
             position: fixed;
@@ -257,7 +257,7 @@
             transform: scale(1.1);
         }
 
-        /* ----- TWO COLUMNS: DESKTOP & MOBILE ----- */
+        /* ----- TWO COLUMNS: DESKTOP & MOBILE (DESKTOP ONLY) ----- */
         .preview-row {
             display: flex;
             flex-wrap: wrap;
@@ -281,8 +281,8 @@
         /* mobile column (right) */
         .mobile-col {
             flex: 1;
-            min-width: 280px;
-            max-width: 480px;
+            min-width: 400px;
+            max-width: 400px;
             background: #f8fafc;
             border-radius: 24px;
             padding: 20px 16px 24px;
@@ -332,7 +332,7 @@
         /* mobile frame - phone shape */
         .mobile-frame {
             background: white;
-            max-width: 380px;
+            max-width: 400px;
             width: 100%;
             margin: 0 auto;
             border-radius: 32px;
@@ -495,66 +495,42 @@
             border-radius: 40px 40px 0 0;
         }
 
-        @media (max-width: 900px) {
-            .preview-row {
-                flex-direction: column;
-                align-items: center;
-            }
-            .desktop-col, .mobile-col {
-                max-width: 100%;
-                width: 100%;
-            }
-            .desktop-frame iframe { height: 450px; }
-            .mobile-frame iframe { height: 550px; }
-        }
-        
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            .desktop-col {
-                display: none !important;
-            }
-            
-            .mobile-col {
-                max-width: 100%;
-                flex: 1 1 100%;
-                width: 100%;
-            }
-            
-            .preview-row {
-                justify-content: center;
-            }
-            
-            .mobile-frame {
-                max-width: 100%;
-                width: 100%;
-                border-width: 4px;
-            }
-            
-            .mobile-frame iframe {
-                height: 580px;
-            }
-            
-            .modal-content {
-                padding: 20px 16px;
-                margin-top: 30px;
-            }
-            
-            .modal-header h3 {
-                font-size: 1.3rem;
-            }
-            
-            .campaigns-grid {
-                grid-template-columns: 1fr;
+        /* Desktop styles */
+        @media (min-width: 769px) {
+            .mobile-view-only {
+                display: none;
             }
         }
 
-        @media (max-width: 480px) {
-            .mobile-frame iframe {
-                height: 520px;
+        /* Mobile styles - direct link instead of modal */
+        @media (max-width: 768px) {
+            /* Hide modal completely on mobile */
+            .modal {
+                display: none !important;
             }
             
-            .modal {
-                padding: 16px;
+            /* Style the preview button to be a direct link */
+            .btn-preview {
+                background: #0a1a3f;
+                color: white;
+                text-decoration: none;
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+            
+            .btn-preview i {
+                margin-right: 5px;
+            }
+            
+            /* Make the entire campaign card clickable? Optional - can be enabled */
+            /* .campaign-card {
+                cursor: pointer;
+            } */
+            
+            .preview-row {
+                flex-direction: column;
+                align-items: center;
             }
             
             .pagination {
@@ -565,6 +541,25 @@
             .pagination button {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .campaigns-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal {
+                padding: 16px;
+            }
+            
+            .campaign-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-preview {
+                width: 100%;
             }
         }
     </style>
@@ -644,7 +639,7 @@
         </div>
     </section>
 
-    <!-- MODAL – SIDE BY SIDE -->
+    <!-- MODAL – SIDE BY SIDE (DESKTOP ONLY - WILL BE HIDDEN ON MOBILE) -->
     <div id="previewModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -795,13 +790,18 @@
             const nextBtn = document.getElementById('nextPageBtn');
             const pageIndicator = document.getElementById('pageIndicator');
 
-            // Modal elements
+            // Modal elements (desktop only)
             const modal = document.getElementById('previewModal');
             const modalTitle = document.getElementById('modalCampaignTitle');
             const pcIframe = document.getElementById('pcPreviewIframe');
             const mobileIframe = document.getElementById('mobilePreviewIframe');
             const fullLinkEl = document.getElementById('fullCampaignLink');
             const closeModalBtn = document.querySelector('.close-modal');
+
+            // Check if mobile
+            function isMobile() {
+                return window.innerWidth <= 768;
+            }
 
             // ---------- RENDER GRID (paginated with thumbnails) ----------
             function renderCampaigns() {
@@ -850,26 +850,38 @@
                 attachPreviewEvents();
             }
 
-            // ---------- PREVIEW BUTTON: open modal, set both iframes ----------
+            // ---------- PREVIEW BUTTON: different behavior for mobile vs desktop ----------
             function attachPreviewEvents() {
                 document.querySelectorAll('.btn-preview').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
+                    // Remove any existing event listeners by cloning and replacing
+                    const newBtn = btn.cloneNode(true);
+                    btn.parentNode.replaceChild(newBtn, btn);
+                    
+                    newBtn.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
                         
-                        const iframeSrc = this.dataset.iframeSrc;
                         const fullLink = this.dataset.fullLink;
                         const title = this.dataset.title;
+                        
+                        // Check if mobile
+                        if (isMobile()) {
+                            // On mobile: direct link to the email
+                            window.open(fullLink, '_blank', 'noopener,noreferrer');
+                        } else {
+                            // On desktop: show modal with iframes
+                            const iframeSrc = this.dataset.iframeSrc;
+                            
+                            modalTitle.textContent = title || 'Email Campaign';
+                            pcIframe.src = iframeSrc;
+                            mobileIframe.src = iframeSrc;
+                            fullLinkEl.href = fullLink;
+                            fullLinkEl.setAttribute('href', fullLink);
+                            fullLinkEl.target = '_blank';
+                            fullLinkEl.rel = 'noopener noreferrer';
 
-                        modalTitle.textContent = title || 'Email Campaign';
-                        pcIframe.src = iframeSrc;
-                        mobileIframe.src = iframeSrc;
-                        fullLinkEl.href = fullLink;
-                        fullLinkEl.setAttribute('href', fullLink);
-                        fullLinkEl.target = '_blank';
-                        fullLinkEl.rel = 'noopener noreferrer';
-
-                        modal.style.display = 'flex';
+                            modal.style.display = 'flex';
+                        }
                     });
                 });
             }
@@ -894,7 +906,7 @@
                 });
             }
 
-            // ---------- MODAL: CLOSE (x, outside, ESC) ----------
+            // ---------- MODAL: CLOSE (x, outside, ESC) - DESKTOP ONLY ----------
             function setupModal() {
                 closeModalBtn.addEventListener('click', closeModal);
                 
@@ -903,7 +915,7 @@
                 });
                 
                 document.addEventListener('keydown', (e) => { 
-                    if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    if (e.key === 'Escape' && modal.style.display === 'flex' && !isMobile()) {
                         closeModal();
                     }
                 });
@@ -915,6 +927,20 @@
                 mobileIframe.src = '';
                 fullLinkEl.href = '#';
             }
+
+            // Handle resize events (switching between mobile/desktop)
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    // If modal is open and we're on mobile, close it
+                    if (isMobile() && modal.style.display === 'flex') {
+                        closeModal();
+                    }
+                    // Re-attach events to update behavior
+                    attachPreviewEvents();
+                }, 250);
+            });
 
             // ---------- INIT ----------
             renderCampaigns();
