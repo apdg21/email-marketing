@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Past-Present-Future · Customer Journey · OmniSend Interview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f2f6fc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        /* header */
+        .header {
+            background: white;
+            border-radius: 40px;
+            padding: 1.8rem 2.2rem;
+            box-shadow: 0 10px 22px rgba(0,20,40,0.04);
+            border: 1px solid #e2e9f2;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header h1 span {
+            background: #dfe9f5;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #194a7a;
+        }
+        .sub {
+            font-size: 1.1rem;
+            color: #3a5575;
+            margin-top: 0.6rem;
+            max-width: 80%;
+        }
+
+        /* framework card */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .past-card, .present-card, .future-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 1.6rem;
+            border: 1px solid #e0eaf4;
+            box-shadow: 0 5px 16px rgba(0,0,0,0.02);
+            transition: 0.15s;
+            position: relative;
+        }
+        .past-card { border-top: 6px solid #617a9e; }
+        .present-card { border-top: 6px solid #3c8dbc; }
+        .future-card { border-top: 6px solid #2b5f8a; }
+
+        .card-label {
+            display: inline-block;
+            background: #ecf3fa;
+            border-radius: 30px;
+            padding: 0.2rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #2a4c73;
+            margin-bottom: 1.2rem;
+        }
+        .past-card .card-label { background: #dbe6f2; color: #264e73; }
+        .present-card .card-label { background: #d4e7f5; color: #136b9c; }
+        .future-card .card-label { background: #cde0f0; color: #134573; }
+
+        .script-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1f3a5a;
+            margin-bottom: 1.4rem;
+        }
+        .script-text strong {
+            color: #0f3d6b;
+            background: #eaf2fa;
+            padding: 0.1rem 0.2rem;
+            font-weight: 600;
+        }
+        .why-bullet {
+            background: #f7faff;
+            border-radius: 16px;
+            padding: 1rem;
+            font-size: 0.95rem;
+            border-left: 4px solid #7699c7;
+        }
+
+        /* journey stages */
+        .journey-section {
+            background: white;
+            border-radius: 38px;
+            padding: 2rem 2rem 1.8rem;
+            border: 1px solid #deeaf6;
+        }
+        .journey-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.6rem;
+        }
+        .journey-header h2 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #1e3a5f;
+        }
+        .pill-mantra {
+            background: #dae6f5;
+            color: #113255;
+            border-radius: 40px;
+            padding: 0.4rem 1.3rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1.3rem;
+            margin-top: 1.2rem;
+        }
+        .stage-item {
+            background: #f6fafe;
+            border-radius: 22px;
+            padding: 1.4rem 1.2rem;
+            border: 1px solid #d3e1f0;
+            transition: 0.1s;
+        }
+        .stage-item:hover {
+            background: #ecf3fc;
+            border-color: #b1c9e5;
+        }
+        .stage-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #173759;
+            margin-bottom: 0.6rem;
+        }
+        .stage-desc {
+            font-size: 0.9rem;
+            color: #36577b;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+        .stage-flow {
+            background: #dce8f3;
+            padding: 0.3rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            color: #0c3d64;
+        }
+        .goal-tag {
+            font-size: 0.8rem;
+            margin-top: 0.6rem;
+            color: #1b4c7c;
+            font-style: italic;
+        }
+        .insight-badge {
+            background: #fef6e6;
+            border-radius: 14px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-left: 3px solid #e7a832;
+            margin-top: 0.7rem;
+        }
+
+        /* sticky keywords */
+        .keywords-bar {
+            background: #ffffffd6;
+            backdrop-filter: blur(4px);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #c5d9f0;
+            box-shadow: 0 8px 14px rgba(0,20,30,0.06);
+        }
+        .keyword-set {
+            display: flex;
+            gap: 2rem;
+            font-weight: 600;
+        }
+        .keyword-set span {
+            background: #e4edf8;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            color: #003f77;
+        }
+        .mental-note {
+            color: #3c5c82;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* see it, like it, buy it, keep it */
+        .mini-mnemonic {
+            background: #e3eefb;
+            border-radius: 34px;
+            padding: 1rem 2rem;
+            margin-top: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .mnemonic-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 600;
+            color: #174472;
+        }
+        .mnemonic-item span {
+            background: white;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            font-size: 1.1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed #b7d0e9;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .framework-grid { grid-template-columns: 1fr; }
+            .stage-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.6rem; flex-wrap: wrap; }
+            .sub { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <h1>
+            🧭 The Past–Present–Future Framework
+            <span>LaunchVector fit</span>
+        </h1>
+        <div class="sub">persuasive copy + technical ownership + revenue + reputation · mental‑block breaker</div>
+    </div>
+
+    <!-- PAST / PRESENT / FUTURE cards -->
+    <div class="framework-grid">
+        <!-- PAST (hook) -->
+        <div class="past-card">
+            <div class="card-label">🔹 1. THE HOOK · PAST</div>
+            <div class="script-text">
+                <strong>“I’ve been in email marketing & copywriting since 2019.</strong> I started with a heavy focus on persuasive copy, which led me into the technical side—designing and coding responsive, high‑converting emails for Shopify brands.”
+            </div>
+            <div class="why-bullet">
+                💡 <strong>Why it works:</strong> Shows you’re not just a “marketer” – you code/design. Technical depth matches job requirement.
+            </div>
+        </div>
+        <!-- PRESENT (proof) -->
+        <div class="present-card">
+            <div class="card-label">🔸 2. THE PROOF · PRESENT</div>
+            <div class="script-text">
+                <strong>“Currently, I run an email agency managing end‑to‑end strategy for DTC brands.</strong> My approach is data‑driven: I audit flows (Welcome, Abandoned Cart) so they’re consistent revenue drivers. I emphasise email hygiene—exclusion segments, text‑to‑image ratios—to keep deliverability high.”
+            </div>
+            <div class="why-bullet">
+                📈 <strong>Ownership:</strong> Running agency = no hand‑holding needed. Bridges revenue + sender reputation.
+            </div>
+        </div>
+        <!-- FUTURE (alignment) -->
+        <div class="future-card">
+            <div class="card-label">🔹 3. THE WHY · FUTURE</div>
+            <div class="script-text">
+                <strong>“I noticed LaunchVector works with multiple growing Shopify brands, which is exactly my expertise.</strong> I’m looking for a long‑term role where I take full ownership of OmniSend, optimise flow performance with A/B testing, and scale email‑attributed revenue across your portfolio.”
+            </div>
+            <div class="why-bullet">
+                🎯 <strong>Alignment:</strong> Explicitly mentions multi‑brand, OmniSend, and revenue scaling.
+            </div>
+        </div>
+    </div>
+
+    <!-- sticky keyword reminder (pro‑tip from notes) -->
+    <div class="keywords-bar">
+        <div class="keyword-set">
+            <span>✍️ Copy-First</span>
+            <span>⚙️ Flow-Focused</span>
+            <span>🛡️ Deliverability-Obsessed</span>
+        </div>
+        <div class="mental-note">📌 stuck? look at the three words ↑</div>
+    </div>
+
+    <!-- ========== CUSTOMER JOURNEY SECTION ========== -->
+    <div class="journey-section">
+        <div class="journey-header">
+            <h2>🧩 The customer journey (OmniSend flows)</h2>
+            <div class="pill-mantra">stranger → loyal fan</div>
+        </div>
+        <p style="margin-bottom: 1.2rem; color: #2b5179; font-size: 1rem;">
+            Map the “relationship status” — send the right message at the right time.
+        </p>
+
+        <div class="stage-grid">
+            <!-- 1. Awareness -->
+            <div class="stage-item">
+                <div class="stage-name"><span>👀</span> Awareness</div>
+                <div class="stage-desc">First impression, window shopping. They don't trust you yet.</div>
+                <div class="stage-flow">signup form / popup</div>
+                <div class="goal-tag">🎯 Goal: get permission (email/SMS). hook = discount or guide.</div>
+                <div class="insight-badge">strong hook needed</div>
+            </div>
+            <!-- 2. Consideration -->
+            <div class="stage-item">
+                <div class="stage-name"><span>🤔</span> Consideration</div>
+                <div class="stage-desc">Interested, reading reviews, comparing.</div>
+                <div class="stage-flow">welcome · browse abandon</div>
+                <div class="goal-tag">🎯 Goal: answer questions, stay top of mind. copy builds trust.</div>
+                <div class="insight-badge">story + best‑sellers</div>
+            </div>
+            <!-- 3. Conversion -->
+            <div class="stage-item">
+                <div class="stage-name"><span>💰</span> Conversion</div>
+                <div class="stage-desc">First purchase — high intent moment.</div>
+                <div class="stage-flow">abandoned cart</div>
+                <div class="goal-tag">🎯 Goal: remove friction, close sale. timing critical (1h).</div>
+                <div class="insight-badge">discount? free shipping</div>
+            </div>
+            <!-- 4. Retention -->
+            <div class="stage-item">
+                <div class="stage-name"><span>❤️</span> Retention</div>
+                <div class="stage-desc">Honeymoon phase — don't disappear.</div>
+                <div class="stage-flow">post‑purchase / thank you · upsell</div>
+                <div class="goal-tag">🎯 Goal: ensure happiness, prevent returns.</div>
+                <div class="insight-badge">“how to use” + cross‑sell</div>
+            </div>
+            <!-- 5. Loyalty & Advocacy -->
+            <div class="stage-item">
+                <div class="stage-name"><span>🤝</span> Loyalty & Advocacy</div>
+                <div class="stage-desc">Repeat buyer, tells friends.</div>
+                <div class="stage-flow">VIP / win‑back</div>
+                <div class="goal-tag">🎯 Goal: VIP treatment, early access, or “we miss you”</div>
+                <div class="insight-badge">high spender flows</div>
+            </div>
+        </div>
+
+        <!-- how to use in interview -->
+        <div style="background: #e3effb; border-radius: 28px; padding: 1.3rem 1.8rem; margin-top: 1.8rem;">
+            <p style="font-weight: 700; font-size: 1.1rem;">🗣️ If LaunchVector asks “how do you approach a new brand?”</p>
+            <p style="margin-top: 0.4rem;">“I audit the <strong>entire customer journey</strong> — from signup form (awareness) to welcome (consideration), abandoned cart (conversion), and post‑purchase / VIP (retention). I look for leaks in the funnel where we lose potential revenue.”</p>
+        </div>
+
+        <!-- mental block mnemonic: see it, like it, buy it, keep it -->
+        <div class="mini-mnemonic">
+            <div class="mnemonic-item"><span>👁️</span> See it (signup)</div>
+            <div class="mnemonic-item"><span>❤️</span> Like it (welcome/browse)</div>
+            <div class="mnemonic-item"><span>🛒</span> Buy it (cart)</div>
+            <div class="mnemonic-item"><span>📦</span> Keep it (post-purchase/VIP)</div>
+        </div>
+        <p style="font-size:0.9rem; margin-top: 1rem; color: #385f89;">⭐ just remember: <strong>See it, Like it, Buy it, Keep it</strong> — covers every stage.</p>
+    </div>
+
+    <!-- footer with extra pro‑tip / “why this works for LaunchVector” recap -->
+    <div style="background: white; border-radius: 28px; padding: 1.2rem 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border: 1px solid #cfdeef;">
+        <div style="display: flex; gap: 1.8rem; flex-wrap: wrap;">
+            <span><span style="background: #dbeafe; padding:0.2rem 0.8rem; border-radius:30px;">📋 technical depth</span></span>
+            <span><span style="background: #dbeafe; padding:0.2rem 0.8rem; border-radius:30px;">🚀 ownership (agency)</span></span>
+            <span><span style="background: #dbeafe; padding:0.2rem 0.8rem; border-radius:30px;">📈 revenue + reputation</span></span>
+        </div>
+        <div style="font-weight: 500; color: #184472;">
+            ⚡ three keywords: copy‑first · flow‑focused · deliverability‑obsessed
+        </div>
+    </div>
+
+    <!-- tiny spacer for mental clarity -->
+    <div style="display: flex; justify-content: flex-end; font-size:0.85rem; color:#345e8b; gap: 2rem; padding:0 0.5rem;">
+        <span>🧠 past-present-future locked</span>
+        <span>🔁 see it ➔ like it ➔ buy it ➔ keep it</span>
+    </div>
+</div>
+</body>
+</html>
