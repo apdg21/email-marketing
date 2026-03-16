@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 OmniSend Interview Master · all notes combined</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: #eef3f9;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a2f44;
+            display: flex;
+            line-height: 1.5;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #c9ddef;
+            padding: 2rem 1.2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 18px rgba(0,0,0,0.02);
+            flex-shrink: 0;
+        }
+        .sidebar h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #315d89;
+            margin: 1.5rem 0 0.8rem 0;
+            border-bottom: 2px solid #dde5f0;
+            padding-bottom: 0.3rem;
+        }
+        .sidebar h3:first-of-type {
+            margin-top: 0;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.4rem;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: #1f4468;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            transition: all 0.1s;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+        }
+        .sidebar a:hover {
+            background: #e2edfb;
+            border-left-color: #2e72b8;
+            color: #003472;
+        }
+        .section-marker {
+            font-size: 0.75rem;
+            color: #7b98b5;
+            margin-left: 0.3rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            max-width: calc(100% - 280px);
+            padding: 2rem 2.5rem 3rem;
+        }
+        .section-block {
+            scroll-margin-top: 2rem;
+            background: white;
+            border-radius: 34px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #d3e2f2;
+            box-shadow: 0 10px 22px rgba(0,0,0,0.02);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-tag {
+            background: #deeaf7;
+            padding: 0.2rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #19487a;
+        }
+        .back2top {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+        .back2top a {
+            font-size: 0.8rem;
+            color: #4d74a2;
+            text-decoration: none;
+        }
+
+        /* preserve original styles (lightly adapted) */
+        .qa-block, .card, .grid-2, .framework-grid, .trio-grid, .two-col, .tech-grid, .pillar-row {
+            all: unset; /* reset then reapply inside blocks */
+            display: block;
+        }
+        /* re-apply necessary styles */
+        .question { font-weight: 600; padding-left: 1rem; border-left: 4px solid #3b7fc9; margin: 1.2rem 0 0.5rem; }
+        .answer { background: #f9fcff; padding: 1rem 1.2rem; border-radius: 18px; border: 1px solid #e7edf8; }
+        .flow-table { width: 100%; border-collapse: collapse; background: #f9fbfd; border-radius: 18px; overflow: hidden; }
+        .flow-table th { background: #e1e9f2; padding: 0.5rem; text-align: left; }
+        .flow-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #dde5ef; }
+        .highlight-bg { background: #e7f1fa; border-radius: 30px; padding: 0.2rem 0.6rem; }
+
+        .framework-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+        .past-card, .present-card, .future-card { background: white; border-radius: 28px; padding: 1.5rem; border: 1px solid #e0eaf4; }
+        .past-card { border-top: 6px solid #617a9e; }
+        .present-card { border-top: 6px solid #3c8dbc; }
+        .future-card { border-top: 6px solid #2b5f8a; }
+
+        .trio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 1rem; }
+        .strat-label { display: inline-block; padding: 0.2rem 1rem; border-radius: 40px; font-weight: 700; font-size: 0.75rem; }
+        .conservative { background: #e4ecf5; color: #2d577c; }
+        .balanced { background: #d9ecfa; color: #1e6a9b; }
+        .aggressive { background: #ffe8d9; color: #aa5730; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+        .pill { background: #e7f0fa; border-radius: 30px; padding: 0.3rem 1.2rem; display: inline-block; margin: 0.2rem; }
+
+        .tech-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+        .pillar-row { display: flex; gap: 2rem; margin: 1rem 0; flex-wrap: wrap; }
+        .pillar { background: white; border-radius: 28px; padding: 1.5rem; flex: 1 1 200px; border: 1px solid #cbddec; }
+
+        .mnemonic-strip { background: #dceafa; border-radius: 40px; padding: 1rem 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; }
+
+        .footer-note, .cheat-strip { background: white; border-radius: 30px; padding: 1rem 2rem; margin-top: 1rem; }
+
+        hr { border: 2px dashed #b7cee9; margin: 1.8rem 0; }
+
+        @media (max-width: 1000px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #c9ddef; }
+            .main-content { max-width: 100%; padding: 1.5rem; }
+            .framework-grid, .trio-grid, .two-col, .tech-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- sidebar navigation -->
+    <div class="sidebar">
+        <h3>📋 Interview core</h3>
+        <ul>
+            <li><a href="#section1">1. Q&A + flows (OmniSend)</a></li>
+            <li><a href="#section2">2. Past-Present-Future + journey</a></li>
+            <li><a href="#section3">3. High-impact questions & tech</a></li>
+            <li><a href="#section4">4. Strategy Trio · 48h · YoY</a></li>
+        </ul>
+        <h3>🔍 quick anchors</h3>
+        <ul>
+            <li><a href="#multi-brand">▶ multi‑brand voice</a></li>
+            <li><a href="#flow-audit">▶ flow audit example</a></li>
+            <li><a href="#welcome-series">▶ welcome series table</a></li>
+            <li><a href="#past-present-future">▶ PPF framework</a></li>
+            <li><a href="#journey-stages">▶ customer journey</a></li>
+            <li><a href="#questions-ownership">▶ ownership questions</a></li>
+            <li><a href="#klaviyo-testing">▶ klaviyo hiccups</a></li>
+            <li><a href="#ugly-but-profitable">▶ ugly flow philosophy</a></li>
+            <li><a href="#strategy-trio">▶ strategy trio</a></li>
+            <li><a href="#48h-pulse">▶ 48h pulse & YoY</a></li>
+        </ul>
+        <h3>🧠 mental blockers</h3>
+        <ul>
+            <li><a href="#cheat-sheet1">▶ cheat sheet 1 (3 words)</a></li>
+            <li><a href="#cheat-sheet2">▶ cheat sheet 2 (pillars)</a></li>
+            <li><a href="#keywords-strip">▶ strategy trio keywords</a></li>
+        </ul>
+    </div>
+
+    <!-- main content with all four sections -->
+    <div class="main-content">
+
+        <!-- SECTION 1: original first html (Q&A + flows) -->
+        <section id="section1" class="section-block">
+            <div class="section-title">
+                <span>📋 1. Interview Q&A + Core Flows</span>
+                <span class="section-tag">OmniSend · multi‑brand</span>
+            </div>
+            <!-- question 1 multi brand -->
+            <div id="multi-brand" class="qa-block" style="scroll-margin-top: 30px;">
+                <div class="question">1. Multiple Shopify brands in OmniSend — how do you keep distinct voices?</div>
+                <div class="answer"><strong>“In my previous role, I managed three DTC brands using OmniSend.”</strong> I maintained voice by creating separate content style guides + swipe files. <em>Example: Brand A witty, Brand B educational.</em> Built separate flow templates and campaign calendars inside OmniSend.</div>
+            </div>
+            <div class="qa-block" id="flow-audit">
+                <div class="question">2. Describe auditing an existing flow (abandoned cart / welcome) & optimizing it.</div>
+                <div class="answer"><strong>“For an abandoned cart flow, conversion rate was below benchmark.”</strong> High drop-off after email 1. A/B tested: control vs variant with 10% discount. Variant improved conversion 15% and revenue per recipient 20%.</div>
+            </div>
+            <div class="qa-block">
+                <div class="question">3. Process for a seasonal campaign – from concept to post‑analysis, driving revenue.</div>
+                <div class="answer"><strong>“Start with promo calendar, align on offer. Build campaign stack in OmniSend:</strong> teaser, main launch, last‑chance. Segment by past purchase. After: click‑to‑conversion, revenue per send vs previous period.”</div>
+            </div>
+            <!-- flow tables -->
+            <h3 style="margin: 1.5rem 0 0.5rem;" id="welcome-series">🎉 Welcome series (flow table)</h3>
+            <table class="flow-table">
+                <tr><th>email</th><th>timing</th><th>content</th></tr>
+                <tr><td>Email 1</td><td>Immediate</td><td>The Handshake: deliver discount, who you are</td></tr>
+                <tr><td>Email 2</td><td>1 day later</td><td>The Story: brand values, best‑sellers</td></tr>
+                <tr><td>Email 3</td><td>2-3 days</td><td>Social proof: reviews, UGC</td></tr>
+                <tr><td>Email 4</td><td>5 days later</td><td>Last call: discount expires</td></tr>
+            </table>
+            <h3 style="margin-top:1rem;">🛒 Abandoned cart</h3>
+            <table class="flow-table">
+                <tr><th>email</th><th>timing</th><th>content</th></tr>
+                <tr><td>Email 1</td><td>30–60 min</td><td>Gentle nudge, show item, no discount</td></tr>
+                <tr><td>Email 2</td><td>24 hours</td><td>Objection killer: free shipping</td></tr>
+                <tr><td>Email 3</td><td>48 hours</td><td>Incentive: small discount (10%)</td></tr>
+            </table>
+            <div class="back2top"><a href="#section1">↑ back to top</a></div>
+        </section>
+
+        <!-- SECTION 2: Past-Present-Future + journey -->
+        <section id="section2" class="section-block">
+            <div class="section-title">
+                <span>🧭 2. Past–Present–Future & Customer Journey</span>
+                <span class="section-tag">LaunchVector fit</span>
+            </div>
+            <div id="past-present-future" class="framework-grid" style="scroll-margin-top:30px;">
+                <div class="past-card"><div class="card-label">🔹 PAST (hook)</div><div class="script-text"><strong>“I’ve been in email marketing & copywriting since 2019.”</strong> Started with persuasive copy → coding responsive emails for Shopify.</div></div>
+                <div class="present-card"><div class="card-label">🔸 PRESENT (proof)</div><div class="script-text"><strong>“Currently run an email agency for DTC brands.”</strong> Data‑driven: audit flows, email hygiene, text‑to‑image ratios.</div></div>
+                <div class="future-card"><div class="card-label">🔹 FUTURE (why)</div><div class="script-text"><strong>“LaunchVector works with multiple Shopify brands – exactly my expertise.”</strong> Want ownership of OmniSend, A/B testing, scaling revenue.</div></div>
+            </div>
+            <div class="keywords-bar" style="background:#eaf1fa; border-radius:40px; padding:0.8rem 1.5rem; margin:1.5rem 0;">
+                <span style="font-weight:600;">🧠 3 keywords: </span> Copy-First · Flow-Focused · Deliverability-Obsessed
+            </div>
+            <!-- journey stages -->
+            <h3 id="journey-stages" style="margin: 1.8rem 0 0.8rem;">🧩 Customer journey (OmniSend flows)</h3>
+            <div class="stage-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem;">
+                <div class="stage-item" style="background:#f6fafe; border-radius:22px; padding:1rem;"><span style="font-weight:700;">👀 Awareness</span> signup form · hook needed</div>
+                <div class="stage-item" style="background:#f6fafe; border-radius:22px; padding:1rem;"><span style="font-weight:700;">🤔 Consideration</span> welcome / browse</div>
+                <div class="stage-item" style="background:#f6fafe; border-radius:22px; padding:1rem;"><span style="font-weight:700;">💰 Conversion</span> abandoned cart</div>
+                <div class="stage-item" style="background:#f6fafe; border-radius:22px; padding:1rem;"><span style="font-weight:700;">❤️ Retention</span> post‑purchase / upsell</div>
+                <div class="stage-item" style="background:#f6fafe; border-radius:22px; padding:1rem;"><span style="font-weight:700;">🤝 Loyalty</span> VIP / win‑back</div>
+            </div>
+            <div class="mini-mnemonic" style="background:#e3eefb; border-radius:34px; padding:0.8rem 1.5rem; margin:1.2rem 0; display:flex; flex-wrap:wrap; gap:2rem;">
+                <span><span>👁️</span> See it (signup)</span> <span>❤️ Like it (welcome)</span> <span>🛒 Buy it (cart)</span> <span>📦 Keep it (post-purchase)</span>
+            </div>
+            <div class="back2top"><a href="#section2">↑ back to top</a></div>
+        </section>
+
+        <!-- SECTION 3: High-impact questions + klaviyo + ugly flow philosophy -->
+        <section id="section3" class="section-block">
+            <div class="section-title">
+                <span>🎯 3. High-impact questions & technical depth</span>
+                <span class="section-tag">ownership · data · culture</span>
+            </div>
+            <!-- questions ownership grid (condensed) -->
+            <div id="questions-ownership" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                <div class="q-card" style="background:#f8fcff; border-radius:24px; padding:1rem;"><span class="q-label" style="background:#dbeafe;">🚀 ownership</span> “For the brands I’ll manage, are core flows already built or will I build new strategies?”</div>
+                <div class="q-card" style="background:#f8fcff; border-radius:24px; padding:1rem;"><span class="q-label" style="background:#dbeafe;">🎨 creative</span> “Feedback loop between Email Strategist and Creative/Design?”</div>
+                <div class="q-card" style="background:#f8fcff; border-radius:24px; padding:1rem;"><span class="q-label" style="background:#dbeafe;">📊 KPI</span> “Primary KPI: revenue, list growth, or deliverability?”</div>
+                <div class="q-card" style="background:#f8fcff; border-radius:24px; padding:1rem;"><span class="q-label" style="background:#dbeafe;">🔬 A/B testing</span> “Small incremental tests or Big Rock tests?”</div>
+                <div class="q-card" style="background:#f8fcff; border-radius:24px; padding:1rem;"><span class="q-label" style="background:#dbeafe;">⚙️ master template</span> “Centralized Master Template or fully custom HTML per brand?”</div>
+                <div class="q-card" style="background:#f8fcff; border-radius:24px; padding:1rem;"><span class="q-label" style="background:#dbeafe;">📱 SMS/loyalty</span> “Integrating SMS or third‑party loyalty apps?”</div>
+            </div>
+            <!-- klaviyo testing -->
+            <div id="klaviyo-testing" style="margin-top:2rem;">
+                <h3>🧪 Klaviyo testing hiccups (lessons for OmniSend)</h3>
+                <div class="tech-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1rem 0;">
+                    <div class="tech-item" style="background:#ecf5ff; padding:1rem; border-radius:20px;"><strong>🍪 identification gap</strong> use ?utm_email=you@example.com</div>
+                    <div class="tech-item" style="background:#ecf5ff; padding:1rem; border-radius:20px;"><strong>🧩 missing snippet</strong> Added to Cart needs JS; OmniSend uses app embed.</div>
+                    <div class="tech-item" style="background:#ecf5ff; padding:1rem; border-radius:20px;"><strong>📉 metric never fired</strong> must happen once before flow builder shows it.</div>
+                </div>
+            </div>
+            <!-- ugly but profitable -->
+            <div id="ugly-but-profitable" style="margin-top:2rem;">
+                <h3>🎭 “Ugly but high‑revenue” flow dilemma</h3>
+                <div style="background:#f3f9ff; border-radius:26px; padding:1.2rem;">
+                    <p><strong>Risk vs reward:</strong> never replace a winner – A/B test. Keep “ugly/good” as Control vs “clean/new” as Challenger.</p>
+                    <p><strong>Hierarchy of impact:</strong> Offer → Subject → Layout → Copy.</p>
+                    <p style="font-style:italic; margin-top:0.5rem;">Interview: “If a flow performs well despite poor structure, I’d A/B test a cleaner version against it.”</p>
+                </div>
+            </div>
+            <!-- three pillars -->
+            <div class="pillar-row" style="margin:2rem 0;">
+                <div class="pillar pillar-1" style="border-top:6px solid #3f729b;"><h4>🏛️ Stability</h4><p>Don't touch high‑revenue flows without reason.</p></div>
+                <div class="pillar pillar-2" style="border-top:6px solid #2f8f74;"><h4>🤝 Trust</h4><p>Campaigns build relationship, not just sell.</p></div>
+                <div class="pillar pillar-3" style="border-top:6px solid #b36b3c;"><h4>📈 Growth</h4><p>More subscribers = more flow revenue.</p></div>
+            </div>
+            <div class="back2top"><a href="#section3">↑ back to top</a></div>
+        </section>
+
+        <!-- SECTION 4: Strategy Trio, 48h, YoY, healthy list -->
+        <section id="section4" class="section-block">
+            <div class="section-title">
+                <span>📈 4. Strategy Trio · 48h pulse · YoY</span>
+                <span class="section-tag">senior strategist</span>
+            </div>
+            <div id="strategy-trio" class="trio-grid" style="scroll-margin-top:30px;">
+                <div class="strategy-card"><span class="strat-label conservative">🛡️ conservative</span><p>Retention, trust, low pressure. “If market quiet, switch to Strategy C.”</p></div>
+                <div class="strategy-card"><span class="strat-label balanced">⚖️ balanced</span><p>Core revenue + growth, steady campaigns.</p></div>
+                <div class="strategy-card"><span class="strat-label aggressive">🚀 aggressive</span><p>Scale winning offers, urgency, momentum.</p></div>
+            </div>
+            <div style="background:#deeafa; border-radius:40px; padding:1rem 1.5rem; margin:1rem 0;">
+                🎙️ “I build three paths based on 90‑day data. This lets me pivot instantly.”
+            </div>
+            <div id="48h-pulse" class="two-col" style="margin:2rem 0;">
+                <div style="background:#f2f8ff; border-radius:28px; padding:1.5rem;">
+                    <h3>⏱️ 48‑hour pulse check</h3>
+                    <p>~95% revenue within 48h. I analyse post-send immediately to optimise next send.</p>
+                </div>
+                <div style="background:#f2f8ff; border-radius:28px; padding:1.5rem;">
+                    <h3>📅 YoY benchmarking</h3>
+                    <p>Compare Jan 2026 vs Jan 2025 to separate seasonal from deliverability.</p>
+                </div>
+            </div>
+            <div style="background:#ebf3fa; border-radius:30px; padding:1.3rem 2rem;">
+                <span style="font-weight:700;">🌱 healthy list philosophy:</span> “List growth more important than temporary revenue dip. Trust → retention → list growth → more flow revenue.”
+            </div>
+            <div class="cheat-strip" id="cheat-sheet1" style="background:#0b2542; color:white; border-radius:60px; padding:1rem 2rem; margin:1.5rem 0; display:flex; flex-wrap:wrap; gap:0.8rem;">
+                <span>🧠 mental block keywords:</span>
+                <span style="background:#214c77; padding:0.2rem 1rem; border-radius:30px;">90‑day foundation</span>
+                <span style="background:#214c77; padding:0.2rem 1rem; border-radius:30px;">triple‑strategy agility</span>
+                <span style="background:#214c77; padding:0.2rem 1rem; border-radius:30px;">YoY benchmarking</span>
+                <span style="background:#214c77; padding:0.2rem 1rem; border-radius:30px;">deliverability‑first</span>
+            </div>
+            <div class="footer-note" style="display:flex; justify-content:space-between;">
+                <span>✅ senior move: “As long as subscriber growth positive, revenue flywheel rebounds.”</span>
+                <span style="background:#cfdef5; border-radius:30px; padding:0.2rem 0.8rem;">🔥 48h pulse + YoY</span>
+            </div>
+            <div class="back2top"><a href="#section4">↑ back to top</a></div>
+        </section>
+
+        <!-- final spacer -->
+        <div style="text-align:center; font-size:0.85rem; color:#6c88a4; padding:1rem;">⚡ all four notes combined · click sidebar to jump · mental block cleared ⚡</div>
+    </div>
+</body>
+</html>
