@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 Strategic Interview Toolkit · questions + flow philosophy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f4f8fe;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #172b3f;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        /* header */
+        .header {
+            background: white;
+            border-radius: 40px;
+            padding: 1.8rem 2.5rem;
+            box-shadow: 0 10px 20px rgba(0,20,40,0.04);
+            border: 1px solid #dde7f2;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+        .badge-header {
+            background: #dbeafe;
+            color: #194a7a;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .sub {
+            color: #3b5e83;
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* cards grid for questions */
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.6rem;
+        }
+        .q-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 1.8rem;
+            border: 1px solid #e0eaf4;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+        }
+        .q-label {
+            display: inline-block;
+            background: #ecf3fa;
+            border-radius: 40px;
+            padding: 0.2rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #24537e;
+            margin-bottom: 1rem;
+        }
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            color: #0d3e64;
+            border-left: 4px solid #3e7bb6;
+            padding-left: 1rem;
+        }
+        .why-works {
+            background: #f6fbff;
+            padding: 0.9rem 1.2rem;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            color: #1d4b79;
+            border: 1px solid #ccdef2;
+            margin-top: 0.5rem;
+        }
+        .pro-tip {
+            background: #fef6e6;
+            border-radius: 16px;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.9rem;
+            border-left: 4px solid #e8a72b;
+            margin: 1rem 0 0;
+        }
+
+        /* technical hiccups + testing */
+        .tech-section {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem 2.2rem;
+            border: 1px solid #cfdff0;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .tech-item {
+            background: #f0f7ff;
+            border-radius: 22px;
+            padding: 1.3rem;
+        }
+        .tech-item h3 {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            color: #153e62;
+            margin-bottom: 0.5rem;
+        }
+        .code-snip {
+            background: #e3eaf3;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-family: 'SF Mono', monospace;
+            font-size: 0.8rem;
+            color: #022d4e;
+        }
+
+        /* flow philosophy – ugly but good */
+        .philosophy-block {
+            background: linear-gradient(145deg, #ffffff 0%, #f6fcff 100%);
+            border-radius: 36px;
+            padding: 2rem 2.2rem;
+            border: 1px solid #bdd6ed;
+            box-shadow: 0 12px 28px rgba(25,60,100,0.08);
+        }
+        .pillar-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0 1rem;
+            justify-content: center;
+        }
+        .pillar {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem 1.8rem;
+            flex: 1 1 200px;
+            border: 1px solid #cbddec;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        }
+        .pillar h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+        .pillar-1 { border-top: 6px solid #3f729b; }
+        .pillar-2 { border-top: 6px solid #2f8f74; }
+        .pillar-3 { border-top: 6px solid #b seventeenth 64; } /* fallback */
+        .pillar-3 { border-top: 6px solid #b36b3c; }
+
+        .mnemonic-strip {
+            background: #dceafa;
+            border-radius: 40px;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 0.5rem;
+        }
+
+        .footer-note {
+            background: white;
+            border-radius: 30px;
+            padding: 1.2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            border: 1px solid #d3e1f0;
+        }
+        hr {
+            border: none;
+            border-top: 2px dashed #b7cfeb;
+            margin: 1.8rem 0 1rem;
+        }
+        @media (max-width:700px){
+            .q-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <h1>
+            🎯 high‑impact interview toolkit
+            <span class="badge-header">LaunchVector · agency fit</span>
+        </h1>
+        <div class="sub">ownership questions · klaviyo debugging · flow philosophy · ugly but profitable</div>
+    </div>
+
+    <!-- ========== QUESTIONS SECTION ========== -->
+    <div class="q-grid">
+        <!-- ownership 1 -->
+        <div class="q-card">
+            <div class="q-label">🚀 1. ownership</div>
+            <div class="question-text">“For the brands I’ll manage, are core flows already built or will I build new strategies from scratch?”</div>
+            <div class="why-works">✔ shows you think ahead · you want to know scope vs optimisation.</div>
+        </div>
+        <!-- ownership 2 -->
+        <div class="q-card">
+            <div class="q-label">🎨 2. creative feedback loop</div>
+            <div class="question-text">“What’s the feedback loop between Email Strategist and Creative/Design? How do we keep brand voice consistent while testing new layouts?”</div>
+            <div class="why-works">✔ addresses job req: creative coordination & consistency.</div>
+        </div>
+        <!-- growth/metrics 1 -->
+        <div class="q-card">
+            <div class="q-label">📊 3. primary KPI</div>
+            <div class="question-text">“What’s the primary KPI the team is focused on? Total email-attributed revenue, list growth, or deliverability?”</div>
+            <div class="why-works">✔ data-driven · shows you care about current north star.</div>
+        </div>
+        <!-- growth/metrics 2 -->
+        <div class="q-card">
+            <div class="q-label">🔬 4. A/B testing culture</div>
+            <div class="question-text">“Does LaunchVector prefer small incremental tests (subject lines) or ‘Big Rock’ tests (offer structures)?”</div>
+            <div class="why-works">✔ shows testing maturity · you adapt to their style.</div>
+        </div>
+        <!-- tooling 1 -->
+        <div class="q-card">
+            <div class="q-label">⚙️ 5. master template</div>
+            <div class="question-text">“For multiple brands in OmniSend, do we use a centralized Master Template or fully custom HTML per brand?”</div>
+            <div class="why-works">✔ technical depth · efficiency vs bespoke.</div>
+        </div>
+        <!-- tooling 2 -->
+        <div class="q-card">
+            <div class="q-label">📱 6. SMS / loyalty apps</div>
+            <div class="question-text">“Are any brands integrating SMS or third‑party loyalty apps (Yotpo, Smile) into OmniSend flows?”</div>
+            <div class="why-works">✔ shows you think about omnichannel & stack.</div>
+        </div>
+        <!-- culture 1 -->
+        <div class="q-card">
+            <div class="q-label">⏰ 7. remote/EST cadence</div>
+            <div class="question-text">“Since the team is remote on EST, what’s a typical day for Slack & meetings?”</div>
+            <div class="why-works">✔ you’re a team player, aware of timezone logistics.</div>
+        </div>
+        <!-- culture 2 -->
+        <div class="q-card">
+            <div class="q-label">🥇 8. 90‑day win</div>
+            <div class="question-text">“What does a ‘win’ look like after 90 days? Revenue % lift, flows audited, or something else?”</div>
+            <div class="why-works">✔ shows you want to meet/exceed expectations – protects you.</div>
+        </div>
+    </div>
+
+    <!-- pro‑tip sticky note (mental block) -->
+    <div style="background:#f2f0e9; border-radius:40px; padding:0.8rem 2rem; text-align:center; border:1px solid #eedb9a;">
+        ✍️ <strong>Mental block?</strong> Pick 2 favourite questions, write them down. If mind blanks: “I wrote down a couple earlier to understand workflow…” — looks prepared, not forgetful.
+    </div>
+
+    <!-- ========== TECHNICAL HICCUPS (Klaviyo/OmniSend) ========== -->
+    <div class="tech-section">
+        <h2 style="font-size:1.8rem; margin-bottom:0.2rem;">🧪 testing pitfalls · klaviyo (and lessons for OmniSend)</h2>
+        <p style="color:#3a618d; margin-bottom:1.8rem;">“I signed up, browsed, added to cart… but nothing fired.” — common fix checklist</p>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <h3><span>🍪</span> 1. identification gap</h3>
+                <p>Klaviyo needs to “cookie” you. Use <span class="code-snip">?utm_email=you@example.com</span> in URL to force identify.</p>
+            </div>
+            <div class="tech-item">
+                <h3><span>🧩</span> 2. missing snippet</h3>
+                <p>“Added to Cart” often needs manual JS in theme.liquid. If theme changed, code may be lost. OmniSend uses app embed – more automatic.</p>
+            </div>
+            <div class="tech-item">
+                <h3><span>📉</span> 3. metric never fired</h3>
+                <p>Klaviyo won't show trigger in builder until event happened once. Check Analytics > Metrics after forcing event.</p>
+            </div>
+        </div>
+        <div style="margin-top:1.5rem; background:#e9f0fa; border-radius:26px; padding:1.4rem;">
+            <p style="font-weight:600;">✅ safe test checklist:</p>
+            <ul style="margin-left:1.5rem; line-height:1.8;">
+                <li>Watch “Active on Site” real‑time feed – if you see yourself, master tracking works.</li>
+                <li>Incognito kills cookies → use normal window + fresh email.</li>
+                <li>Turn off “Smart Sending” for tests (prevents blocking due to recent sends).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ========== UGLY BUT PROFITABLE FLOW PHILOSOPHY ========== -->
+    <div class="philosophy-block">
+        <h2 style="font-size:2rem; font-weight:600; display:flex; gap:10px;">🎭 “ugly but high‑revenue” flow dilemma</h2>
+        <p style="font-size:1.1rem; max-width:80%;">If it ain't broke, don't just fix it — A/B test it. revenue is king, but brand consistency matters.</p>
+
+        <!-- checklist: risk vs reward -->
+        <div style="display:flex; flex-wrap:wrap; gap:1.8rem; margin:2rem 0;">
+            <div style="flex:1; min-width:200px; background:#f8fdff; border-radius:24px; padding:1.3rem;">
+                <span style="background:#174672; color:white; padding:0.2rem 1rem; border-radius:30px; font-size:0.8rem;">⚖️ risk vs reward</span>
+                <p style="margin-top:0.7rem;">Never replace a winner – A/B test. Keep “ugly/good” as Control (A) vs “clean/new” as Challenger (B) in OmniSend.</p>
+            </div>
+            <div style="flex:1; background:#f8fdff; border-radius:24px; padding:1.3rem;">
+                <span style="background:#174672; color:white; padding:0.2rem 1rem; border-radius:30px; font-size:0.8rem;">🔄 when to update despite revenue</span>
+                <p>Brand redesign, technical decay (old HTML breaks), or high unsubscribe rate (>5%) even if revenue is good.</p>
+            </div>
+        </div>
+
+        <!-- hierarchy of impact -->
+        <div style="background:#deecfa; border-radius:28px; padding:1.5rem;">
+            <p style="font-weight:700; margin-bottom:0.5rem;">🔁 what to change first (hierarchy of impact):</p>
+            <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+                <span style="background:white; border-radius:30px; padding:0.3rem 1.2rem;">1. Offer (biggest revenue impact)</span>
+                <span style="background:white; border-radius:30px; padding:0.3rem 1.2rem;">2. Subject line (opens)</span>
+                <span style="background:white; border-radius:30px; padding:0.3rem 1.2rem;">3. Layout/visuals (CTR)</span>
+                <span style="background:white; border-radius:30px; padding:0.3rem 1.2rem;">4. Copy (vibe & brand)</span>
+            </div>
+        </div>
+
+        <!-- how to explain in interview -->
+        <div style="background: #d4e3f5; border-radius: 30px; padding: 1.2rem 2rem; margin-top: 2rem;">
+            <p style="font-weight:600;">🗣️ interview answer snippet:</p>
+            <p><em>“If a flow performs well despite poor structure, I wouldn’t overhaul it. I’d A/B test a cleaner version against it – keep timing/offer, test layout. I protect revenue while improving brand image.”</em></p>
+        </div>
+    </div>
+
+    <!-- ========== THE FLYWHEEL: trust → list growth → revenue ========== -->
+    <div style="background: white; border-radius: 38px; padding: 2rem; border: 1px solid #c6daf0;">
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
+            <div style="flex: 2; min-width: 250px;">
+                <h2 style="font-size:2rem; line-height:1.2;">🔄 your flywheel effect</h2>
+                <p style="margin: 0.5rem 0;">Trust → retention (low unsub) → list growth → more flow triggers → more revenue.</p>
+                <p style="background:#f4f0e3; border-radius:20px; padding:0.8rem 1.2rem; margin-top:1rem;"><strong>“I use campaigns to build trust & test new layouts; flows are the foundation I don’t recklessly touch.”</strong></p>
+            </div>
+            <div style="flex: 1; background:#e3effb; border-radius:28px; padding:1.5rem;">
+                <p style="font-weight:600; font-size:1.1rem;">📈 metric to watch:</p>
+                <p>List growth rate vs unsubscribe rate. Healthy ratio = flows scale.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- THREE PILLARS cheat sheet -->
+    <div class="pillar-row">
+        <div class="pillar pillar-1">
+            <h4>🏛️ 1. Stability</div>
+            <p>Don't touch high‑revenue flows without reason. No reckless changes with client money.</p>
+        </div>
+        <div class="pillar pillar-2">
+            <h4>🤝 2. Trust</div>
+            <p>Campaigns build relationship (not just sell). Increases LTV and lowers unsubscribes.</p>
+        </div>
+        <div class="pillar pillar-3">
+            <h4>📈 3. Growth</div>
+            <p>More subscribers = more flow revenue. Flywheel effect.</p>
+        </div>
+    </div>
+
+    <!-- mnemonic strip for mental block -->
+    <div class="mnemonic-strip">
+        <span><span style="font-weight:700;">🧠 mental block?</span> remember the 3 pillars:</span>
+        <span style="background:#16446b; color:white; padding:0.3rem 1rem; border-radius:40px;">Stability</span>
+        <span style="background:#16446b; color:white; padding:0.3rem 1rem; border-radius:40px;">Trust</span>
+        <span style="background:#16446b; color:white; padding:0.3rem 1rem; border-radius:40px;">Growth</span>
+        <span>+ “ugly but profitable → A/B test”</span>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-note">
+        <div>⚡ pro tip: when interviewer asks about flow edits, reference “flywheel + defensive optimisation”</div>
+        <div style="font-weight:500; color:#1a4b78;">📋 Klaviyo? use utm_email= , check snippet, avoid incognito.</div>
+    </div>
+
+    <!-- tiny closing line -->
+    <div style="text-align:right; font-size:0.9rem; color:#36638d;">ownership · data · culture · stability · trust · growth</div>
+</div>
+</body>
+</html>
