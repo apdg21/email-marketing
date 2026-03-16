@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 OmniSend · multi‑brand email lead · master reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f4f7fb;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2639;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 32px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.03), 0 2px 4px rgba(0,20,40,0.05);
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header h1 span {
+            background: #eef2f7;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .reminder-badge {
+            background: #d0e2ff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #00337c;
+            border: 1px solid #a6c8ff;
+        }
+
+        /* cards grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.6rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 1px 3px rgba(0,20,30,0.05);
+            border: 1px solid #eaedf2;
+            transition: all 0.1s ease;
+            height: fit-content;
+        }
+        .card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 24px rgba(0,40,80,0.06);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #f0f3f8;
+            padding-bottom: 0.7rem;
+        }
+        .card-header h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        .card-header .emoji {
+            font-size: 1.8rem;
+        }
+        .badge {
+            background: #e6edf6;
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #2c577c;
+            margin-left: auto;
+        }
+
+        .qa-block {
+            margin: 1.2rem 0 1rem 0;
+        }
+        .question {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0b2b44;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #3b7fc9;
+            padding-left: 0.9rem;
+        }
+        .answer {
+            color: #2e405b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            background: #f9fcff;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            border: 1px solid #e7edf8;
+            margin-bottom: 1.2rem;
+        }
+        .answer strong {
+            color: #0f3b6f;
+        }
+        .tip-note {
+            background: #fefbe9;
+            border-left: 4px solid #f4b740;
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            color: #4d3c1a;
+        }
+
+        .flow-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            background: #f9fbfd;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+        .flow-table th {
+            background: #e1e9f2;
+            text-align: left;
+            padding: 0.5rem 0.8rem;
+            font-weight: 600;
+            color: #1b3a5e;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .flow-table td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid #dde5ef;
+            vertical-align: top;
+        }
+        .flow-table tr:last-child td {
+            border-bottom: none;
+        }
+        .highlight-bg {
+            background: #e7f1fa;
+            border-radius: 30px;
+            padding: 0.2rem 0.6rem;
+            font-weight: 500;
+            font-size: 0.75rem;
+            display: inline-block;
+            color: #014d8c;
+        }
+        .pro-tips {
+            background: #eaf3fa;
+            padding: 1rem 1.4rem;
+            border-radius: 20px;
+            margin-top: 1rem;
+        }
+        .pro-tips p {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            font-size: 0.95rem;
+        }
+
+        .footer-note {
+            background: white;
+            border-radius: 40px;
+            padding: 1.2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #2e3d5f;
+            border: 1px solid #dce5f0;
+        }
+        .pill-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .pill {
+            background: white;
+            border: 1px solid #b9cde0;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed #cdddec;
+            margin: 1.2rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                align-items: start;
+                gap: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- top header -->
+    <div class="header">
+        <h1>
+            📧 OmniSend · multi‑brand playbook
+            <span>LaunchVector ready</span>
+        </h1>
+        <div class="reminder-badge">⚡ mental block breaker · quick scan</div>
+    </div>
+
+    <!-- two column layout: left interview Q&A, right flows & pro tips -->
+    <div class="grid-2">
+        <!-- LEFT COLUMN: all questions + answers -->
+        <div class="card">
+            <div class="card-header">
+                <span class="emoji">🎤</span>
+                <h2>Interview Q&A — technical & fit</h2>
+                <div class="badge">must know</div>
+            </div>
+
+            <!-- 1. multiple brands -->
+            <div class="qa-block">
+                <div class="question">1. Multiple Shopify brands in OmniSend — how do you keep distinct voices?</div>
+                <div class="answer">
+                    <strong>“In my previous role, I managed three DTC brands using OmniSend.</strong> I maintained voice by creating separate content style guides + swipe files in our PM system.  
+                    <em>Example: Brand A (witty/irreverent) vs Brand B (educational/professional).</em> I built separate flow templates and campaign calendars inside OmniSend to prevent crossover.”
+                </div>
+            </div>
+
+            <!-- 2. core flows audit -->
+            <div class="qa-block">
+                <div class="question">2. Describe auditing an existing flow (abandoned cart / welcome) & optimizing it.</div>
+                <div class="answer">
+                    <strong>“For an abandoned cart flow, conversion rate was below benchmark.</strong> I saw high drop-off after email 1. A/B tested: control 'we saved your cart' vs variant with 10% discount. Variant improved conversion 15% and revenue per recipient 20%.”<br>
+                    <span class="tip-note" style="margin-top:0.3rem;">🔍 metrics: open rate, conversion per send, conditional splits (high‑value vs low‑value carts).</span>
+                </div>
+            </div>
+
+            <!-- 3. seasonal campaign / revenue per send -->
+            <div class="qa-block">
+                <div class="question">3. Process for a seasonal campaign – from concept to post‑analysis, driving revenue.</div>
+                <div class="answer">
+                    <strong>“Start with promo calendar, align on offer. Build campaign stack in OmniSend:</strong> teaser, main launch, last‑chance. Segment by past purchase behavior. After campaign: analyse click‑to‑conversion, revenue per send vs previous period.”<br>
+                    <span style="font-size:0.9rem;">→ connect to ROI, not just opens.</span>
+                </div>
+            </div>
+
+            <!-- 4. collaboration & communication -->
+            <div class="qa-block">
+                <div class="question">4. Tell me about a time you flagged an issue with creative/ops (EST hours).</div>
+                <div class="answer">
+                    <strong>“Noticed creative assets didn't render on mobile (70% traffic).</strong> Hopped on Slack huddle with designer, shared screenshots, discussed mobile‑friendly fix. Revised assets launched with high conversion.”<br>
+                    <span style="background:#eef2f5; padding:0.2rem 0.6rem; border-radius:12px;">proactive flagging · ownership</span>
+                </div>
+            </div>
+
+            <!-- 5. OmniSend shopify technical -->
+            <div class="qa-block">
+                <div class="question">5. OmniSend Shopify integration – product recommender, discount codes, sync?</div>
+                <div class="answer">
+                    <strong>“I use Product Recommender blocks dynamically (best‑sellers, new arrivals).</strong> I prefer 'Unique Discount Code' in Welcome flows to prevent code sharing. Ensure Shopify segments sync seamlessly for win‑back/post‑purchase triggers.”
+                </div>
+            </div>
+
+            <!-- 6. troubleshooting revenue dip -->
+            <div class="qa-block">
+                <div class="question">6. High open rate but revenue dip – troubleshooting process?</div>
+                <div class="answer">
+                    <strong>“Check Click‑Through Rate first.</strong> If CTR low → weak CTA. If CTR high but revenue low → landing page friction or offer clarity. Then test layout or urgency tactic (limited time).”
+                </div>
+            </div>
+
+            <!-- 7. bonus sms & deliverability -->
+            <div class="qa-block">
+                <div class="question">7. (nice to have) SMS or deliverability experience?</div>
+                <div class="answer">
+                    <strong>“Yes – integrated SMS into OmniSend flows:</strong> 'Back in Stock' and 'Flash Sale'. For deliverability: sunset unengaged profiles, avoid over‑sending to all subscribers, maintain list hygiene.”
+                </div>
+            </div>
+
+            <!-- strategy highlight -->
+            <div class="pro-tips" style="margin-top:0.2rem;">
+                <p><span style="font-size:1.5rem;">🧠</span><strong>Strategy for this interview:</strong> Emphasise multi‑brand voice · speak their language: 'revenue per send', 'flow optimisation', 'segmentation' · have 2‑3 portfolio success stories with quantifiable results (Situation, Action, OmniSend feature, result).</p>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: flows + mental block cheatsheet -->
+        <div style="display: flex; flex-direction: column; gap: 1.6rem;">
+            <!-- FLOW CARD 1: welcome & abandoned cart etc (detailed tables) -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="emoji">⚙️</span>
+                    <h2>Core flows · triggers & timing</h2>
+                    <div class="badge">mental block</div>
+                </div>
+                <p style="font-size:0.9rem; margin-bottom:1rem; color:#3f5575;">📌 <strong>welcome · abandoned cart · browse · post‑purchase · win‑back</strong> (OmniSend preset ready)</p>
+
+                <!-- welcome series -->
+                <h3 style="font-size:1.1rem; margin:1rem 0 0.4rem 0;">🎉 1. Welcome series</h3>
+                <table class="flow-table">
+                    <tr><th>email</th><th>timing</th><th>content focus</th></tr>
+                    <tr><td>Email 1</td><td>Immediate</td><td>The Handshake: deliver discount, who you are</td></tr>
+                    <tr><td>Email 2</td><td>1 day later</td><td>The Story: brand values, best‑sellers</td></tr>
+                    <tr><td>Email 3</td><td>2-3 days</td><td>Social proof: reviews, UGC</td></tr>
+                    <tr><td>Email 4</td><td>5 days later</td><td>Last call: discount expires</td></tr>
+                </table>
+
+                <!-- abandoned cart -->
+                <h3 style="font-size:1.1rem; margin:1.3rem 0 0.4rem 0;">🛒 2. Abandoned cart (recovery)</h3>
+                <table class="flow-table">
+                    <tr><th>email</th><th>timing</th><th>content focus</th></tr>
+                    <tr><td>Email 1</td><td>30–60 min</td><td>Gentle nudge, show item, no discount</td></tr>
+                    <tr><td>Email 2</td><td>24 hours</td><td>Objection killer: free shipping, returns</td></tr>
+                    <tr><td>Email 3</td><td>48 hours</td><td>Incentive: small discount (10%)</td></tr>
+                </table>
+
+                <!-- browse abandonment -->
+                <h3 style="font-size:1.1rem; margin:1.3rem 0 0.4rem 0;">👀 3. Browse abandonment</h3>
+                <table class="flow-table">
+                    <tr><th>email</th><th>timing</th><th>content focus</th></tr>
+                    <tr><td>Email 1</td><td>1–2 hours</td><td>"Saw something?" + similar items</td></tr>
+                    <tr><td>Email 2</td><td>24 hours</td><td>Soft social proof: 5‑star reviews</td></tr>
+                </table>
+
+                <!-- post purchase -->
+                <h3 style="font-size:1.1rem; margin:1.3rem 0 0.4rem 0;">📦 4. Post‑purchase (thank you & upsell)</h3>
+                <table class="flow-table">
+                    <tr><th>email</th><th>timing</th><th>content focus</th></tr>
+                    <tr><td>Email 1</td><td>Immediate</td><td>Transactional confirmation</td></tr>
+                    <tr><td>Email 2</td><td>2 days later</td><td>Thank you / how‑to guide</td></tr>
+                    <tr><td>Email 3</td><td>7–14 days</td><td>Upsell: "Goes great with..."</td></tr>
+                    <tr><td>Email 4</td><td>21 days</td><td>Review request + future discount</td></tr>
+                </table>
+
+                <!-- win back -->
+                <h3 style="font-size:1.1rem; margin:1.3rem 0 0.4rem 0;">💔 5. Win‑back (re‑engagement)</h3>
+                <table class="flow-table">
+                    <tr><th>email</th><th>timing</th><th>content focus</th></tr>
+                    <tr><td>Email 1</td><td>day 90</td><td>"We miss you", new arrivals</td></tr>
+                    <tr><td>Email 2</td><td>3 days later</td><td>Big offer: 20% off</td></tr>
+                    <tr><td>Email 3</td><td>7 days later</td><td>Goodbye / ask for feedback</td></tr>
+                </table>
+
+                <div class="tip-note" style="margin-top:1.2rem;">
+                    ⚡ always set <strong>exit conditions</strong> (stop if purchased). OmniSend library ready. Frequency: browse abandonment max 1 per 7-14 days.
+                </div>
+            </div>
+
+            <!-- quick pro‑tips / extra reminders -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="emoji">🧩</span>
+                    <h2>Multi‑brand voice & organisation</h2>
+                </div>
+                <ul style="padding-left:1.5rem; margin-bottom:1rem; line-height:1.7;">
+                    <li><strong>Brand Bible</strong> per client: tone (playful vs luxury), CTAs, visual guidelines.</li>
+                    <li><strong>Promotional calendar</strong> to track seasonal drops for each store.</li>
+                    <li><strong>Brand Voice Check</strong> during QA before any send.</li>
+                    <li><em>“I treat each brand as its own ecosystem.”</em></li>
+                </ul>
+                <hr>
+                <div style="display: flex; gap: 0.7rem; flex-wrap: wrap;">
+                    <span class="highlight-bg">📊 conditional splits</span>
+                    <span class="highlight-bg">🔁 sunset unengaged</span>
+                    <span class="highlight-bg">📱 mobile check</span>
+                    <span class="highlight-bg">🛍️ shopify sync</span>
+                </div>
+
+                <!-- answer skeleton reminder -->
+                <div style="background: #eaf1fb; border-radius: 16px; padding: 0.9rem; margin-top: 1.2rem;">
+                    <p style="font-weight:600; margin-bottom:0.2rem;">📋 answer framework (for any flow question):</p>
+                    <p style="font-size:0.9rem;">Situation → data point (benchmark) → hypothesis → A/B test (OmniSend) → result (revenue/conversion lift).</p>
+                </div>
+
+                <!-- the "agency perspective" block -->
+                <div style="background: #ffffff; border: 2px dashed #abc9e0; border-radius: 24px; padding: 1rem; margin-top: 1.4rem;">
+                    <span style="font-weight:700; display:flex; gap:5px;">🚀 LaunchVector mindset <span style="font-weight:400; margin-left:auto;">🇺🇸 EST hours</span></span>
+                    <p style="font-size:0.9rem; margin-top:0.5rem;">Ownership · proactive flagging · share performance with creative so they know what converts · fast-paced client work.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM footer reminder -->
+    <div class="footer-note">
+        <div class="pill-list">
+            <span class="pill">📈 revenue per send</span>
+            <span class="pill">🔀 flow optimization</span>
+            <span class="pill">✂️ segmentation</span>
+            <span class="pill">🆎 A/B testing</span>
+            <span class="pill">🏷️ unique discount codes</span>
+        </div>
+        <div style="color:#2f4b74; font-weight:500; display:flex; align-items:center; gap:0.3rem;">
+            <span>🧠 mental block cleared?</span>
+        </div>
+    </div>
+
+    <!-- tiny micro summary for omnisend specifics -->
+    <div style="display: flex; justify-content: flex-end; font-size:0.85rem; gap:1rem; color:#4b6589;">
+        <span>✅ OmniSend product recommender</span>
+        <span>✅ conditional splits (high/low cart)</span>
+        <span>✅ sunsetting unengaged</span>
+    </div>
+</div>
+</body>
+</html>
