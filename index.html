@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Marketing Mastery — Complete Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d0b;
+  --surface:#141412;
+  --surface2:#1c1c19;
+  --border:#2a2a25;
+  --border2:#3a3a33;
+  --text:#e8e4da;
+  --muted:#7a7870;
+  --faint:#3a3830;
+  --accent:#e8a020;
+  --accent2:#c85a1a;
+  --green:#3a9e6e;
+  --green-dim:#1a3d2a;
+  --blue:#3a78b5;
+  --blue-dim:#0f2440;
+  --red:#c84040;
+  --red-dim:#3a1010;
+  --font-head:'Syne',sans-serif;
+  --font-body:'Literata',Georgia,serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --nav-w:260px;
+  --sidebar-w:220px;
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.75;display:flex;min-height:100vh}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* LEFT NAV */
+.left-nav{
+  width:var(--nav-w);
+  min-width:var(--nav-w);
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+}
+.nav-logo{
+  padding:1.5rem 1.5rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+.nav-logo-tag{
+  font-family:var(--font-mono);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:0.4rem;
+}
+.nav-logo-title{
+  font-family:var(--font-head);
+  font-size:1rem;
+  font-weight:700;
+  line-height:1.2;
+  color:var(--text);
+}
+.nav-progress-wrap{padding:0.75rem 1.5rem;border-bottom:1px solid var(--border)}
+.nav-progress-label{font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;color:var(--muted);margin-bottom:0.4rem}
+.nav-progress-bar{height:3px;background:var(--faint);border-radius:2px}
+.nav-progress-fill{height:100%;background:var(--accent);border-radius:2px;width:0%;transition:width 0.3s}
+.nav-list{list-style:none;padding:0.75rem 0;flex:1}
+.nav-section-head{
+  font-family:var(--font-mono);
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:0.85rem 1.5rem 0.3rem;
+}
+.nav-item a{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  padding:0.45rem 1.5rem;
+  color:var(--muted);
+  text-decoration:none;
+  font-family:var(--font-head);
+  font-size:0.78rem;
+  font-weight:500;
+  transition:all 0.15s;
+  border-left:2px solid transparent;
+  line-height:1.3;
+}
+.nav-item a:hover{color:var(--text);background:var(--surface2)}
+.nav-item a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(232,160,32,0.06)}
+.nav-item .nav-num{font-family:var(--font-mono);font-size:9px;color:var(--faint);min-width:16px}
+.nav-item a.active .nav-num{color:var(--accent)}
+
+/* MAIN */
+.main{flex:1;overflow-x:hidden}
+
+/* HERO */
+.hero{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:5rem 4rem 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-80px;right:-80px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(232,160,32,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.hero-eyebrow{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:1rem;
+}
+.hero h1{
+  font-family:var(--font-head);
+  font-size:clamp(2.5rem,4vw,4rem);
+  font-weight:800;
+  line-height:1.05;
+  letter-spacing:-0.03em;
+  color:var(--text);
+  margin-bottom:1.2rem;
+  max-width:700px;
+}
+.hero h1 span{color:var(--accent)}
+.hero-sub{
+  font-family:var(--font-body);
+  font-size:1.1rem;
+  color:var(--muted);
+  max-width:580px;
+  line-height:1.65;
+  font-weight:300;
+  margin-bottom:2rem;
+}
+.hero-chips{display:flex;flex-wrap:wrap;gap:0.5rem}
+.chip{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.1em;
+  padding:4px 10px;
+  border:1px solid var(--border2);
+  border-radius:20px;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.chip.accent{border-color:rgba(232,160,32,0.4);color:var(--accent)}
+
+/* CONTENT */
+.content{padding:3rem 4rem;max-width:900px}
+
+/* SECTIONS */
+.section{margin-bottom:5rem;scroll-margin-top:2rem}
+.section-eyebrow{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:0.5rem;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.section-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+.section h2{
+  font-family:var(--font-head);
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:700;
+  letter-spacing:-0.025em;
+  color:var(--text);
+  margin-bottom:1rem;
+  line-height:1.15;
+}
+.section-intro{
+  font-size:1.05rem;
+  color:rgba(232,228,218,0.8);
+  margin-bottom:2rem;
+  max-width:680px;
+  border-left:2px solid var(--faint);
+  padding-left:1.2rem;
+}
+.section h3{
+  font-family:var(--font-head);
+  font-size:1.15rem;
+  font-weight:600;
+  color:var(--text);
+  margin:2rem 0 0.75rem;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.section h3::before{content:'';display:block;width:6px;height:6px;background:var(--accent);border-radius:1px;flex-shrink:0}
+.section p{margin-bottom:1rem;color:rgba(232,228,218,0.75);font-size:0.97rem}
+.section strong{color:var(--text);font-weight:500}
+
+/* DIVIDER */
+.section-divider{height:1px;background:var(--border);margin:3rem 0}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1.4rem;
+  position:relative;
+  overflow:hidden;
+  transition:border-color 0.2s;
+}
+.card:hover{border-color:var(--border2)}
+.card-accent-line{position:absolute;top:0;left:0;right:0;height:2px}
+.card-accent-line.orange{background:var(--accent)}
+.card-accent-line.red{background:var(--accent2)}
+.card-accent-line.green{background:var(--green)}
+.card-accent-line.blue{background:var(--blue)}
+.card-icon{font-size:1.5rem;margin-bottom:0.75rem}
+.card h4{font-family:var(--font-head);font-size:0.9rem;font-weight:700;color:var(--text);margin-bottom:0.4rem}
+.card p{font-size:0.83rem;color:var(--muted);line-height:1.55;margin:0}
+
+/* CALLOUT BOXES */
+.callout{
+  border-radius:8px;
+  padding:1.25rem 1.5rem;
+  margin:1.5rem 0;
+  border:1px solid;
+  font-size:0.93rem;
+}
+.callout-label{font-family:var(--font-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.4rem;font-weight:500}
+.callout.tip{background:rgba(58,158,110,0.08);border-color:rgba(58,158,110,0.25);color:rgba(232,228,218,0.8)}
+.callout.tip .callout-label{color:var(--green)}
+.callout.warn{background:rgba(232,160,32,0.08);border-color:rgba(232,160,32,0.25);color:rgba(232,228,218,0.8)}
+.callout.warn .callout-label{color:var(--accent)}
+.callout.danger{background:rgba(200,64,64,0.08);border-color:rgba(200,64,64,0.25);color:rgba(232,228,218,0.8)}
+.callout.danger .callout-label{color:var(--red)}
+.callout.info{background:rgba(58,120,181,0.08);border-color:rgba(58,120,181,0.25);color:rgba(232,228,218,0.8)}
+.callout.info .callout-label{color:var(--blue)}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin:1.5rem 0}
+.stat-box{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:1rem 1.2rem;
+  text-align:center;
+}
+.stat-box .sv{font-family:var(--font-head);font-size:1.8rem;font-weight:800;line-height:1;color:var(--accent);margin-bottom:0.2rem}
+.stat-box .sl{font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)}
+
+/* STEPS */
+.steps{counter-reset:step;margin:1.5rem 0}
+.step{
+  display:flex;
+  gap:1.25rem;
+  margin-bottom:1.5rem;
+  position:relative;
+}
+.step::before{
+  content:'';
+  position:absolute;
+  left:18px;top:40px;
+  width:1px;
+  height:calc(100% + 8px);
+  background:var(--border);
+}
+.step:last-child::before{display:none}
+.step-num{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:11px;font-weight:500;
+  color:var(--accent);flex-shrink:0;
+}
+.step-body{padding-top:0.4rem;flex:1}
+.step-body h4{font-family:var(--font-head);font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+.step-body p{font-size:0.88rem;color:var(--muted);line-height:1.6;margin:0}
+
+/* COPY ANATOMY */
+.copy-anatomy{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  margin:1.5rem 0;
+}
+.copy-anatomy-header{
+  background:var(--surface2);
+  border-bottom:1px solid var(--border);
+  padding:0.75rem 1.25rem;
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.copy-part{
+  display:flex;
+  gap:1rem;
+  padding:1rem 1.25rem;
+  border-bottom:1px solid var(--border);
+  align-items:flex-start;
+}
+.copy-part:last-child{border-bottom:none}
+.copy-part-label{
+  min-width:120px;
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.1em;
+  color:var(--accent);
+  padding-top:2px;
+}
+.copy-part-content{flex:1}
+.copy-part-content strong{display:block;font-family:var(--font-head);font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.25rem}
+.copy-part-content p{font-size:0.83rem;color:var(--muted);line-height:1.55;margin:0}
+.copy-example{
+  font-family:var(--font-mono);
+  font-size:11px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:0.4rem 0.75rem;
+  margin-top:0.5rem;
+  color:var(--text);
+  display:block;
+}
+
+/* STRATEGY TABLE */
+.table-wrap{overflow-x:auto;margin:1.5rem 0}
+table.strategy{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+  min-width:1000px;
+}
+table.strategy thead tr{border-bottom:1px solid var(--border2)}
+table.strategy th{
+  font-family:var(--font-mono);
+  font-size:9px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:0.7rem 0.75rem;
+  text-align:left;
+  white-space:nowrap;
+  background:var(--surface2);
+  font-weight:400;
+}
+table.strategy td{
+  padding:0.65rem 0.75rem;
+  border-bottom:1px solid var(--border);
+  color:rgba(232,228,218,0.75);
+  vertical-align:top;
+  line-height:1.5;
+}
+table.strategy td:first-child{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--accent);
+  font-weight:500;
+}
+table.strategy tr:hover td{background:var(--surface2)}
+.tag{
+  display:inline-block;
+  font-family:var(--font-mono);
+  font-size:9px;
+  padding:2px 7px;
+  border-radius:3px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+.tag-promo{background:rgba(232,160,32,0.15);color:var(--accent)}
+.tag-product{background:rgba(58,120,181,0.15);color:var(--blue)}
+.tag-nurture{background:rgba(58,158,110,0.15);color:var(--green)}
+.tag-retention{background:rgba(200,64,64,0.15);color:var(--red)}
+
+/* AUTOMATION FLOW */
+.flow{margin:1.5rem 0}
+.flow-row{display:flex;align-items:flex-start;gap:0;margin-bottom:0}
+.flow-node{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:0.9rem 1.1rem;
+  min-width:180px;
+  flex-shrink:0;
+}
+.flow-node.trigger{border-color:rgba(232,160,32,0.5);background:rgba(232,160,32,0.06)}
+.flow-node.email{border-color:rgba(58,120,181,0.4);background:rgba(58,120,181,0.06)}
+.flow-node.wait{border-color:var(--border2);background:var(--surface2)}
+.flow-node.branch{border-color:rgba(58,158,110,0.4);background:rgba(58,158,110,0.06)}
+.flow-node.action{border-color:rgba(200,64,64,0.3);background:rgba(200,64,64,0.06)}
+.flow-node-label{font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem}
+.flow-node.trigger .flow-node-label{color:var(--accent)}
+.flow-node.email .flow-node-label{color:var(--blue)}
+.flow-node.wait .flow-node-label{color:var(--muted)}
+.flow-node.branch .flow-node-label{color:var(--green)}
+.flow-node.action .flow-node-label{color:var(--red)}
+.flow-node h5{font-family:var(--font-head);font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:0.15rem}
+.flow-node p{font-size:0.75rem;color:var(--muted);line-height:1.45;margin:0}
+.flow-arrow{
+  display:flex;align-items:center;padding:0 0.5rem;
+  color:var(--border2);font-size:1.1rem;
+  margin-top:18px;flex-shrink:0;
+}
+.flow-col{display:flex;flex-direction:column;align-items:center;gap:0}
+.flow-arrow-down{color:var(--border2);font-size:1rem;padding:0.3rem 0;text-align:center;width:100%}
+.branch-row{display:flex;gap:1rem;margin-top:0}
+.branch-col{display:flex;flex-direction:column;align-items:center;gap:0;flex:1}
+
+/* METRICS TABLE */
+.metrics-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:13px}
+.metrics-table th{
+  font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--muted);padding:0.6rem 1rem;
+  text-align:left;border-bottom:1px solid var(--border2);background:var(--surface2);
+}
+.metrics-table td{padding:0.65rem 1rem;border-bottom:1px solid var(--border);color:rgba(232,228,218,0.8);font-size:0.85rem}
+.metrics-table td:first-child{font-family:var(--font-head);font-weight:500;color:var(--text)}
+.good{color:var(--green)}
+.warn-text{color:var(--accent)}
+.bad{color:var(--red)}
+
+/* CHECKLIST */
+.checklist{list-style:none;margin:1rem 0}
+.checklist li{
+  display:flex;gap:0.6rem;align-items:flex-start;
+  padding:0.5rem 0;border-bottom:1px solid var(--border);
+  font-size:0.9rem;color:rgba(232,228,218,0.75);
+}
+.checklist li:last-child{border-bottom:none}
+.check-icon{
+  width:18px;height:18px;
+  border-radius:3px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;margin-top:1px;
+}
+.check-icon.g{background:rgba(58,158,110,0.2);color:var(--green)}
+.check-icon.o{background:rgba(232,160,32,0.2);color:var(--accent)}
+.check-icon.r{background:rgba(200,64,64,0.2);color:var(--red)}
+
+/* DESIGN ANATOMY MOCKUP */
+.email-mockup{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+  max-width:480px;
+  margin:1.5rem 0;
+  font-size:0.85rem;
+}
+.mockup-bar{
+  background:var(--surface2);
+  padding:0.6rem 1rem;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  border-bottom:1px solid var(--border);
+}
+.mockup-dot{width:8px;height:8px;border-radius:50%;background:var(--border2)}
+.mockup-title{font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-left:0.5rem}
+.mockup-header{background:var(--accent);padding:1.5rem;color:var(--bg);text-align:center}
+.mockup-header-label{font-family:var(--font-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.4rem;opacity:0.7}
+.mockup-header h3{font-family:var(--font-head);font-size:1.3rem;font-weight:700;line-height:1.2}
+.mockup-body{padding:1.5rem}
+.mockup-body-label{font-family:var(--font-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.mockup-body p{font-size:0.83rem;color:rgba(232,228,218,0.7);line-height:1.6;margin-bottom:1rem}
+.mockup-cta{
+  background:var(--accent);
+  color:var(--bg);
+  font-family:var(--font-head);
+  font-size:0.8rem;
+  font-weight:700;
+  padding:0.6rem 1.5rem;
+  border-radius:4px;
+  text-align:center;
+  display:block;
+  width:fit-content;
+  margin:0 auto 1rem;
+}
+.mockup-footer{
+  background:var(--surface2);
+  padding:0.75rem 1rem;
+  text-align:center;
+  font-family:var(--font-mono);
+  font-size:9px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  letter-spacing:0.05em;
+}
+.mockup-annotation{
+  position:relative;
+}
+.annotation-label{
+  position:absolute;
+  right:-200px;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:var(--font-mono);
+  font-size:9px;
+  color:var(--accent);
+  letter-spacing:0.08em;
+  white-space:nowrap;
+}
+.annotation-label::before{
+  content:'←';
+  margin-right:0.3rem;
+}
+
+/* OPTIMIZATION LOOP */
+.loop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+.loop-item{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1.25rem;
+}
+.loop-num{font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--faint);line-height:1;margin-bottom:0.5rem}
+.loop-title{font-family:var(--font-head);font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.4rem}
+.loop-desc{font-size:0.82rem;color:var(--muted);line-height:1.55}
+
+/* BADGE */
+.badge{
+  display:inline-block;
+  font-family:var(--font-mono);
+  font-size:9px;
+  padding:2px 8px;
+  border-radius:2px;
+  vertical-align:middle;
+  margin-left:0.4rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+.badge-new{background:rgba(58,158,110,0.2);color:var(--green)}
+.badge-key{background:rgba(232,160,32,0.2);color:var(--accent)}
+
+/* PAGE FOOTER */
+.page-footer{
+  border-top:1px solid var(--border);
+  padding:2rem 4rem;
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:0.1em;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn 0.5s ease both}
+.d1{animation-delay:0.1s}.d2{animation-delay:0.2s}.d3{animation-delay:0.3s}.d4{animation-delay:0.4s}
+
+@media(max-width:900px){
+  .left-nav{display:none}
+  .content{padding:2rem 1.5rem}
+  .hero{padding:3rem 1.5rem}
+  .loop-grid{grid-template-columns:1fr}
+  .page-footer{flex-direction:column;gap:0.5rem;padding:1.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- LEFT NAV -->
+<nav class="left-nav">
+  <div class="nav-logo">
+    <div class="nav-logo-tag">Complete Guide</div>
+    <div class="nav-logo-title">Email Marketing Mastery</div>
+  </div>
+  <div class="nav-progress-wrap">
+    <div class="nav-progress-label">Reading progress</div>
+    <div class="nav-progress-bar"><div class="nav-progress-fill" id="progressFill"></div></div>
+  </div>
+  <ul class="nav-list">
+    <li class="nav-section-head">Foundation</li>
+    <li class="nav-item"><a href="#strategy"><span class="nav-num">01</span>Strategy</a></li>
+    <li class="nav-item"><a href="#copy"><span class="nav-num">02</span>Copywriting</a></li>
+    <li class="nav-item"><a href="#design"><span class="nav-num">03</span>Design</a></li>
+
+    <li class="nav-section-head">Execution</li>
+    <li class="nav-item"><a href="#building"><span class="nav-num">04</span>Building Design</a></li>
+    <li class="nav-item"><a href="#scheduling"><span class="nav-num">05</span>Scheduling</a></li>
+
+    <li class="nav-section-head">Intelligence</li>
+    <li class="nav-item"><a href="#monitoring"><span class="nav-num">06</span>Monitoring</a></li>
+    <li class="nav-item"><a href="#analyzing"><span class="nav-num">07</span>Analyzing Results</a></li>
+    <li class="nav-item"><a href="#optimizing"><span class="nav-num">08</span>Optimizing</a></li>
+
+    <li class="nav-section-head">Automations</li>
+    <li class="nav-item"><a href="#auto-build"><span class="nav-num">09</span>Building Flows</a></li>
+    <li class="nav-item"><a href="#auto-monitor"><span class="nav-num">10</span>Monitoring Flows</a></li>
+    <li class="nav-item"><a href="#auto-optimize"><span class="nav-num">11</span>Optimizing Flows</a></li>
+
+    <li class="nav-section-head">Health</li>
+    <li class="nav-item"><a href="#subscribers"><span class="nav-num">12</span>Genuine Subscribers</a></li>
+    <li class="nav-item"><a href="#unsub-rate"><span class="nav-num">13</span>Unsubscribe Rate</a></li>
+    <li class="nav-item"><a href="#retention"><span class="nav-num">14</span>Customer Retention</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow fade-in">The Complete Playbook</p>
+    <h1 class="fade-in d1">Email Marketing<br><span>from Zero to Mastery</span></h1>
+    <p class="hero-sub fade-in d2">A practitioner's guide to building, running, and scaling a profitable email channel for ecommerce — from writing your first subject line to optimizing a 14,000-subscriber automation engine.</p>
+    <div class="hero-chips fade-in d3">
+      <span class="chip accent">Strategy</span>
+      <span class="chip">Copywriting</span>
+      <span class="chip">Design</span>
+      <span class="chip">Automations</span>
+      <span class="chip">Analytics</span>
+      <span class="chip">Optimization</span>
+      <span class="chip">List Health</span>
+      <span class="chip">Retention</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ============================================================
+         01 STRATEGY
+    ============================================================ -->
+    <section class="section" id="strategy">
+      <div class="section-eyebrow">01 — Foundation</div>
+      <h2>Strategy: Planning Before You Press Send</h2>
+      <p class="section-intro">Email marketing without a strategy is just noise in someone's inbox. A strategy is your master plan — who you're talking to, what you're saying, when you're saying it, and why it matters to your business goals.</p>
+
+      <p>Most brands approach email reactively — something goes on sale, they blast the list. Brands that build real email revenue think ahead. They map out their calendar, plan their angles, and treat every send as a deliberate touchpoint in a longer relationship arc.</p>
+
+      <h3>What a strategy document does for you</h3>
+      <p>A strategy document forces clarity before execution. It prevents the last-minute scramble of writing a subject line 10 minutes before a campaign goes live. It also creates accountability — you can look back at what you planned versus what performed, and learn from the gap.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <div class="card-icon">📅</div>
+          <h4>Campaign Calendar</h4>
+          <p>Map out every send for the month — promotional, informational, seasonal. Know your send dates in advance.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <div class="card-icon">🎯</div>
+          <h4>Segmentation Plan</h4>
+          <p>Not everyone on your list should receive every email. Decide who gets what based on behavior, history, and stage.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line green"></div>
+          <div class="card-icon">💡</div>
+          <h4>Purpose-First Thinking</h4>
+          <p>Each email should have one clear purpose. Sell, educate, retain, re-engage — pick one and build around it.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line red"></div>
+          <div class="card-icon">🧪</div>
+          <h4>Test Plan</h4>
+          <p>Decide in advance what you'll test — subject lines, send times, offers. Strategy includes a learning agenda.</p>
+        </div>
+      </div>
+
+      <h3>The Campaign Planning Table</h3>
+      <p>Below is a sample strategy table structure. Use this to plan every campaign before the month begins. Fill in drafts early — the subject line and preview text can always be revised, but having something on paper keeps the team aligned.</p>
+
+      <div class="table-wrap">
+        <table class="strategy">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Email Name</th>
+              <th>Date</th>
+              <th>Promo Start</th>
+              <th>Promo End</th>
+              <th>Purpose</th>
+              <th>Subject Line (Draft)</th>
+              <th>Preview Text</th>
+              <th>Segment</th>
+              <th>Product Focus</th>
+              <th>Send Time</th>
+              <th>Discount Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>Summer Flash Sale</td>
+              <td>Jun 1</td>
+              <td>Jun 1</td>
+              <td>Jun 3</td>
+              <td><span class="tag tag-promo">Promotional</span></td>
+              <td>48 hours only — 20% off everything ☀️</td>
+              <td>Your summer starts here. Don't miss it.</td>
+              <td>All subscribers</td>
+              <td>Bestsellers collection</td>
+              <td>10:00 AM</td>
+              <td>SUMMER20</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>New Arrivals Drop</td>
+              <td>Jun 8</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="tag tag-product">Product</span></td>
+              <td>New in: the pieces everyone's asking about</td>
+              <td>Just dropped — and they're going fast.</td>
+              <td>Engaged (90 days)</td>
+              <td>New arrivals</td>
+              <td>11:00 AM</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Customer Story</td>
+              <td>Jun 14</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="tag tag-nurture">Nurture</span></td>
+              <td>"I wasn't sure at first…" — Maria's story</td>
+              <td>Real results from a real customer.</td>
+              <td>Non-purchasers</td>
+              <td>Hero product</td>
+              <td>9:00 AM</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Mid-Month Sale Reminder</td>
+              <td>Jun 15</td>
+              <td>Jun 15</td>
+              <td>Jun 17</td>
+              <td><span class="tag tag-promo">Promotional</span></td>
+              <td>Last chance — sale ends Sunday midnight</td>
+              <td>Don't leave money on the table.</td>
+              <td>Opens from Email 01 (non-buyers)</td>
+              <td>Sale items</td>
+              <td>6:00 PM</td>
+              <td>SUMMER20</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>Win-Back Campaign</td>
+              <td>Jun 22</td>
+              <td>Jun 22</td>
+              <td>Jun 25</td>
+              <td><span class="tag tag-retention">Retention</span></td>
+              <td>We miss you — here's something just for you</td>
+              <td>A small gift to say we're glad you're here.</td>
+              <td>Inactive 90+ days</td>
+              <td>Top rated</td>
+              <td>10:00 AM</td>
+              <td>COMEBACK15</td>
+            </tr>
+            <tr>
+              <td>06</td>
+              <td>End-of-Month Roundup</td>
+              <td>Jun 29</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span class="tag tag-nurture">Nurture</span></td>
+              <td>What's been trending this June</td>
+              <td>Your monthly edit — handpicked, just for you.</td>
+              <td>All active subscribers</td>
+              <td>Monthly favorites</td>
+              <td>10:00 AM</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">Pro Tip</div>
+        Fill this table at the start of every month. Leave the subject line and preview text as drafts — refine them a day before send. The earlier you plan, the more time you have to think creatively instead of reactively.
+      </div>
+
+      <h3>Segmentation: The Most Underused Strategy Tool</h3>
+      <p>Segmentation means not everyone gets the same email. A first-time subscriber has different needs than someone who's bought from you three times. Sending the same message to both is a waste — and it burns unsubscribes.</p>
+
+      <div class="stat-row">
+        <div class="stat-box"><div class="sv">6×</div><div class="sl">more revenue from segmented campaigns</div></div>
+        <div class="stat-box"><div class="sv">14%</div><div class="sl">higher open rates vs unsegmented</div></div>
+        <div class="stat-box"><div class="sv">101%</div><div class="sl">higher click rate when segmented</div></div>
+        <div class="stat-box"><div class="sv">−9%</div><div class="sl">lower unsubscribe rate</div></div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         02 COPY
+    ============================================================ -->
+    <section class="section" id="copy">
+      <div class="section-eyebrow">02 — Foundation</div>
+      <h2>Copywriting: Words That Actually Sell</h2>
+      <p class="section-intro">Email copy is not a blog post, not an ad, and not a press release. It's a conversation — written as if you're talking directly to one person, even though thousands will read it.</p>
+
+      <p>The single biggest mistake in ecommerce email copy is writing <em>about</em> the brand instead of writing <em>for</em> the reader. Every sentence should answer one implicit question your subscriber is asking: <strong>"What's in it for me?"</strong></p>
+
+      <h3>The anatomy of an email</h3>
+      <div class="copy-anatomy">
+        <div class="copy-anatomy-header">Email Copy Components — in order of appearance</div>
+        <div class="copy-part">
+          <div class="copy-part-label">From Name</div>
+          <div class="copy-part-content">
+            <strong>The first trust signal</strong>
+            <p>Use a recognizable sender name — brand name, or "Sarah from [Brand]" for a personal touch. Subscribers decide whether to open based on who it's from before they read the subject line.</p>
+            <span class="copy-example">✓ "The Atelier" &nbsp;&nbsp; ✓ "Mia from The Atelier" &nbsp;&nbsp; ✗ "noreply@theatelier.com"</span>
+          </div>
+        </div>
+        <div class="copy-part">
+          <div class="copy-part-label">Subject Line</div>
+          <div class="copy-part-content">
+            <strong>Your one job: earn the open</strong>
+            <p>Keep it under 50 characters. Lead with the most compelling element. Avoid spam trigger words like "FREE!!!" or "ACT NOW." Test curiosity vs. direct benefit vs. urgency — each works differently for different audiences.</p>
+            <span class="copy-example">✓ "Your order arrives tomorrow — here's what's inside"</span>
+            <span class="copy-example">✓ "We need to talk about your skin care routine"</span>
+            <span class="copy-example">✗ "HUGE DISCOUNT — Don't miss this LIMITED OFFER!!!"</span>
+          </div>
+        </div>
+        <div class="copy-part">
+          <div class="copy-part-label">Preview Text</div>
+          <div class="copy-part-content">
+            <strong>The subject line's sidekick</strong>
+            <p>The 80–100 characters visible next to the subject line in the inbox. Most brands leave this blank (a crime) or let it auto-fill with "View this email in browser." Use it to extend or complement the subject line — together they're your two-line pitch.</p>
+            <span class="copy-example">Subject: "We need to talk about your skin care routine"</span>
+            <span class="copy-example">Preview: "Because what you're doing might be working against you."</span>
+          </div>
+        </div>
+        <div class="copy-part">
+          <div class="copy-part-label">Headline</div>
+          <div class="copy-part-content">
+            <strong>Deliver on the subject line's promise</strong>
+            <p>The first thing they see after opening. Should confirm they made the right choice by opening. One clear, punchy statement — not a tagline, not a paragraph.</p>
+            <span class="copy-example">✓ "Your summer wardrobe is calling." &nbsp;&nbsp; ✓ "48 Hours. 20% Off. That's it."</span>
+          </div>
+        </div>
+        <div class="copy-part">
+          <div class="copy-part-label">Body Copy</div>
+          <div class="copy-part-content">
+            <strong>Short, scannable, benefit-first</strong>
+            <p>Most people don't read emails — they scan. Write in short paragraphs (2–3 sentences max). Lead with the benefit, not the feature. Use "you" more than "we." A promotional email body should be 3–5 sentences. A story or nurture email can be longer, but only if the story earns it.</p>
+          </div>
+        </div>
+        <div class="copy-part">
+          <div class="copy-part-label">CTA Button</div>
+          <div class="copy-part-content">
+            <strong>One button. One action. One clear next step.</strong>
+            <p>Avoid generic "Click here" or "Shop now." Tell them exactly what happens next. Use action verbs. Make the value obvious from the button text alone.</p>
+            <span class="copy-example">✓ "Shop the Summer Sale" &nbsp;&nbsp; ✓ "Get My 20% Off" &nbsp;&nbsp; ✗ "Click Here"</span>
+          </div>
+        </div>
+        <div class="copy-part">
+          <div class="copy-part-label">Footer</div>
+          <div class="copy-part-content">
+            <strong>Legal, trust, and the unsubscribe link</strong>
+            <p>Always include your physical address and an unsubscribe link (legally required in most regions). Consider adding a brief reminder of why they're on your list — "You're receiving this because you signed up at theatelier.com." This reduces spam complaints from people who forgot they subscribed.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Voice & Tone principles</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <h4>Write to one person</h4>
+          <p>Even if 10,000 people receive the email, it should read like it was written for one specific human. "You" beats "our customers" every time.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line green"></div>
+          <h4>Benefits over features</h4>
+          <p>"Waterproof up to 50m" is a feature. "Wear it to the beach without a second thought" is a benefit. Lead with what it does for them.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <h4>Earn emotion</h4>
+          <p>Urgency works — but only if it's real. A deadline that resets every day trains subscribers to ignore it. Real scarcity, real time limits.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line red"></div>
+          <h4>One focus per email</h4>
+          <p>An email that promotes three products, announces a sale, and shares a blog post is doing nothing well. Pick one focus. Do it completely.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         03 DESIGN
+    ============================================================ -->
+    <section class="section" id="design">
+      <div class="section-eyebrow">03 — Foundation</div>
+      <h2>Design: What Great Emails Look Like</h2>
+      <p class="section-intro">Email design isn't about making something beautiful for its own sake. It's about guiding attention, building trust, and making the path to "click" as frictionless as possible.</p>
+
+      <p>The most dangerous trap in email design is complexity. A heavily designed email with multiple sections, columns, and product grids looks impressive in Figma and performs poorly in the inbox. The best-performing ecommerce emails are simpler than you'd expect.</p>
+
+      <h3>Core design principles</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Single column layout</h4>
+            <p>A single column (600px wide) renders correctly on mobile, desktop, and every email client without exceptions. Multi-column layouts break in Outlook. Don't fight the email client — work with it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Mobile-first thinking</h4>
+            <p>Over 60% of emails are opened on mobile. If it looks great on desktop but terrible on a phone, it looks terrible. Design for the small screen first, then scale up.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Visual hierarchy guides the eye</h4>
+            <p>Your hero image or headline should be unmistakable. The eye should flow naturally: header → headline → body → CTA. If someone has to hunt for the button, you've lost them.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Brand consistency builds trust</h4>
+            <p>Your email should look like it came from your website. Same colors, same fonts (or web-safe equivalents), same logo placement. Inconsistency creates subconscious doubt.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>One primary CTA per email</h4>
+            <p>Multiple CTAs divide attention and reduce clicks on all of them. One strong, clearly styled button. Secondary links (if any) should look secondary — plain text, not another button.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h4>Optimize images for performance</h4>
+            <p>Compress all images before uploading. Emails with large, slow-loading images get deleted before they finish loading. Also: add alt text to every image — many email clients block images by default.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Anatomy of a well-designed promotional email</h3>
+      <div style="display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap">
+        <div class="email-mockup" style="flex:0 0 auto">
+          <div class="mockup-bar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-title">Email Preview — 600px</div>
+          </div>
+          <div style="padding:0.75rem;text-align:center;border-bottom:1px solid var(--border)">
+            <span style="font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--accent)">BRAND NAME</span>
+          </div>
+          <div class="mockup-header">
+            <div class="mockup-header-label">Summer Collection</div>
+            <h3>48-Hour Flash Sale<br>20% Off Everything</h3>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-body-label">Body copy</div>
+            <p>Your summer wardrobe is waiting. For 48 hours only, every item in our collection is 20% off — no minimum, no exceptions. Use code SUMMER20 at checkout.</p>
+            <div class="mockup-cta">Shop the Sale →</div>
+          </div>
+          <div style="padding:0.75rem 1.25rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='80' viewBox='0 0 300 80'%3E%3Crect width='300' height='80' fill='%231c1c19'/%3E%3Ctext x='150' y='35' font-family='monospace' font-size='10' fill='%233a3830' text-anchor='middle'%3EProduct Image%3C/text%3E%3Ctext x='150' y='55' font-family='monospace' font-size='9' fill='%232a2a25' text-anchor='middle'%3E(600 × 400px recommended)%3C/text%3E%3C/svg%3E" alt="Product image placeholder" style="width:100%;border-radius:4px">
+          </div>
+          <div class="mockup-footer">
+            You're receiving this because you subscribed · Unsubscribe · View in browser
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <div class="callout info" style="margin-top:0">
+            <div class="callout-label">Design Notes</div>
+            <ul style="list-style:none;font-size:0.83rem;color:rgba(232,228,218,0.75)">
+              <li style="padding:0.4rem 0;border-bottom:1px solid rgba(58,120,181,0.2)">▸ Logo always top-center</li>
+              <li style="padding:0.4rem 0;border-bottom:1px solid rgba(58,120,181,0.2)">▸ Hero section uses brand color</li>
+              <li style="padding:0.4rem 0;border-bottom:1px solid rgba(58,120,181,0.2)">▸ Headline is the largest text</li>
+              <li style="padding:0.4rem 0;border-bottom:1px solid rgba(58,120,181,0.2)">▸ Body: max 3–4 sentences</li>
+              <li style="padding:0.4rem 0;border-bottom:1px solid rgba(58,120,181,0.2)">▸ CTA button: full-width on mobile</li>
+              <li style="padding:0.4rem 0;border-bottom:1px solid rgba(58,120,181,0.2)">▸ Product image below CTA</li>
+              <li style="padding:0.4rem 0">▸ Footer: always plain text</li>
+            </ul>
+          </div>
+          <div class="callout warn" style="margin-top:1rem">
+            <div class="callout-label">Common Mistakes</div>
+            <ul style="list-style:none;font-size:0.83rem;color:rgba(232,228,218,0.75)">
+              <li style="padding:0.3rem 0">✕ Multiple CTAs competing</li>
+              <li style="padding:0.3rem 0">✕ Text smaller than 14px</li>
+              <li style="padding:0.3rem 0">✕ CTA that blends into background</li>
+              <li style="padding:0.3rem 0">✕ No alt text on images</li>
+              <li style="padding:0.3rem 0">✕ Background images in header</li>
+              <li style="padding:0.3rem 0">✕ Too many fonts (max 2)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         04 BUILDING DESIGN
+    ============================================================ -->
+    <section class="section" id="building">
+      <div class="section-eyebrow">04 — Execution</div>
+      <h2>Building the Design: From Concept to Send-Ready</h2>
+      <p class="section-intro">Email design lives and dies in production. A beautiful mockup means nothing if it breaks in Gmail. Here's how to build emails that render perfectly every time.</p>
+
+      <h3>Your production workflow</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Start with a saved template</h4>
+            <p>Never start from scratch. Build 3–5 base templates (promotional, storytelling, product launch, win-back) and save them in your ESP. Each new campaign begins by duplicating the closest template — maintaining brand consistency and saving hours.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Prepare assets before opening the editor</h4>
+            <p>Have all images sized, compressed, and named before you open Omnisend (or any ESP). Images should be 600px wide max, compressed to under 200KB each. Name them descriptively — "summer-sale-hero.jpg" not "IMG_3847.jpg".</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Use the drag-and-drop editor strategically</h4>
+            <p>Modern ESPs like Omnisend have visual editors. Use them — but understand their constraints. Stick to their column system. Don't try to replicate complex web layouts. The editor is your friend until you fight it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Set up brand defaults once</h4>
+            <p>Configure your brand colors, fonts, logo, and footer once in your ESP's global settings. Every new email inherits these settings automatically. This is the difference between a consistent brand channel and one that looks different every month.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Preview in multiple environments</h4>
+            <p>Before scheduling, preview in: desktop Gmail, mobile Gmail, Apple Mail, and dark mode. Most ESPs have an inbox preview tool. Use it. What looks perfect in the editor can break catastrophically in Outlook.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h4>Send yourself a test email</h4>
+            <p>Always. Send it to your own inbox on your phone. Read it like a real subscriber would. Check: Does the subject line cut off weirdly? Does the CTA button work on mobile? Is the discount code spelled correctly?</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <h4>Run a pre-send checklist</h4>
+            <p>Subject line set. Preview text set. Correct segment selected. Send time confirmed. All links tested. Discount code active on site. UTM parameters added. Approve — then schedule.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         05 SCHEDULING
+    ============================================================ -->
+    <section class="section" id="scheduling">
+      <div class="section-eyebrow">05 — Execution</div>
+      <h2>Scheduling: Timing Is Half the Battle</h2>
+      <p class="section-intro">The best email in the world underperforms if it arrives at the wrong moment. Scheduling is about understanding when your audience is receptive — not just what the generic "best practices" say.</p>
+
+      <h3>General benchmarks</h3>
+      <table class="metrics-table">
+        <thead>
+          <tr><th>Send Day</th><th>Open Rate Trend</th><th>Click Rate Trend</th><th>Best For</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tuesday</td><td class="good">↑ Strong</td><td class="good">↑ Strong</td><td>Promotions, launches</td></tr>
+          <tr><td>Wednesday</td><td class="good">↑ Strong</td><td class="good">↑ Good</td><td>Product focus, educational</td></tr>
+          <tr><td>Thursday</td><td class="warn-text">→ Average</td><td class="good">↑ Good</td><td>Any campaign type</td></tr>
+          <tr><td>Monday</td><td class="warn-text">→ Average</td><td class="warn-text">→ Average</td><td>Week-of reminders</td></tr>
+          <tr><td>Friday</td><td class="warn-text">→ Average</td><td class="warn-text">→ Drops off</td><td>Weekend sale kick-offs</td></tr>
+          <tr><td>Weekend</td><td class="bad">↓ Lower</td><td class="bad">↓ Lower</td><td>Win-back, low-stakes nurture</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout warn">
+        <div class="callout-label">Important Caveat</div>
+        These are industry benchmarks — not rules for your list. Your audience might be night owls who open emails at 9 PM on Sundays. Use your own historical data after 3–4 months to identify your own best send times. Most ESPs have a "send time optimization" feature that learns from subscriber behavior automatically.
+      </div>
+
+      <h3>Send time strategy by campaign type</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <h4>Flash Sales</h4>
+          <p>Send at 9–10 AM on the sale start date. Create urgency with a clear deadline in the subject line. Follow up 3 hours before the sale ends to the non-openers.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <h4>Product Launches</h4>
+          <p>10–11 AM on launch day. Consider a "teaser" email 24–48 hours before — this builds anticipation and trains opens for the launch email itself.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line green"></div>
+          <h4>Nurture / Storytelling</h4>
+          <p>Mid-morning on weekdays. These emails don't depend on urgency, so the goal is to catch subscribers when they have a moment to read — not in a rush.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line red"></div>
+          <h4>Win-Back / Retention</h4>
+          <p>Any day, any time — subscribers who haven't engaged in 90+ days won't open based on timing alone. Focus on the subject line and offer, not the clock.</p>
+        </div>
+      </div>
+
+      <h3>The resend to non-openers</h3>
+      <p>One of the highest-ROI tactics in email marketing: after your initial send, wait 3–5 days, then resend the same email to everyone who didn't open the first time — with a different subject line. This typically adds 15–30% more revenue to any campaign with near-zero extra effort.</p>
+
+      <div class="callout tip">
+        <div class="callout-label">How to resend in Omnisend</div>
+        Duplicate your campaign → filter recipients to "Did not open" → change the subject line and preview text → schedule for 3–5 days after the original send. Simple. High-impact. Most brands never do this.
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         06 MONITORING
+    ============================================================ -->
+    <section class="section" id="monitoring">
+      <div class="section-eyebrow">06 — Intelligence</div>
+      <h2>Monitoring: Watching What's Happening in Real Time</h2>
+      <p class="section-intro">Monitoring is the habit of paying attention — checking in on your campaigns after they send, watching for anomalies, and catching problems before they compound.</p>
+
+      <p>The first hour after a campaign send is the most active. Open rates spike, clicks happen, and — if something's wrong — unsubscribes and spam complaints come in fast. Monitoring means you catch a broken link, a wrong discount code, or a deliverability issue while there's still time to fix it.</p>
+
+      <h3>What to monitor and when</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1h</div>
+          <div class="step-body">
+            <h4>1 hour after send</h4>
+            <p>Check: Is the open rate starting to rise? Are links clicking through to the right pages? Are there any spike in unsubscribes or spam complaints? If the first 100 opens show a 0% click rate, check all links immediately.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">24h</div>
+          <div class="step-body">
+            <h4>24 hours after send</h4>
+            <p>Check: Open rate, click rate, conversion rate (if you have store tracking). This gives you the first solid performance read. Most opens happen within 24 hours of send.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">72h</div>
+          <div class="step-body">
+            <h4>72 hours after send</h4>
+            <p>Final performance snapshot. Compare against your baseline benchmarks. Document results in your strategy table. This is your data for future optimization decisions.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Monitoring your automations</h3>
+      <p>Automations run silently in the background — which means problems can go unnoticed for months. Set a recurring calendar reminder to review automation performance once per week.</p>
+      <ul class="checklist">
+        <li><span class="check-icon g">✓</span>Are all flows active and triggered correctly?</li>
+        <li><span class="check-icon g">✓</span>Are open rates stable within 5% of baseline?</li>
+        <li><span class="check-icon g">✓</span>Are all links and discount codes still valid?</li>
+        <li><span class="check-icon o">!</span>Is any single automation email showing unusual unsub spikes?</li>
+        <li><span class="check-icon o">!</span>Are welcome series conversion rates trending downward?</li>
+        <li><span class="check-icon r">✕</span>Are there flows that haven't sent in over 7 days? (possible trigger issue)</li>
+        <li><span class="check-icon r">✕</span>Any deliverability warnings from your ESP?</li>
+      </ul>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         07 ANALYZING
+    ============================================================ -->
+    <section class="section" id="analyzing">
+      <div class="section-eyebrow">07 — Intelligence</div>
+      <h2>Analyzing Results: Turning Data Into Decisions</h2>
+      <p class="section-intro">Data without interpretation is just numbers. Analysis is the process of extracting meaning — understanding not just what happened, but why, and what to do differently next time.</p>
+
+      <h3>The metrics that matter (and what they actually mean)</h3>
+      <table class="metrics-table">
+        <thead>
+          <tr><th>Metric</th><th>Ecommerce Benchmark</th><th>What It Actually Measures</th><th>What To Do When Low</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Open Rate</td>
+            <td class="good">20–35%</td>
+            <td>Subject line effectiveness + sender reputation + list quality</td>
+            <td>Test new subject line angles; check deliverability; clean list</td>
+          </tr>
+          <tr>
+            <td>Click Rate</td>
+            <td class="good">2–5%</td>
+            <td>Relevance of offer + CTA clarity + design effectiveness</td>
+            <td>Improve CTA copy; check mobile rendering; simplify layout</td>
+          </tr>
+          <tr>
+            <td>Click-to-Open Rate</td>
+            <td class="good">8–15%</td>
+            <td>Content quality for people who actually opened (strips out non-openers)</td>
+            <td>Stronger body copy; more relevant offer; fewer competing links</td>
+          </tr>
+          <tr>
+            <td>Conversion Rate</td>
+            <td class="good">1–4%</td>
+            <td>Purchase intent + landing page performance + offer strength</td>
+            <td>Check landing page; simplify checkout; improve offer</td>
+          </tr>
+          <tr>
+            <td>Revenue per Email</td>
+            <td class="good">€0.10–€1.00+</td>
+            <td>Overall campaign effectiveness</td>
+            <td>Improve targeting; strengthen offer; test different segments</td>
+          </tr>
+          <tr>
+            <td>Unsubscribe Rate</td>
+            <td class="warn-text">&lt;0.5% per send</td>
+            <td>Relevance + frequency + audience fit</td>
+            <td>Reduce frequency; improve segmentation; check acquisition sources</td>
+          </tr>
+          <tr>
+            <td>Spam Complaint Rate</td>
+            <td class="good">&lt;0.08%</td>
+            <td>Subscriber consent quality + email relevance</td>
+            <td>Review opt-in process; stop purchasing or scraping lists immediately</td>
+          </tr>
+          <tr>
+            <td>Bounce Rate</td>
+            <td class="good">&lt;2%</td>
+            <td>List hygiene + data quality</td>
+            <td>Remove hard bounces immediately; regularly clean soft bounces</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>The post-campaign analysis habit</h3>
+      <p>After every campaign, spend 10 minutes documenting results in your strategy table. Add columns for actual open rate, click rate, and revenue. Over time, this creates a performance log that reveals patterns invisible in any single campaign.</p>
+
+      <div class="callout info">
+        <div class="callout-label">The Most Valuable Analysis</div>
+        Compare similar campaigns over time. "My last three promotional emails had open rates of 24%, 22%, and 19% — trending downward." That trend tells you something important. A single data point never does.
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         08 OPTIMIZING
+    ============================================================ -->
+    <section class="section" id="optimizing">
+      <div class="section-eyebrow">08 — Intelligence</div>
+      <h2>Optimizing: The Never-Ending Improvement Loop</h2>
+      <p class="section-intro">Optimization is the discipline of systematically improving your results based on evidence, not gut feeling. It's the difference between a brand that improves every month and one that plateaus.</p>
+
+      <h3>The optimization framework</h3>
+      <div class="loop-grid">
+        <div class="loop-item">
+          <div class="loop-num">01</div>
+          <div class="loop-title">Identify the bottleneck</div>
+          <div class="loop-desc">Low open rate? Subject line problem. Good opens, low clicks? Content or CTA problem. Good clicks, low conversion? Landing page or offer problem. Find the weakest link first.</div>
+        </div>
+        <div class="loop-item">
+          <div class="loop-num">02</div>
+          <div class="loop-title">Form a hypothesis</div>
+          <div class="loop-desc">"I believe changing the CTA from 'Shop Now' to 'Get 20% Off' will increase click rate because it communicates specific value." A testable belief, not a random change.</div>
+        </div>
+        <div class="loop-item">
+          <div class="loop-num">03</div>
+          <div class="loop-title">Run the test</div>
+          <div class="loop-desc">A/B test one variable at a time. Split your list 50/50 or 80/20. Send at the same time. Keep everything else identical. Most ESPs do this natively.</div>
+        </div>
+        <div class="loop-item">
+          <div class="loop-num">04</div>
+          <div class="loop-title">Read the result</div>
+          <div class="loop-desc">Wait for statistical significance — at minimum 500 sends per variant, ideally more. A 24% vs 25% open rate with 200 sends each is noise, not signal.</div>
+        </div>
+        <div class="loop-item">
+          <div class="loop-num">05</div>
+          <div class="loop-title">Implement the winner</div>
+          <div class="loop-desc">Make the winning variant your new baseline. Document what you tested, the result, and the winner. Your notes file is a compounding asset.</div>
+        </div>
+        <div class="loop-item">
+          <div class="loop-num">06</div>
+          <div class="loop-title">Repeat on the next variable</div>
+          <div class="loop-desc">Every campaign is a testing opportunity. After improving your CTA, test your headline. Then your offer structure. Then your send time. Continuous improvement, one variable at a time.</div>
+        </div>
+      </div>
+
+      <h3>What to test and in what order</h3>
+      <div class="cards">
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <h4>High impact: test first</h4>
+          <p>Subject line (affects 100% of recipients). From name. Send time. These changes affect every send and have the highest leverage.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <h4>Medium impact: test second</h4>
+          <p>CTA copy and color. Hero image vs. no hero image. Offer structure (% off vs. fixed amount). These affect people who opened, so smaller but still significant.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line green"></div>
+          <h4>Lower impact: test last</h4>
+          <p>Email length. Layout variations. Footer copy. These affect a small fraction of recipients who made it all the way down. Still worth testing once you've exhausted higher-impact variables.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         09 AUTOMATION BUILDING
+    ============================================================ -->
+    <section class="section" id="auto-build">
+      <div class="section-eyebrow">09 — Automations</div>
+      <h2>Building Automation Flows: Your Always-On Revenue Engine</h2>
+      <p class="section-intro">Automations are email sequences triggered by subscriber behavior — not your calendar. Once built, they run continuously, earning revenue and nurturing relationships around the clock without any manual effort.</p>
+
+      <p>In the real brand data underlying this guide, automation revenue consistently outperformed campaign revenue in most months. This is the compounding power of building your flows right, once.</p>
+
+      <h3>The core automations every ecommerce brand needs</h3>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <h4>Welcome Series <span class="badge badge-key">Highest ROI</span></h4>
+          <p>Triggered when someone subscribes. 3–5 emails over 7–10 days introducing your brand, your story, your bestsellers. Sets the tone for the entire relationship.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line red"></div>
+          <h4>Abandoned Cart <span class="badge badge-key">Highest Revenue</span></h4>
+          <p>Triggered when someone adds to cart but doesn't purchase. 2–3 emails: reminder (30 min), value reinforcement (24h), final nudge with optional offer (48h).</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line green"></div>
+          <h4>Post-Purchase</h4>
+          <p>Triggered after a purchase. Thank you, product usage tips, review request, cross-sell recommendation. Turns a transaction into a relationship.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <h4>Browse Abandonment</h4>
+          <p>Triggered when a subscribed visitor views a product but doesn't buy. A gentle reminder of what they were looking at — often at a higher conversion rate than expected.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <h4>Win-Back / Re-Engagement</h4>
+          <p>Triggered when a subscriber hasn't opened or clicked in 90+ days. A last-chance sequence to re-engage before you remove them from your active list.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <h4>Birthday / Anniversary</h4>
+          <p>Triggered on a subscriber's birthday or purchase anniversary (if collected). High open rates and strong conversion — personalized moments build loyalty.</p>
+        </div>
+      </div>
+
+      <h3>Building a welcome series — the most important flow you'll create</h3>
+      <p>Your welcome series is the first real conversation with a new subscriber. It sets expectations, builds trust, and converts browsers into buyers. Here's a proven 4-email structure:</p>
+
+      <div class="flow">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;max-width:600px">
+          <div class="flow-node trigger" style="width:100%">
+            <div class="flow-node-label">Trigger</div>
+            <h5>New subscriber joins list</h5>
+            <p>Via sign-up form, pop-up, or checkout opt-in</p>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node email" style="width:100%">
+            <div class="flow-node-label">Email 1 — Immediately</div>
+            <h5>The welcome + reward</h5>
+            <p>Thank them, deliver the discount code (if promised), introduce the brand in 2–3 sentences. Subject: "Welcome — here's your 15% off code"</p>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node wait" style="width:100%">
+            <div class="flow-node-label">Wait</div>
+            <h5>2 days</h5>
+            <p>Let the discount sit. Don't rush.</p>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node email" style="width:100%">
+            <div class="flow-node-label">Email 2 — Day 2</div>
+            <h5>Your story + bestsellers</h5>
+            <p>Tell the brand story (briefly). Introduce your 3 best-selling products with real social proof. No hard sell — just "here's what people love."</p>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node wait" style="width:100%">
+            <div class="flow-node-label">Wait</div>
+            <h5>3 days</h5>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node email" style="width:100%">
+            <div class="flow-node-label">Email 3 — Day 5</div>
+            <h5>Social proof / Customer story</h5>
+            <p>A real customer story or review. This is trust-building at its most powerful — let your customers sell for you.</p>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node wait" style="width:100%">
+            <div class="flow-node-label">Wait</div>
+            <h5>4 days</h5>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node email" style="width:100%">
+            <div class="flow-node-label">Email 4 — Day 9 (if not purchased)</div>
+            <h5>Last chance reminder</h5>
+            <p>Code expiring reminder + a final compelling CTA. For those who haven't bought yet — urgency reactivates them. For buyers, suppress this email with a conditional filter.</p>
+          </div>
+          <div class="flow-arrow-down" style="color:var(--border2);padding:0.4rem 0;text-align:center;width:36px">↓</div>
+          <div class="flow-node branch" style="width:100%">
+            <div class="flow-node-label">Exit</div>
+            <h5>Move to regular campaign list</h5>
+            <p>Welcome series complete — subscriber enters your normal campaign audience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         10 AUTOMATION MONITORING
+    ============================================================ -->
+    <section class="section" id="auto-monitor">
+      <div class="section-eyebrow">10 — Automations</div>
+      <h2>Monitoring Automation Flows</h2>
+      <p class="section-intro">Automations run 24/7 without you — which is their power and their risk. An unmonitored automation with a broken link can cost you revenue for weeks before anyone notices.</p>
+
+      <h3>Weekly automation audit checklist</h3>
+      <ul class="checklist">
+        <li><span class="check-icon g">✓</span><div><strong>Flow is active</strong> — confirm each automation is enabled and triggering correctly. Check "triggered this week" count.</div></li>
+        <li><span class="check-icon g">✓</span><div><strong>Open rates stable</strong> — compare this week vs 30-day average. A sudden drop often signals a deliverability issue.</div></li>
+        <li><span class="check-icon g">✓</span><div><strong>Click rates stable</strong> — declining click rates on automations often mean the offer has become stale. Time to refresh the copy.</div></li>
+        <li><span class="check-icon g">✓</span><div><strong>All links working</strong> — click every link in every automation email. Products get discontinued, pages get deleted. A link to a 404 page kills conversions silently.</div></li>
+        <li><span class="check-icon g">✓</span><div><strong>Discount codes valid</strong> — any promo codes in automations should be evergreen (no expiry). Check regularly.</div></li>
+        <li><span class="check-icon o">!</span><div><strong>Unsub rate on any single automation email</strong> — if one step in a flow has an above-average unsub rate, that email needs to be reviewed. It's usually a tone or relevance issue.</div></li>
+        <li><span class="check-icon o">!</span><div><strong>Conversion rate trend</strong> — a slow decline in automation conversion often means your products, pricing, or messaging need to evolve. What worked 6 months ago may not work today.</div></li>
+        <li><span class="check-icon r">✕</span><div><strong>Flows sending to the wrong segment</strong> — a welcome email going to someone who has bought three times is an embarrassing mistake that's more common than you'd think.</div></li>
+      </ul>
+
+      <h3>Key automation metrics to track</h3>
+      <table class="metrics-table">
+        <thead>
+          <tr><th>Flow</th><th>Healthy Open Rate</th><th>Healthy Click Rate</th><th>Revenue Benchmark</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Welcome Series (Email 1)</td><td class="good">50–70%</td><td class="good">15–25%</td><td>Highest in series</td></tr>
+          <tr><td>Abandoned Cart (Email 1)</td><td class="good">40–60%</td><td class="good">10–20%</td><td>5–15% recovery rate</td></tr>
+          <tr><td>Abandoned Cart (Email 2)</td><td class="warn-text">30–45%</td><td class="warn-text">8–15%</td><td>3–8% recovery rate</td></tr>
+          <tr><td>Post-Purchase Thank You</td><td class="good">60–80%</td><td class="warn-text">5–10%</td><td>Not revenue-primary</td></tr>
+          <tr><td>Browse Abandonment</td><td class="warn-text">25–40%</td><td class="warn-text">5–12%</td><td>2–5% conversion</td></tr>
+          <tr><td>Win-Back (Email 1)</td><td class="bad">10–25%</td><td class="bad">3–8%</td><td>Low — list cleaning value</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         11 AUTOMATION OPTIMIZING
+    ============================================================ -->
+    <section class="section" id="auto-optimize">
+      <div class="section-eyebrow">11 — Automations</div>
+      <h2>Optimizing Automation Flows</h2>
+      <p class="section-intro">Unlike campaigns, automations can be improved continuously — and each improvement compounds over the lifetime of the flow. An abandoned cart email that converts 8% instead of 5% earns that extra 3% on every single abandoned cart, forever.</p>
+
+      <h3>When to optimize vs. when to leave alone</h3>
+      <div class="callout tip">
+        <div class="callout-label">The Rule</div>
+        Don't optimize what isn't broken. If your welcome series is converting at 18% and industry average is 12%, focus your energy elsewhere. Reserve optimization effort for flows underperforming benchmarks — especially your abandoned cart and win-back sequences.
+      </div>
+
+      <h3>Automation optimization techniques</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">A</div>
+          <div class="step-body">
+            <h4>Test the delay timing</h4>
+            <p>The gap between emails in a sequence matters. An abandoned cart reminder at 30 minutes vs 1 hour can produce meaningfully different results. Test systematically — change one delay at a time.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">B</div>
+          <div class="step-body">
+            <h4>Refresh copy every 6 months</h4>
+            <p>A welcome email written 12 months ago may feel outdated — the tone, the products, the offers. Schedule a biannual review of every automation sequence to ensure copy stays fresh and relevant.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">C</div>
+          <div class="step-body">
+            <h4>Add conditional splits</h4>
+            <p>Branch your flows based on behavior. Example: abandoned cart subscribers who opened Email 1 but didn't click should receive a different Email 2 (reassurance, FAQ) than those who didn't open at all (new subject line).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">D</div>
+          <div class="step-body">
+            <h4>Personalize with dynamic content</h4>
+            <p>Insert the subscriber's first name, their browsed product, their last purchased category. Personalization lifts every metric — open, click, and conversion — when done with real data rather than awkward forced fields.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">E</div>
+          <div class="step-body">
+            <h4>Suppress converted contacts</h4>
+            <p>This is critical: if someone purchases during an abandoned cart sequence, they should immediately exit the flow. Sending "you forgot something!" to someone who already bought is a trust-destroying mistake. Check your suppression conditions on every single automation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         12 GENUINE SUBSCRIBERS
+    ============================================================ -->
+    <section class="section" id="subscribers">
+      <div class="section-eyebrow">12 — List Health</div>
+      <h2>Genuine Subscribers: Why Quality Beats Quantity Every Time</h2>
+      <p class="section-intro">A subscriber who genuinely wants to hear from you is worth 10× more than one who was incentivized into signing up and never intended to engage. This is the most misunderstood principle in email list building.</p>
+
+      <p>In the real data behind this guide, the brand's unsubscribe rate spiked to 7.58% in February 2025 — during a period of rapid list growth. The list grew fast, but much of that growth came from subscribers who didn't have genuine intent. The consequence was immediate: high churn, lower deliverability signals, and damaged sender reputation.</p>
+
+      <h3>Why genuine subscribers matter especially for automations</h3>
+      <p>Campaigns can still generate revenue from a mixed-quality list — a compelling offer can activate even a marginally engaged subscriber. But <strong>automations depend on genuine intent to function</strong>.</p>
+
+      <p>Think about what an abandoned cart flow assumes: the person was genuinely interested in the product, got distracted, and needs a reminder. If the subscriber never had real purchase intent — if they signed up just to get a discount code and abandon the cart anyway — then your automation is sending 2–3 emails to a person who has zero intention of buying. These contacts burn your sending volume, inflate your automation costs, and drag down your engagement metrics.</p>
+
+      <p>The same logic applies to browse abandonment, win-back, and post-purchase flows. Every automation is built on the assumption of genuine intent. Without it, the machine runs — but it runs on empty.</p>
+
+      <div class="callout danger">
+        <div class="callout-label">What Kills List Quality</div>
+        <ul style="list-style:none;font-size:0.9rem;color:rgba(232,228,218,0.75)">
+          <li style="padding:0.3rem 0">✕ <strong style="color:var(--text)">Purchasing email lists</strong> — These contacts never consented to hear from you. They will spam-report you.</li>
+          <li style="padding:0.3rem 0">✕ <strong style="color:var(--text)">Aggressive incentive-only sign-ups</strong> — "Spin to win" mechanics attract coupon hunters, not customers.</li>
+          <li style="padding:0.3rem 0">✕ <strong style="color:var(--text)">Pre-checked newsletter boxes at checkout</strong> — Passive opt-ins produce disengaged subscribers.</li>
+          <li style="padding:0.3rem 0">✕ <strong style="color:var(--text)">Fake email competitions</strong> — Contest entrants want the prize, not your brand.</li>
+        </ul>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">What Builds List Quality</div>
+        <ul style="list-style:none;font-size:0.9rem;color:rgba(232,228,218,0.75)">
+          <li style="padding:0.3rem 0">✓ <strong style="color:var(--text)">Clear value exchange</strong> — "Sign up for 15% off your first order" with an explicit, active checkbox.</li>
+          <li style="padding:0.3rem 0">✓ <strong style="color:var(--text)">Content-based opt-ins</strong> — "Get our style guide" attracts people interested in your brand world.</li>
+          <li style="padding:0.3rem 0">✓ <strong style="color:var(--text)">Post-purchase sign-up prompt</strong> — Someone who just bought already trusts you. They're the best subscriber you'll ever get.</li>
+          <li style="padding:0.3rem 0">✓ <strong style="color:var(--text)">Double opt-in for new sources</strong> — When testing a new sign-up source, use double opt-in to filter fake or disinterested addresses.</li>
+        </ul>
+      </div>
+
+      <h3>How to audit your current list quality</h3>
+      <div class="stat-row">
+        <div class="stat-box"><div class="sv" style="color:var(--green)">35%+</div><div class="sl">Healthy average open rate</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--accent)">20–35%</div><div class="sl">Acceptable — monitor trends</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--red)">under 20%</div><div class="sl">List quality issue — investigate</div></div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         13 UNSUB RATE
+    ============================================================ -->
+    <section class="section" id="unsub-rate">
+      <div class="section-eyebrow">13 — List Health</div>
+      <h2>Unsubscribe Rate: The Health Signal Everyone Ignores</h2>
+      <p class="section-intro">Most brands celebrate when people sign up. Very few pay attention to why people leave. Your unsubscribe rate is one of the most honest signals your list can give you — and most brands check it too infrequently and act on it too slowly.</p>
+
+      <h3>What your unsub rate actually tells you</h3>
+      <p>A high unsubscribe rate is <em>not</em> primarily a list size problem — it's a <em>relevance</em> problem. When someone unsubscribes, they're saying one of three things:</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-accent-line red"></div>
+          <h4>"You're sending too much"</h4>
+          <p>Frequency fatigue is the most common unsub driver. If you're sending 6 emails a week, you've exceeded the attention budget most subscribers are willing to allocate.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line orange"></div>
+          <h4>"This isn't for me"</h4>
+          <p>Relevance failure. The email that landed in their inbox had nothing to do with why they signed up. Poor segmentation sends male-oriented products to a female buyer, or sale emails to someone who bought last week at full price.</p>
+        </div>
+        <div class="card">
+          <div class="card-accent-line blue"></div>
+          <h4>"I don't remember signing up"</h4>
+          <p>Acquisition quality issue. A subscriber who doesn't remember opting in will unsub — or worse, mark as spam. This is why your onboarding email should remind them exactly why they're receiving it.</p>
+        </div>
+      </div>
+
+      <h3>Why a low unsub rate matters beyond ego</h3>
+      <p>Deliverability — your ability to land in the inbox rather than spam — is directly influenced by engagement signals. Email providers (Gmail, Outlook, Apple Mail) watch your metrics. A high unsub rate, combined with low open rates, signals to them that your list doesn't want your emails. The algorithmic consequence: your future emails land in spam for <em>everyone</em> on your list.</p>
+
+      <p>The brand in our data saw this in action. After the 7.58% peak in February 2025, a sustained improvement in list acquisition quality brought the rate below 3% — and <strong>revenue per send grew substantially</strong> even as the list continued growing. A smaller, more engaged list outperforms a larger, indifferent one — consistently, demonstrably, every time.</p>
+
+      <div class="stat-row">
+        <div class="stat-box"><div class="sv" style="color:var(--green)">&lt;0.5%</div><div class="sl">per campaign — excellent</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--accent)">0.5–1%</div><div class="sl">per campaign — investigate</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--red)">&gt;1%</div><div class="sl">per campaign — urgent action needed</div></div>
+      </div>
+
+      <h3>How to improve your unsub rate</h3>
+      <ul class="checklist">
+        <li><span class="check-icon g">✓</span>Audit your acquisition sources — identify which channels are bringing in low-quality subscribers and fix or remove them</li>
+        <li><span class="check-icon g">✓</span>Reduce send frequency to non-engagers — create a separate "low frequency" segment for contacts who haven't opened in 60 days</li>
+        <li><span class="check-icon g">✓</span>Improve segmentation — not every email should go to every subscriber</li>
+        <li><span class="check-icon g">✓</span>Use a preference center — let subscribers choose how often and what type of emails they receive</li>
+        <li><span class="check-icon o">!</span>Run a re-engagement campaign before unsubscribing contacts yourself — some are worth saving</li>
+        <li><span class="check-icon o">!</span>Review your welcome series — does it set accurate expectations for what you'll be sending?</li>
+        <li><span class="check-icon r">✕</span>Do not hide the unsubscribe link — making it hard to unsubscribe increases spam complaints, which is far worse than unsubs</li>
+      </ul>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================================
+         14 RETENTION
+    ============================================================ -->
+    <section class="section" id="retention">
+      <div class="section-eyebrow">14 — List Health</div>
+      <h2>Customer Retention: The Most Profitable Email Strategy</h2>
+      <p class="section-intro">Acquiring a new customer costs 5–7× more than retaining an existing one. Your email list is the most powerful retention tool you own — and most brands use it almost exclusively for acquisition-style messaging.</p>
+
+      <h3>Why retention matters more than you're treating it</h3>
+      <p>When brands think about email marketing, they almost always think about converting new subscribers into first-time buyers. That's important — but it's only the beginning. A customer who buys once and never hears from you again isn't a loyal customer; they're a one-time transaction waiting to be forgotten.</p>
+
+      <p>Email is the primary vehicle for <strong>turning transactions into relationships</strong>. Every post-purchase touchpoint, every replenishment reminder, every "we think you'd love this" — these are retention moments. And retention, compounded over a customer's lifetime, is where the real economics of ecommerce live.</p>
+
+      <div class="stat-row">
+        <div class="stat-box"><div class="sv">5–7×</div><div class="sl">cost to acquire vs retain</div></div>
+        <div class="stat-box"><div class="sv">60–70%</div><div class="sl">chance to sell to an existing customer</div></div>
+        <div class="stat-box"><div class="sv">5–20%</div><div class="sl">chance to sell to a new prospect</div></div>
+        <div class="stat-box"><div class="sv">5%↑</div><div class="sl">retention increase = 25–95% profit increase</div></div>
+      </div>
+
+      <h3>Retention-focused email strategies</h3>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">R1</div>
+          <div class="step-body">
+            <h4>The post-purchase sequence</h4>
+            <p>Don't go silent after someone buys. Send a genuine thank-you, product usage tips, a review request at the right moment (after they've had time to use the product), and a cross-sell recommendation based on what they bought. This sequence alone can increase repeat purchase rate significantly.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">R2</div>
+          <div class="step-body">
+            <h4>Replenishment reminders</h4>
+            <p>For consumable products — skincare, supplements, food, cleaning products — send a replenishment email when the product is likely running out (typically 28–45 days post-purchase, depending on your product). This feels helpful, not salesy, and converts at exceptional rates because the timing is inherently relevant.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">R3</div>
+          <div class="step-body">
+            <h4>VIP / loyalty recognition</h4>
+            <p>Identify your top 10–20% of customers by purchase value or frequency. Give them early access to sales, exclusive products, or a private discount. People who feel recognized shop more and advocate more. A "just for our best customers" email feels genuinely different from a broadcast blast.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">R4</div>
+          <div class="step-body">
+            <h4>Win-back before they're truly gone</h4>
+            <p>The moment a previously active customer stops opening emails is when your win-back automation should activate — not after six months of silence. An engaged customer who starts drifting is far more recoverable than one who's been inactive for a year. Catch them early.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">R5</div>
+          <div class="step-body">
+            <h4>Value-add content between purchases</h4>
+            <p>Not every email needs to sell something. Sending tips, how-to guides, behind-the-scenes content, or customer spotlights keeps your brand in the subscriber's mind between purchase moments. When they're ready to buy again, they'll think of you first — because you never disappeared.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-label">The Retention Mindset Shift</div>
+        Stop thinking about "email campaigns" and start thinking about "customer relationships." Every email you send either strengthens or weakens the relationship you have with the person receiving it. The brands with the highest customer lifetime value are the ones whose customers actually look forward to their emails — because the emails consistently deliver something worth opening.
+      </div>
+
+      <h3>Measuring retention through email</h3>
+      <table class="metrics-table">
+        <thead>
+          <tr><th>Retention Metric</th><th>What to Measure</th><th>What Improvement Looks Like</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Repeat purchase rate</td><td>% of customers who buy more than once</td><td>Increasing month-over-month</td></tr>
+          <tr><td>Time between purchases</td><td>Average days from first to second order</td><td>Shortening over time</td></tr>
+          <tr><td>Customer lifetime value</td><td>Average total revenue per customer</td><td>Growing via upsell and repeat purchases</td></tr>
+          <tr><td>Win-back rate</td><td>% of dormant customers reactivated</td><td>Above 5% is healthy for win-back flows</td></tr>
+          <tr><td>List engagement rate</td><td>% of list active (open or click) in 90 days</td><td>Stable or growing despite list additions</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:2rem">
+        <div class="callout-label">Closing Thought</div>
+        The real brand data in this guide shows a channel that grew from zero to over €1M in tracked revenue across 25 months — not through any single tactic, but through the consistent application of these principles compounding over time. Strategy informed the calendar. Good copy drove the opens. Automation ran the always-on engine. And a relentless focus on list health kept the whole system performing efficiently. <strong style="color:var(--text)">Email marketing done right isn't a campaign. It's infrastructure.</strong>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+
+  <footer class="page-footer">
+    <span>Email Marketing Mastery — Complete Tutorial</span>
+    <span>14 Chapters · Strategy through Retention</span>
+  </footer>
+</div><!-- /main -->
+
+<script>
+// Reading progress bar
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const scrolled = el.scrollTop || document.body.scrollTop;
+  const total = el.scrollHeight - el.clientHeight;
+  const pct = total > 0 ? Math.round((scrolled / total) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+});
+
+// Active nav highlighting
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-item a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-item a[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-60px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
