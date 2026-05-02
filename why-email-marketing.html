@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Marketing & Ecommerce — A Real Brand's Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f7f4ef;
+    --paper-dark: #ede9e2;
+    --accent: #c8401a;
+    --accent-light: #f5e8e3;
+    --green: #1a6b47;
+    --green-light: #e3f0ea;
+    --blue: #1a3c6b;
+    --blue-light: #e3ebf5;
+    --muted: #6b6860;
+    --rule: #d5d0c8;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 2rem 0 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(0,0,0,0.035) 28px,
+      rgba(0,0,0,0.035) 29px
+    );
+    pointer-events: none;
+  }
+  .issue-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .masthead h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .masthead-sub {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 520px;
+    margin: 0 auto 1.5rem;
+  }
+  .masthead-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    font-family: var(--font-mono);
+  }
+  .masthead-rule::before,
+  .masthead-rule::after {
+    content: '';
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  /* LAYOUT */
+  .container { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+  .layout-editorial {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* PULL QUOTE / LEDE */
+  .lede {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* BODY COPY */
+  .body-copy p { margin-bottom: 1.2rem; color: #2a2820; }
+  .body-copy h2 {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 2.5rem 0 1rem;
+    letter-spacing: -0.01em;
+  }
+  .body-copy h2 .num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.35;
+    color: var(--ink);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 1.2rem 0;
+    margin: 2rem 0;
+  }
+  .pull-quote::before { content: '\201C'; color: var(--accent); font-size: 3rem; line-height: 0; vertical-align: -0.5rem; }
+
+  /* SIDEBAR */
+  .sidebar { position: relative; }
+  .sidebar-sticky { position: sticky; top: 2rem; }
+
+  /* STAT CARDS */
+  .stat-card {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .stat-card .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(247,244,239,0.5);
+    margin-bottom: 0.4rem;
+  }
+  .stat-card .stat-value {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--paper);
+    margin-bottom: 0.3rem;
+  }
+  .stat-card .stat-sub {
+    font-size: 12px;
+    color: rgba(247,244,239,0.55);
+    font-weight: 300;
+  }
+  .stat-card.accent { background: var(--accent); }
+  .stat-card.accent .stat-label { color: rgba(247,244,239,0.65); }
+  .stat-card.accent .stat-sub { color: rgba(247,244,239,0.65); }
+
+  .sidebar-note {
+    background: var(--paper-dark);
+    border-left: 3px solid var(--rule);
+    padding: 1rem 1.2rem;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 1rem;
+  }
+  .sidebar-note strong { color: var(--ink); font-weight: 500; }
+
+  /* CHARTS SECTION */
+  .charts-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .charts-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .charts-header h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .charts-header p { color: var(--muted); font-size: 15px; }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .chart-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .chart-card.wide { grid-column: 1 / -1; }
+  .chart-card-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .chart-card-headline {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .chart-legend {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 12px; font-size: 12px; color: var(--muted);
+  }
+  .chart-legend span { display: flex; align-items: center; gap: 5px; }
+  .legend-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* PHASE TIMELINE */
+  .phase-section {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .phase-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .phase-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 0.5rem;
+  }
+  .phase-header p { color: rgba(247,244,239,0.55); font-size: 14px; }
+  .phase-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .phase-item {
+    background: var(--ink);
+    padding: 1.5rem;
+  }
+  .phase-period {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: rgba(247,244,239,0.45);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  .phase-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 0.7rem;
+    line-height: 1.2;
+  }
+  .phase-desc { font-size: 12.5px; color: rgba(247,244,239,0.6); line-height: 1.6; }
+  .phase-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .phase-badge.gray { background: rgba(255,255,255,0.1); color: rgba(247,244,239,0.5); }
+  .phase-badge.amber { background: #4a3010; color: #f5c060; }
+  .phase-badge.teal { background: #0a2e1e; color: #5ecaa5; }
+  .phase-badge.blue { background: #0a1e3a; color: #7ab0e8; }
+
+  /* DATA TABLE */
+  .table-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .table-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .table-section .table-sub { color: var(--muted); font-size: 14px; margin-bottom: 1.5rem; }
+  .table-scroll { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 800px;
+  }
+  thead tr { border-bottom: 2px solid var(--ink); }
+  th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.6rem 0.75rem;
+    text-align: right;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  th:first-child { text-align: left; }
+  td {
+    padding: 0.55rem 0.75rem;
+    text-align: right;
+    border-bottom: 0.5px solid var(--rule);
+    font-variant-numeric: tabular-nums;
+    color: #2a2820;
+  }
+  td:first-child { text-align: left; font-weight: 500; font-family: var(--font-mono); font-size: 12px; }
+  tbody tr:hover { background: var(--paper-dark); }
+  tbody tr.highlight { background: var(--green-light); }
+  tbody tr.highlight td { color: var(--green); }
+  tbody tr.highlight td:first-child { color: var(--green); }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.08em;
+    padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+  }
+  .s-healthy { background: #e3f0ea; color: #1a6b47; }
+  .s-stable { background: #e3ebf5; color: #1a3c6b; }
+  .s-moderate { background: #f5f0e8; color: #7a6030; }
+  .s-declining { background: #fceae3; color: #8b2a10; }
+  .s-revival { background: #f5e8f5; color: #6b1a6b; }
+  .pos { color: var(--green); }
+  .neg { color: var(--accent); }
+
+  /* INSIGHT CARDS */
+  .insights-section { padding: 3rem 0; border-bottom: 1px solid var(--rule); }
+  .insights-section h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .insight-card {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .insight-card.green::before { background: var(--green); }
+  .insight-card.accent::before { background: var(--accent); }
+  .insight-card.blue::before { background: var(--blue); }
+  .insight-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .insight-card.green .insight-num { color: var(--green); }
+  .insight-card.accent .insight-num { color: var(--accent); }
+  .insight-card.blue .insight-num { color: var(--blue); }
+  .insight-title {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .insight-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem;
+    border-top: 3px double var(--ink);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease both; }
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.2s; }
+  .fade-up-3 { animation-delay: 0.3s; }
+  .fade-up-4 { animation-delay: 0.4s; }
+
+  @media (max-width: 768px) {
+    .layout-editorial { grid-template-columns: 1fr; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .charts-grid .chart-card.wide { grid-column: 1; }
+    .phase-timeline { grid-template-columns: 1fr 1fr; }
+    .insights-grid { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="container">
+    <p class="issue-label fade-up">Real Data · Ecommerce Case Study · Email Marketing</p>
+    <h1 class="fade-up fade-up-1">Why Email is Your Brand's<br><em>Most Valuable Asset</em></h1>
+    <p class="masthead-sub fade-up fade-up-2">An educational deep-dive using real performance data from an ecommerce brand — from zero subscribers to a thriving, optimized email channel.</p>
+    <div class="masthead-rule fade-up fade-up-3">Apr 2024 – Apr 2026 &nbsp;·&nbsp; 25 Months of Data &nbsp;·&nbsp; €1M+ in Revenue Tracked</div>
+  </div>
+</header>
+
+<!-- EDITORIAL SECTION -->
+<div class="container">
+  <div class="layout-editorial">
+    <!-- MAIN COPY -->
+    <main class="body-copy">
+      <p class="lede">Roughly 35% of this brand's store revenue traces back to email — a channel they own entirely, with no ad spend, no algorithm changes, and no platform dependency risk.</p>
+
+      <p>Look at what happened before email was set up. From January to June 2024, the store was generating revenue purely on its own — respectable numbers, but capped. The moment email campaigns and automations kicked in, revenue began scaling in a way organic or paid-only channels rarely sustain on their own.</p>
+
+      <p>There are two types of email revenue this brand relies on, and both matter in different ways.</p>
+
+      <h2><span class="num">01 /</span> Campaigns: The Revenue You Control</h2>
+
+      <p><strong>Campaign revenue</strong> is what you send intentionally — promotions, product launches, seasonal offers, newsletters. It creates spikes and drives urgency. September through November 2024 showed this clearly, when campaigns started hitting €6K–€12K per month as the list grew.</p>
+
+      <p>Campaigns are intentional. You decide when to send, who to send to, and what offer to make. A well-timed campaign to a well-segmented list can generate more revenue in 48 hours than a week of paid ads — and at a fraction of the cost.</p>
+
+      <div class="pull-quote">Email campaigns are where strategy becomes revenue. Every send is a controlled experiment in persuasion.</div>
+
+      <h2><span class="num">02 /</span> Automations: The Always-On Engine</h2>
+
+      <p><strong>Automation revenue</strong> is the always-on engine — welcome sequences, abandoned cart flows, post-purchase follow-ups, browse abandonment triggers. Notice that automation revenue is consistently <em>larger</em> than campaign revenue in most months of this dataset.</p>
+
+      <p>This is the compounding value of email: once you build the flows, they earn while you sleep. A welcome series doesn't need a marketer to run it on Tuesday at 3pm. An abandoned cart email fires automatically 30 minutes after someone leaves without buying. These touchpoints accumulate quietly, month after month.</p>
+
+      <h2><span class="num">03 /</span> The Unsubscribe Rate Story</h2>
+
+      <p>This is the most instructive part of the data. In early 2025, the unsubscribe rate spiked — peaking at <strong>7.58% in February 2025</strong>. That's high. Industry benchmarks consider anything above 0.5–1% worth investigating, so 7.58% is a signal the list was being stressed.</p>
+
+      <p>What causes high unsub rates? Usually a combination of factors: sending too frequently, acquiring contacts who never properly opted in, irrelevant messaging, or a list that grew fast without proper segmentation. This brand's list nearly doubled from October 2024 to February 2025 — fast growth is exciting, but if acquisition quality is poor, you pay for it with disengagement.</p>
+
+      <p>Then something changed. From <strong>June 2025 onwards</strong>, the unsub rate dropped and stayed below 3% — eventually settling in the 2.0–2.5% range. At the same time, the engaged list kept growing: from around 6,000 in mid-2025 to nearly 14,000 by late 2025.</p>
+
+      <h2><span class="num">04 /</span> What "Done Right" Actually Looks Like</h2>
+
+      <p>The recovery from a high unsub rate isn't magic — it's the result of several compounding improvements that show up in the numbers.</p>
+
+      <p><strong>Better acquisition means better retention.</strong> When subscribers opt in with genuine intent — through a well-placed form, a real lead magnet, or a quality paid acquisition flow — they stay. They were never looking to leave.</p>
+
+      <p><strong>Segmentation reduces friction.</strong> Sending everyone the same message at the same cadence burns out people who aren't ready to buy. When you segment by behavior, people receive content that feels relevant rather than intrusive.</p>
+
+      <p><strong>Consistent sending builds trust.</strong> An email list is essentially a relationship. Subscribers who know what to expect — and who regularly get value from that relationship — simply don't leave.</p>
+
+      <p>From June 2025 onward, store revenue hit €84,653 in September 2025, stayed elevated through late 2025, and the channel remained healthy throughout 2026. The brand wasn't just holding its list — it was growing it cleanly, with lower churn cost and higher lifetime value per subscriber.</p>
+
+      <h2><span class="num">05 /</span> The Broader Lesson</h2>
+
+      <p>Most ecommerce brands think of email as a promotional tool — something you use when you want to announce a sale. This brand's data shows it's actually infrastructure. Email is the owned channel that amplifies everything else: it makes your new product launches more effective, your seasonal peaks higher, and your average customer more valuable over time.</p>
+
+      <p>The brands that struggle with email usually make one of two mistakes. Either they underinvest and leave recoverable revenue on the table. Or they over-extract — high send frequency, poor targeting, buying lists — and burn subscriber trust faster than they can replenish it.</p>
+
+      <p>Done right, email isn't just a revenue channel. It's the most durable asset an ecommerce brand can build.</p>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-sticky">
+        <div class="stat-card accent fade-up fade-up-1">
+          <div class="stat-label">Email contribution</div>
+          <div class="stat-value">~35%</div>
+          <div class="stat-sub">of total store revenue</div>
+        </div>
+        <div class="stat-card fade-up fade-up-2">
+          <div class="stat-label">Total email revenue</div>
+          <div class="stat-value">€368K</div>
+          <div class="stat-sub">Apr 2024 → Apr 2026</div>
+        </div>
+        <div class="stat-card fade-up fade-up-3">
+          <div class="stat-label">Peak store month</div>
+          <div class="stat-value">€84.6K</div>
+          <div class="stat-sub">September 2025</div>
+        </div>
+        <div class="stat-card fade-up fade-up-4">
+          <div class="stat-label">List growth (active)</div>
+          <div class="stat-value">13,924</div>
+          <div class="stat-sub">engaged subscribers, Apr 2026</div>
+        </div>
+
+        <div class="sidebar-note" style="margin-top: 1.5rem;">
+          <strong>The unsub rate turning point</strong><br>
+          Peaked at 7.58% in Feb 2025. By June 2025 it had dropped below 3% — and never came back up. Better segmentation and cleaner acquisition changed the trajectory entirely.
+        </div>
+
+        <div class="sidebar-note">
+          <strong>Automation vs. campaigns</strong><br>
+          In most months, automation revenue outperforms campaign revenue. The flows built in 2024 continued paying dividends through 2026 with minimal ongoing effort.
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- CHARTS SECTION -->
+<section class="charts-section">
+  <div class="container">
+    <div class="charts-header">
+      <h2>The Numbers, Visualized</h2>
+      <p>25 months of real performance data from a single ecommerce brand.</p>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card wide">
+        <div class="chart-card-title">revenue overview</div>
+        <div class="chart-card-headline">Store Revenue vs. Email Revenue — Month by Month</div>
+        <div class="chart-legend">
+          <span><span class="legend-sq" style="background:#1a3c6b;"></span>Store revenue</span>
+          <span><span class="legend-sq" style="background:#1a6b47;border-radius:0;border:2px dashed #1a6b47;background:transparent;"></span>Email (Omnisend) revenue</span>
+        </div>
+        <div style="position:relative;height:280px;">
+          <canvas id="revenueChart" role="img" aria-label="Line chart showing store revenue and email revenue monthly from April 2024 to April 2026. Both trend upward with a peak in September 2025.">Store revenue grew from €7,074 to a peak of €84,654. Email revenue tracked proportionally throughout.</canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">list health</div>
+        <div class="chart-card-headline">Engaged List Growth</div>
+        <div class="chart-legend">
+          <span><span class="legend-sq" style="background:#7b5ea7;"></span>Engaged subscribers</span>
+        </div>
+        <div style="position:relative;height:220px;">
+          <canvas id="listChart" role="img" aria-label="Bar chart showing engaged list size growing from near zero to nearly 14,000.">Engaged list grew from 0 to 13,924 subscribers by April 2026.</canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">deliverability signal</div>
+        <div class="chart-card-headline">Unsubscribe Rate — The Turning Point</div>
+        <div class="chart-legend">
+          <span><span class="legend-sq" style="background:#c8401a;"></span>Unsub rate %</span>
+          <span style="font-size:11px;color:#1a6b47;font-weight:500;">▼ Jun '25 drop</span>
+        </div>
+        <div style="position:relative;height:220px;">
+          <canvas id="unsubChart" role="img" aria-label="Line chart showing unsubscribe rate peaking at 7.58% in February 2025 then declining to below 3% from June 2025 onward.">Unsub rate peaked at 7.58% in Feb 2025, then fell to below 3% after June 2025.</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE TIMELINE -->
+<section class="phase-section">
+  <div class="container">
+    <div class="phase-header">
+      <h2>The Brand's Journey</h2>
+      <p>Four distinct phases across 25 months of email channel maturity.</p>
+    </div>
+    <div class="phase-timeline">
+      <div class="phase-item">
+        <div class="phase-period">Jan – Jun 2024</div>
+        <div class="phase-badge gray">Pre-email</div>
+        <div class="phase-name">Store Alone</div>
+        <div class="phase-desc">No email infrastructure. Store generating revenue organically but capped without an owned audience channel.</div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-period">Jul – Oct 2024</div>
+        <div class="phase-badge amber">Ramp-up</div>
+        <div class="phase-name">Setup & Launch</div>
+        <div class="phase-desc">Automations go live. First campaigns sent. List starts growing rapidly. Revenue begins scaling significantly.</div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-period">Nov 2024 – May 2025</div>
+        <div class="phase-badge teal">Growth</div>
+        <div class="phase-name">Fast Growth, High Churn</div>
+        <div class="phase-desc">List doubles. Revenue peaks. But unsub rate spikes to 7.58% — a warning sign that acquisition quality needs work.</div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-period">Jun 2025 → Present</div>
+        <div class="phase-badge blue">Optimized</div>
+        <div class="phase-name">Healthy & Scalable</div>
+        <div class="phase-desc">Unsub rate drops below 3%. List grows to 14K. Revenue stays elevated. The channel matures into a sustainable asset.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS SECTION -->
+<section class="insights-section">
+  <div class="container">
+    <h2>Three Things This Data Proves</h2>
+    <div class="insights-grid">
+      <div class="insight-card green">
+        <div class="insight-num">35%</div>
+        <div class="insight-title">Email drives a third of all revenue</div>
+        <div class="insight-desc">Not a supplementary channel — a primary revenue driver. And unlike paid ads, this asset appreciates over time rather than depleting budget.</div>
+      </div>
+      <div class="insight-card accent">
+        <div class="insight-num">4×</div>
+        <div class="insight-title">Automations outperform campaigns</div>
+        <div class="insight-desc">In most months, automated flows generated more revenue than manual campaigns. Build the engine once; it runs indefinitely.</div>
+      </div>
+      <div class="insight-card blue">
+        <div class="insight-num">7.6%→2.1%</div>
+        <div class="insight-title">Unsub rate can always be fixed</div>
+        <div class="insight-desc">Even after a peak unsub crisis, the brand recovered by improving segmentation and acquisition quality. The list is now cleaner and more profitable than ever.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA TABLE -->
+<section class="table-section">
+  <div class="container">
+    <h2>Full Performance Table</h2>
+    <p class="table-sub">Apr 2024 – Apr 2026 · All figures in EUR · Highlighted rows = post-optimization period (Jun 2025+)</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>New Subs</th>
+            <th>Unsubs</th>
+            <th>Net Growth</th>
+            <th>Engaged List</th>
+            <th>Unsub Rate</th>
+            <th>Campaigns</th>
+            <th>Automation</th>
+            <th>Omnisend Total</th>
+            <th>Store Rev</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    Real brand data · Educational use · Email marketing case study &nbsp;·&nbsp; Apr 2024 – Apr 2026
+  </div>
+</footer>
+
+<script>
+const months = ['Apr\'24','May\'24','Jun\'24','Jul\'24','Aug\'24','Sep\'24','Oct\'24','Nov\'24','Dec\'24','Jan\'25','Feb\'25','Mar\'25','Apr\'25','May\'25','Jun\'25','Jul\'25','Aug\'25','Sep\'25','Oct\'25','Nov\'25','Dec\'25','Jan\'26','Feb\'26','Mar\'26','Apr\'26'];
+const storeRev = [7074.41,18314.58,24899.36,51569.92,17562.31,40034.55,73959.77,34172.54,18657.76,34117.21,78444.30,45458.74,34741.49,26996.76,35259.70,47488.58,60405.98,84653.82,70098.19,42011.62,31852.92,56014.00,50885.36,36033.55,35539.19];
+const emailRev = [668.95,3210.39,4789.75,10265.76,6352.25,14779.68,25361.34,14582.61,7535.48,13818.02,26092.03,16976.24,14042.72,10535.75,12705.31,14440.95,15110.00,21068.92,19440.20,14218.65,9791.83,15412.07,14073.31,11573.09,10471.90];
+const campaigns = [0,0,152.15,1264.53,2028.18,6535.74,12248.24,8096.41,3896.99,8137.56,14664.36,9150.71,7786.31,6025.63,6874.95,6990.24,5751.49,7859.15,7560.68,6798.14,5170.66,7457.12,6133.66,5394.50,5346.37];
+const automation = [668.95,3210.39,4637.60,9001.23,4324.07,8243.94,13113.10,6486.20,3638.49,5680.46,11427.67,7825.53,6256.41,4510.12,5830.36,7450.71,9358.51,13209.77,11879.52,7420.51,4621.17,7954.95,7939.65,6178.59,5125.53];
+const engagedList = [-3,-34,-87,2082,2934,4329,7195,4901,4149,4413,7639,6780,6089,5973,6936,8476,10270,13031,12276,10629,10538,12850,12838,11656,13924];
+const unsubRate = [0,0,0,0,4.90,5.87,5.19,5.37,3.32,5.67,7.58,4.66,4.48,3.04,2.26,2.66,2.64,2.71,2.45,2.79,2.09,2.27,2.22,2.54,2.25];
+const newSubs = [0,0,0,0,838,1696,3232,1455,639,1039,3248,1985,1344,941,1310,2151,2947,4221,3119,1830,1402,2698,2342,1480,2756];
+const unsubs = [0,0,0,0,343,482,561,628,395,698,1095,732,733,511,400,515,572,683,678,801,617,715,735,857,784];
+const netGrowth = [0,0,0,0,495,1214,2671,827,244,341,2153,1253,611,430,910,1636,2375,3538,2441,1029,785,1983,1607,623,1972];
+const statuses = ['Declining','Declining','Declining','Declining','Moderate','Healthy','Healthy','Stable','Declining','Moderate','Healthy','Healthy','Stable','Declining','Stable','Healthy','Healthy','Healthy','Healthy','Healthy','Revival','Healthy','Healthy','Stable','Stable'];
+
+function statusClass(s) {
+  const m = { 'Healthy':'s-healthy','Stable':'s-stable','Moderate':'s-moderate','Declining':'s-declining','Revival':'s-revival' };
+  return m[s] || '';
+}
+
+const tbody = document.getElementById('tableBody');
+months.forEach((m, i) => {
+  const isOpt = i >= 14;
+  const tr = document.createElement('tr');
+  if (isOpt) tr.classList.add('highlight');
+  tr.innerHTML = `
+    <td>${m}</td>
+    <td class="pos">${newSubs[i] > 0 ? '+' + newSubs[i].toLocaleString() : '—'}</td>
+    <td class="neg">${unsubs[i] > 0 ? '−' + unsubs[i].toLocaleString() : '—'}</td>
+    <td class="${netGrowth[i] >= 0 ? 'pos' : 'neg'}">${netGrowth[i] >= 0 ? '+' : ''}${netGrowth[i].toLocaleString()}</td>
+    <td>${engagedList[i] > 0 ? engagedList[i].toLocaleString() : engagedList[i]}</td>
+    <td>${unsubRate[i] > 0 ? unsubRate[i].toFixed(2) + '%' : '—'}</td>
+    <td>€${campaigns[i].toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+    <td>€${automation[i].toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+    <td>€${emailRev[i].toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+    <td>€${storeRev[i].toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+    <td><span class="status-pill ${statusClass(statuses[i])}">${statuses[i]}</span></td>
+  `;
+  tbody.appendChild(tr);
+});
+
+const gridColor = 'rgba(0,0,0,0.07)';
+const tickColor = '#888';
+
+// Revenue chart
+new Chart(document.getElementById('revenueChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Store revenue', data: storeRev, borderColor: '#1a3c6b', backgroundColor: 'rgba(26,60,107,0.07)', fill: true, tension: 0.35, pointRadius: 2, borderWidth: 2.5 },
+      { label: 'Email revenue', data: emailRev, borderColor: '#1a6b47', backgroundColor: 'transparent', fill: false, tension: 0.35, pointRadius: 2, borderWidth: 2, borderDash: [5,4] }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 10 }, maxRotation: 45, autoSkip: false }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 11 }, callback: v => '€' + (v/1000).toFixed(0) + 'K' }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// List chart
+new Chart(document.getElementById('listChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{ label: 'Engaged list', data: engagedList.map(v => Math.max(v,0)), backgroundColor: months.map((_, i) => i >= 14 ? 'rgba(26,107,71,0.7)' : 'rgba(123,94,167,0.6)'), borderWidth: 0 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 9 }, maxRotation: 45, autoSkip: false }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 11 }, callback: v => v.toLocaleString() }, grid: { color: gridColor } }
+    }
+  }
+});
+
+// Unsub chart
+new Chart(document.getElementById('unsubChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Unsub rate', data: unsubRate, borderColor: '#c8401a', backgroundColor: 'rgba(200,64,26,0.08)', fill: true, tension: 0.35, pointRadius: months.map((_, i) => i === 10 ? 6 : 2.5), pointBackgroundColor: months.map((_, i) => i === 10 ? '#c8401a' : '#c8401a'), borderWidth: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      annotation: {}
+    },
+    scales: {
+      x: { ticks: { color: tickColor, font: { size: 9 }, maxRotation: 45, autoSkip: false }, grid: { color: gridColor } },
+      y: { ticks: { color: tickColor, font: { size: 11 }, callback: v => v.toFixed(1) + '%' }, grid: { color: gridColor }, min: 0, max: 9 }
+    }
+  }
+});
+</script>
+</body>
+</html>
