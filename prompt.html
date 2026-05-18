@@ -32,10 +32,9 @@
       color: var(--text);
       font-family: var(--body);
       min-height: 100vh;
-      padding: 0;
     }
 
-    /* ── HEADER ── */
+    /* HEADER */
     header {
       border-bottom: 1px solid var(--border);
       padding: 20px 40px;
@@ -62,7 +61,6 @@
       height: 8px;
       background: var(--accent);
       border-radius: 50%;
-      display: inline-block;
       box-shadow: 0 0 10px var(--accent);
     }
 
@@ -79,17 +77,15 @@
       text-transform: uppercase;
     }
 
-    /* ── MAIN LAYOUT ── */
+    /* MAIN */
     main {
       max-width: 940px;
       margin: 0 auto;
       padding: 56px 40px 80px;
     }
 
-    /* ── HERO ── */
-    .hero {
-      margin-bottom: 56px;
-    }
+    /* HERO */
+    .hero { margin-bottom: 56px; }
 
     .hero-tag {
       font-family: var(--mono);
@@ -122,9 +118,7 @@
       margin-bottom: 20px;
     }
 
-    h1 span {
-      color: var(--accent);
-    }
+    h1 span { color: var(--accent); }
 
     .hero-sub {
       font-size: 16px;
@@ -134,7 +128,7 @@
       max-width: 540px;
     }
 
-    /* ── HOW IT WORKS ── */
+    /* STEPS */
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -146,10 +140,7 @@
       margin-bottom: 56px;
     }
 
-    .step {
-      background: var(--surface);
-      padding: 24px 24px 28px;
-    }
+    .step { background: var(--surface); padding: 24px 24px 28px; }
 
     .step-num {
       font-family: var(--mono);
@@ -168,11 +159,7 @@
       margin-bottom: 6px;
     }
 
-    .step-desc {
-      font-size: 12px;
-      line-height: 1.6;
-      color: var(--text-muted);
-    }
+    .step-desc { font-size: 12px; line-height: 1.6; color: var(--text-muted); }
 
     .step-icon {
       width: 28px;
@@ -189,18 +176,10 @@
     .step:nth-child(2) .step-icon { background: rgba(167,139,250,0.1); }
     .step:nth-child(3) .step-icon { background: rgba(251,191,36,0.1); }
 
-    /* ── FORM ── */
-    .form-section {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+    /* FORM */
+    .form-section { display: flex; flex-direction: column; gap: 24px; }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .field { display: flex; flex-direction: column; gap: 8px; }
 
     label {
       font-family: var(--mono);
@@ -214,11 +193,7 @@
       gap: 8px;
     }
 
-    label .required {
-      color: var(--accent);
-      font-size: 14px;
-      line-height: 1;
-    }
+    label .required { color: var(--accent); font-size: 14px; line-height: 1; }
 
     label .optional {
       color: var(--text-dim);
@@ -245,31 +220,286 @@
       outline: none;
     }
 
-    input[type="text"]:focus,
-    input[type="url"]:focus,
-    textarea:focus {
+    input[type="text"]:focus, input[type="url"]:focus, textarea:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(110,231,183,0.08);
     }
 
-    input[type="text"]::placeholder,
-    input[type="url"]::placeholder,
-    textarea::placeholder {
+    input::placeholder, textarea::placeholder { color: var(--text-dim); }
+
+    textarea { min-height: 260px; font-size: 13px; }
+
+    .field-hint { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+    /* PRODUCTS SECTION */
+    .products-wrapper {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .products-toggle-bar {
+      background: var(--surface);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .products-toggle-bar:hover { background: var(--surface2); }
+    .products-toggle-bar.open { border-bottom-color: var(--border); }
+
+    .toggle-left { display: flex; align-items: center; gap: 12px; }
+
+    .toggle-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .toggle-pill {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+
+    .toggle-pill.has-products {
+      color: var(--accent3);
+      background: rgba(251,191,36,0.08);
+      border-color: rgba(251,191,36,0.25);
+    }
+
+    .toggle-chevron {
+      font-size: 11px;
+      color: var(--text-dim);
+      transition: transform 0.25s;
+      line-height: 1;
+    }
+
+    .toggle-chevron.open { transform: rotate(180deg); }
+
+    .products-body {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      padding: 24px;
+      background: var(--surface2);
+    }
+
+    .products-body.open { display: flex; }
+
+    /* Column picker */
+    .col-picker { display: flex; flex-direction: column; gap: 8px; }
+
+    .col-picker-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .col-options { display: flex; gap: 8px; }
+
+    .col-opt {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 8px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .col-opt:hover { border-color: var(--accent3); background: rgba(251,191,36,0.03); }
+    .col-opt.active { border-color: var(--accent3); background: rgba(251,191,36,0.08); }
+
+    .col-bars { display: flex; gap: 3px; align-items: center; height: 22px; }
+
+    .col-bar {
+      border-radius: 2px;
+      background: var(--border-bright);
+      transition: background 0.15s;
+      height: 100%;
+    }
+
+    .col-opt.active .col-bar { background: var(--accent3); }
+
+    .col-opt-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .col-opt.active .col-opt-label { color: var(--accent3); }
+
+    /* Product cards */
+    .products-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      animation: slideIn 0.18s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .product-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(251,191,36,0.03);
+    }
+
+    .product-card-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent3);
+      text-transform: uppercase;
+    }
+
+    .product-remove {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 12px;
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      line-height: 1;
+      font-family: var(--mono);
+    }
+
+    .product-remove:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239,68,68,0.06);
+    }
+
+    .product-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .pf-full { grid-column: 1 / -1; }
+
+    .pf-wrap { display: flex; flex-direction: column; gap: 4px; }
+
+    .pf-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--text-dim);
     }
 
-    textarea {
-      min-height: 260px;
-      font-size: 13px;
+    .pf-input {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 8px 10px;
+      border-radius: 4px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
-    .field-hint {
+    .pf-input:focus {
+      border-color: var(--accent3);
+      box-shadow: 0 0 0 2px rgba(251,191,36,0.08);
+    }
+
+    .pf-input::placeholder { color: var(--text-dim); }
+
+    .add-product-btn {
+      background: transparent;
+      border: 1px dashed var(--border-bright);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .add-product-btn:hover {
+      border-color: var(--accent3);
+      color: var(--accent3);
+      background: rgba(251,191,36,0.03);
+    }
+
+    .products-hint {
       font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
     }
 
-    /* ── COPY BUTTON ── */
+    .products-hint::before {
+      content: 'ℹ';
+      font-size: 12px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* COPY BUTTON */
     .copy-btn {
       display: flex;
       align-items: center;
@@ -288,8 +518,6 @@
       width: 100%;
       transition: all 0.2s;
       margin-top: 8px;
-      position: relative;
-      overflow: hidden;
     }
 
     .copy-btn:hover {
@@ -298,22 +526,11 @@
       box-shadow: 0 8px 24px rgba(110,231,183,0.25);
     }
 
-    .copy-btn:active {
-      transform: translateY(0);
-    }
+    .copy-btn:active { transform: translateY(0); box-shadow: none; }
+    .copy-btn.copied { background: #a78bfa; color: #fff; }
+    .copy-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-    .copy-btn.copied {
-      background: #a78bfa;
-      color: #fff;
-    }
-
-    .copy-btn svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    /* ── PREVIEW PANEL ── */
+    /* PREVIEW */
     .preview-panel {
       margin-top: 40px;
       border: 1px solid var(--border);
@@ -342,11 +559,7 @@
       text-transform: uppercase;
     }
 
-    .preview-chars {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-muted);
-    }
+    .preview-chars { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
 
     .preview-body {
       background: var(--surface2);
@@ -358,42 +571,29 @@
     .preview-body pre {
       font-family: var(--mono);
       font-size: 11.5px;
-      line-height: 1.8;
+      line-height: 1.85;
       color: #8b8b9e;
       white-space: pre-wrap;
       word-break: break-word;
     }
 
-    .preview-body pre .hl-key {
-      color: var(--accent);
-    }
+    .hl-key { color: var(--accent); }
+    .hl-val { color: var(--accent3); }
 
-    .preview-body pre .hl-val {
-      color: #fbbf24;
-    }
-
-    .preview-body pre .hl-copy {
-      color: #e8e8f0;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 48px 0;
-    }
-
-    /* ── SCROLLBAR ── */
+    /* SCROLLBAR */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
 
-    /* ── MOBILE ── */
+    /* MOBILE */
     @media (max-width: 640px) {
       header { padding: 16px 20px; }
       main { padding: 36px 20px 60px; }
       .steps { grid-template-columns: 1fr; }
       h1 { font-size: 30px; }
+      .product-fields { grid-template-columns: 1fr; }
+      .pf-full { grid-column: 1; }
+      .col-options { gap: 6px; }
     }
   </style>
 </head>
@@ -438,23 +638,87 @@
 
     <div class="form-section">
 
+      <!-- Website URL -->
       <div class="field">
         <label>Store / Brand Website URL <span class="required">*</span></label>
         <input type="url" id="websiteUrl" placeholder="https://yourstore.com" autocomplete="off">
         <div class="field-hint">Claude will fetch your site's design system — colors, fonts, aesthetic — and match the email to it.</div>
       </div>
 
+      <!-- Hero Image -->
       <div class="field">
         <label>Hero Image URL <span class="optional">optional</span></label>
         <input type="url" id="heroImageUrl" placeholder="https://example.com/your-hero-image.jpg" autocomplete="off">
-        <div class="field-hint">If you have a specific image to use as the hero, paste the direct URL here.</div>
+        <div class="field-hint">Paste a direct image URL to use as the full-width hero. It will be placed before the headline block.</div>
       </div>
 
+      <!-- Email Copy -->
       <div class="field">
         <label>Email Copy <span class="required">*</span></label>
-        <textarea id="emailCopy" placeholder="Paste your full email copy here — subject lines, preview text, sections, CTAs, all of it..."></textarea>
+        <textarea id="emailCopy" placeholder="Paste your full email copy here — subject lines, preview text, sections, CTAs, PS notes, all of it..."></textarea>
         <div class="field-hint">Include everything: headline, body, CTAs, section names, PS notes. The more structure you provide, the better the output.</div>
       </div>
+
+      <!-- FEATURED PRODUCTS -->
+      <div class="products-wrapper">
+
+        <div class="products-toggle-bar" id="productsToggleBar" onclick="toggleProducts()">
+          <div class="toggle-left">
+            <span class="toggle-label">Featured Products</span>
+            <span class="toggle-pill" id="productsPill">Optional</span>
+          </div>
+          <span class="toggle-chevron" id="productsChevron">▼</span>
+        </div>
+
+        <div class="products-body" id="productsBody">
+
+          <!-- Column picker -->
+          <div class="col-picker">
+            <div class="col-picker-label">Desktop Column Layout — always stacks to 1 column on mobile</div>
+            <div class="col-options">
+
+              <div class="col-opt active" id="col-1" onclick="setColumns(1)">
+                <div class="col-bars">
+                  <div class="col-bar" style="width:32px;"></div>
+                </div>
+                <div class="col-opt-label">1 Column</div>
+              </div>
+
+              <div class="col-opt" id="col-2" onclick="setColumns(2)">
+                <div class="col-bars">
+                  <div class="col-bar" style="width:14px;"></div>
+                  <div class="col-bar" style="width:14px;"></div>
+                </div>
+                <div class="col-opt-label">2 Columns</div>
+              </div>
+
+              <div class="col-opt" id="col-3" onclick="setColumns(3)">
+                <div class="col-bars">
+                  <div class="col-bar" style="width:9px;"></div>
+                  <div class="col-bar" style="width:9px;"></div>
+                  <div class="col-bar" style="width:9px;"></div>
+                </div>
+                <div class="col-opt-label">3 Columns</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Product cards list -->
+          <div class="products-list" id="productsList"></div>
+
+          <!-- Add product button -->
+          <button class="add-product-btn" onclick="addProduct()">
+            ＋ &nbsp;Add Product
+          </button>
+
+          <div class="products-hint">
+            On mobile, all product columns automatically stack into a single column regardless of the desktop layout selected above.
+          </div>
+
+        </div>
+      </div>
+      <!-- /FEATURED PRODUCTS -->
 
       <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -466,6 +730,7 @@
 
     </div>
 
+    <!-- Preview panel -->
     <div class="preview-panel" id="previewPanel">
       <div class="preview-header">
         <div class="preview-label">▸ Prompt Preview</div>
@@ -479,18 +744,160 @@
   </main>
 
   <script>
-    function buildPrompt() {
-      const websiteUrl  = document.getElementById('websiteUrl').value.trim();
-      const heroImageUrl = document.getElementById('heroImageUrl').value.trim();
-      const emailCopy   = document.getElementById('emailCopy').value.trim();
+    let selectedColumns = 1;
+    let productCounter = 0;
 
+    /* TOGGLE PRODUCTS PANEL */
+    function toggleProducts() {
+      const bar     = document.getElementById('productsToggleBar');
+      const body    = document.getElementById('productsBody');
+      const chevron = document.getElementById('productsChevron');
+      const isOpen  = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      bar.classList.toggle('open', !isOpen);
+      chevron.classList.toggle('open', !isOpen);
+    }
+
+    /* COLUMN PICKER */
+    function setColumns(n) {
+      selectedColumns = n;
+      [1, 2, 3].forEach(i => {
+        document.getElementById('col-' + i).classList.toggle('active', i === n);
+      });
+      hidePreview();
+    }
+
+    /* ADD PRODUCT */
+    function addProduct() {
+      productCounter++;
+      const id   = 'prod-' + productCounter;
+      const list = document.getElementById('productsList');
+      const idx  = list.children.length + 1;
+
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.id = id;
+      card.innerHTML = `
+        <div class="product-card-top">
+          <span class="product-card-num" id="${id}-num">Product ${idx}</span>
+          <button class="product-remove" onclick="removeProduct('${id}')" title="Remove product">✕</button>
+        </div>
+        <div class="product-fields">
+          <div class="pf-wrap pf-full">
+            <div class="pf-label">Product Name</div>
+            <input class="pf-input" type="text" data-field="name" placeholder="e.g. Galactic Melodies Blanket Pattern">
+          </div>
+          <div class="pf-wrap">
+            <div class="pf-label">Product Link URL</div>
+            <input class="pf-input" type="text" data-field="link" placeholder="https://yourstore.com/products/...">
+          </div>
+          <div class="pf-wrap">
+            <div class="pf-label">Product Image URL</div>
+            <input class="pf-input" type="text" data-field="image" placeholder="https://cdn.yourstore.com/image.jpg">
+          </div>
+        </div>
+      `;
+      list.appendChild(card);
+      updatePill();
+      hidePreview();
+    }
+
+    /* REMOVE PRODUCT */
+    function removeProduct(id) {
+      const card = document.getElementById(id);
+      if (card) card.remove();
+      renumberProducts();
+      updatePill();
+      hidePreview();
+    }
+
+    /* RENUMBER */
+    function renumberProducts() {
+      document.querySelectorAll('.product-card').forEach((card, i) => {
+        const numEl = card.querySelector('[id$="-num"]');
+        if (numEl) numEl.textContent = 'Product ' + (i + 1);
+      });
+    }
+
+    /* UPDATE PILL */
+    function updatePill() {
+      const pill  = document.getElementById('productsPill');
+      const count = document.querySelectorAll('.product-card').length;
+      if (count === 0) {
+        pill.textContent = 'Optional';
+        pill.classList.remove('has-products');
+      } else {
+        pill.textContent = count + ' product' + (count !== 1 ? 's' : '') + ' · ' + selectedColumns + ' col';
+        pill.classList.add('has-products');
+      }
+    }
+
+    /* COLLECT PRODUCTS */
+    function collectProducts() {
+      const cards = document.querySelectorAll('.product-card');
+      const out = [];
+      cards.forEach(card => {
+        const name  = card.querySelector('[data-field="name"]').value.trim();
+        const link  = card.querySelector('[data-field="link"]').value.trim();
+        const image = card.querySelector('[data-field="image"]').value.trim();
+        out.push({ name, link, image });
+      });
+      return out;
+    }
+
+    /* BUILD PROMPT */
+    function buildPrompt() {
+      const websiteUrl   = document.getElementById('websiteUrl').value.trim();
+      const heroImageUrl = document.getElementById('heroImageUrl').value.trim();
+      const emailCopy    = document.getElementById('emailCopy').value.trim();
       if (!websiteUrl || !emailCopy) return null;
 
       const heroLine = heroImageUrl
-        ? `\n- Hero image URL to use (place full-width at the top of the email, before the headline block): ${heroImageUrl}`
-        : `\n- No hero image provided — use a text/design-only hero section.`;
+        ? `- Hero image URL (render full-width before the headline block, line-height:0, font-size:0 on the td, no padding): ${heroImageUrl}`
+        : `- No hero image — design a branded text/graphic-only hero section instead.`;
 
-      const prompt = `You are an expert email HTML developer and brand designer. Your job is to convert the email copy below into a fully production-ready HTML email.
+      /* Products block */
+      const products = collectProducts();
+      let productsBlock = '';
+
+      if (products.length > 0) {
+        const colLabel = { 1: 'single column (full width)', 2: 'two equal columns (50% each)', 3: 'three equal columns (33% each)' }[selectedColumns];
+        const imgWidth = { 1: 560, 2: 270, 3: 173 }[selectedColumns];
+        const tdWidth  = { 1: '100%', 2: '50%', 3: '33.33%' }[selectedColumns];
+
+        const productLines = products.map((p, i) => {
+          const lines = [`  Product ${i + 1}:`];
+          if (p.name)  lines.push(`    Name:       ${p.name}`);
+          if (p.link)  lines.push(`    Link URL:   ${p.link}`);
+          if (p.image) lines.push(`    Image URL:  ${p.image}`);
+          if (!p.name && !p.link && !p.image) lines.push(`    (no data entered)`);
+          return lines.join('\n');
+        }).join('\n\n');
+
+        productsBlock = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FEATURED PRODUCTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Desktop layout: ${colLabel}
+Mobile layout:  ALWAYS single column — every product stacks vertically on mobile
+
+TABLE-BASED HTML implementation rules:
+- Use a single <tr> containing ${selectedColumns} <td> cell(s)
+- Each <td> width="${tdWidth}" style="width:${tdWidth};vertical-align:top;"
+- Add class="product-col" to every product <td>
+- In @media (max-width:620px): .product-col { display:block !important; width:100% !important; padding-bottom:24px !important; }
+- Each product card contains (in order):
+    1. Product image wrapped in an anchor: <a href="LINK"><img src="IMAGE_URL" width="${imgWidth}" style="width:100%;height:auto;display:block;" alt="NAME" border="0"></a>
+    2. Product name — styled to brand (font, size, color), with appropriate padding
+    3. A "Shop Now" CTA button linked to the product URL — styled to match the email's CTA button style
+- Between columns add a spacer <td> of 16px width (except for 1-column layout)
+- Wrap the entire products row in a section container matching the email's content padding
+
+Products:
+${productLines}`;
+      }
+
+      return `You are an expert email HTML developer and brand designer. Your task is to convert the email copy below into a fully production-ready HTML email.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 BRAND REFERENCE
@@ -498,82 +905,90 @@ BRAND REFERENCE
 Fetch and analyze this website to extract the brand's design system:
 ${websiteUrl}
 
-Use the following from the site to inform the entire email design:
-- Primary and accent colors (exact hex values where possible)
-- Typography: heading fonts, body fonts, font weights and sizes
+Extract and apply the following:
+- Primary, secondary, and accent colors (exact hex values)
+- Heading fonts and body fonts — import via Google Fonts if available
+- Font weights, sizes, and line-height style
 - Overall aesthetic tone (boho, minimal, luxury, playful, earthy, modern, etc.)
-- Spacing, border radius, and layout density style
-- Logo style — reproduce it as a TEXT-BASED logo (no image files), using the correct font, letter-spacing, capitalization, and color from the brand
+- Spacing rhythm, border-radius style, and layout density
+- Logo — reproduce as TEXT-BASED ONLY (no <img>), matching the brand's font, letter-spacing, capitalization, and color exactly
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ASSETS${heroLine}
-
+ASSETS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${heroLine}
+${productsBlock}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TECHNICAL REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. ALL layout and typography styles must be INLINE (style="...") — this is for email clients.
-2. Put hover states, media query mobile styles, and Google Fonts @import inside a <style> block in <head>.
-3. Use TABLE-BASED layout (not divs for structure) — standard for email rendering across clients.
-4. Max email width: 600px, centered in a full-width wrapper.
-5. All images must have: width="600" style="width:100%;max-width:600px;height:auto;display:block;"
-6. DO NOT use position:absolute anywhere.
-7. Text-based logo only — no <img> for the logo.
-8. Google Fonts import should be the first line in the <style> block.
-9. Mobile responsive via @media only screen and (max-width: 620px) — adjust font sizes, padding, stacking.
-10. Include hover styles in the <style> block for: CTA buttons, cards, footer links.
-11. Add a hidden preheader text div (display:none) using the preview text from the copy.
-12. Use a top announcement/nav bar and a branded footer with nav links, legal text, unsubscribe link.
-13. Decorative elements (dividers, ornamental type, accent bars) should reinforce the brand aesthetic.
+1.  ALL structural and typographic styles must be INLINE (style="...") — required for email clients.
+2.  Use a <style> block in <head> for: Google Fonts @import, hover states, and @media mobile rules only.
+3.  Use TABLE-BASED layout throughout — no div-based layout for structure.
+4.  Max email width: 600px, centered in a full-width background wrapper table.
+5.  All content images: width="600" style="width:100%;max-width:600px;height:auto;display:block;" border="0"
+6.  DO NOT use position:absolute anywhere in the email.
+7.  Text-based logo only — no <img> tag for the logo.
+8.  Google Fonts @import must be the first declaration in the <style> block.
+9.  Mobile breakpoint: @media only screen and (max-width:620px)
+    - Reduce font sizes for headlines and body
+    - Increase padding comfort on mobile
+    - Stack ALL multi-column layouts (including products) to single column
+10. Hover styles in <style> block for: CTA buttons (color shift + subtle lift), product cards, footer links.
+11. Hidden preheader div (display:none;max-height:0;overflow:hidden;) using the preview text from the copy.
+12. Include: top announcement/navigation bar + branded footer with nav links, copyright, unsubscribe link.
+13. Use decorative elements (dividers, ornamental characters, accent bars, pull quotes) to reinforce brand.
+14. CTA buttons: use inline styles for base state, hover class in <style> block.
+15. No placeholder lorem ipsum — use only the copy provided.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EMAIL COPY TO DESIGN
+EMAIL COPY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${emailCopy}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 OUTPUT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Return ONLY the complete, valid HTML file. No explanation, no markdown fences, no commentary. Start with <!DOCTYPE html> and end with </html>.`;
-
-      return prompt;
+Return ONLY the complete valid HTML document. No explanation, no markdown code fences, no commentary before or after. Begin with <!DOCTYPE html> and end with </html>.`;
     }
 
+    /* COPY TO CLIPBOARD */
     function copyPrompt() {
-      const prompt = buildPrompt();
-      const btn = document.getElementById('copyBtn');
+      const prompt  = buildPrompt();
+      const btn     = document.getElementById('copyBtn');
       const btnText = document.getElementById('copyBtnText');
 
       if (!prompt) {
-        // Shake if missing fields
-        btn.style.animation = 'none';
         btn.style.background = '#ef4444';
-        btnText.textContent = 'Fill in required fields first ↑';
+        btnText.textContent  = 'Fill in the required fields first ↑';
         setTimeout(() => {
           btn.style.background = '';
-          btnText.textContent = 'Copy Prompt + Email Copy';
-        }, 2000);
+          btnText.textContent  = 'Copy Prompt + Email Copy';
+        }, 2200);
         return;
       }
 
-      // Copy to clipboard
-      navigator.clipboard.writeText(prompt).then(() => {
+      const afterCopy = () => {
         btn.classList.add('copied');
-        btnText.textContent = '✓  Prompt Copied — Paste into Claude';
+        btnText.textContent = '✓  Copied — Paste into Claude';
 
         // Show preview
-        const panel = document.getElementById('previewPanel');
-        const previewContent = document.getElementById('previewContent');
-        const previewChars = document.getElementById('previewChars');
+        const panel   = document.getElementById('previewPanel');
+        const pre     = document.getElementById('previewContent');
+        const chars   = document.getElementById('previewChars');
 
-        // Render with basic syntax highlighting
-        const highlighted = prompt
-          .replace(/━+/g, '<span class="hl-key">$&</span>')
-          .replace(/^(BRAND REFERENCE|ASSETS|TECHNICAL REQUIREMENTS|EMAIL COPY TO DESIGN|OUTPUT)$/gm,
-                   '<span class="hl-key">$1</span>')
-          .replace(/(https?:\/\/[^\s\n]+)/g, '<span class="hl-val">$1</span>');
+        const esc = prompt
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
 
-        previewContent.innerHTML = highlighted;
-        previewChars.textContent = prompt.length.toLocaleString() + ' characters';
+        const highlighted = esc
+          .replace(/(━+)/g, '<span class="hl-key">$1</span>')
+          .replace(/^(BRAND REFERENCE|ASSETS|TECHNICAL REQUIREMENTS|FEATURED PRODUCTS|EMAIL COPY|OUTPUT)$/gm,
+                   '<span class="hl-key">$&</span>')
+          .replace(/(https?:\/\/[^\s\n&]+)/g, '<span class="hl-val">$1</span>');
+
+        pre.innerHTML   = highlighted;
+        chars.textContent = prompt.length.toLocaleString() + ' characters';
         panel.classList.add('visible');
         panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
@@ -581,28 +996,30 @@ Return ONLY the complete, valid HTML file. No explanation, no markdown fences, n
           btn.classList.remove('copied');
           btnText.textContent = 'Copy Prompt + Email Copy';
         }, 3500);
-      }).catch(() => {
-        // Fallback
+      };
+
+      navigator.clipboard.writeText(prompt).then(afterCopy).catch(() => {
+        // Fallback for older browsers
         const ta = document.createElement('textarea');
         ta.value = prompt;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        btnText.textContent = '✓  Copied!';
-        setTimeout(() => { btnText.textContent = 'Copy Prompt + Email Copy'; }, 2500);
+        afterCopy();
       });
     }
 
-    // Live char counter on textarea
-    document.getElementById('emailCopy').addEventListener('input', function() {
-      const panel = document.getElementById('previewPanel');
-      if (panel.classList.contains('visible')) {
-        panel.classList.remove('visible');
-      }
-    });
+    /* HIDE PREVIEW */
+    function hidePreview() {
+      document.getElementById('previewPanel').classList.remove('visible');
+    }
+
+    /* Hide preview on any copy/field change */
+    document.getElementById('emailCopy').addEventListener('input', hidePreview);
+    document.getElementById('websiteUrl').addEventListener('input', hidePreview);
+    document.getElementById('heroImageUrl').addEventListener('input', hidePreview);
   </script>
 
 </body>
