@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email HTML Generator — Prompt Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --surface: #141416;
+      --surface2: #1a1a1e;
+      --border: #2a2a30;
+      --border-bright: #3a3a44;
+      --accent: #6ee7b7;
+      --accent2: #a78bfa;
+      --accent3: #fbbf24;
+      --text: #e8e8f0;
+      --text-muted: #6b6b7a;
+      --text-dim: #3a3a44;
+      --mono: 'IBM Plex Mono', monospace;
+      --display: 'Syne', sans-serif;
+      --body: 'Inter', sans-serif;
+      --radius: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .logo {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: rgba(110,231,183,0.08);
+      border: 1px solid rgba(110,231,183,0.2);
+      padding: 4px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 56px 40px 80px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      margin-bottom: 56px;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 540px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 56px;
+    }
+
+    .step {
+      background: var(--surface);
+      padding: 24px 24px 28px;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .step-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .step:nth-child(1) .step-icon { background: rgba(110,231,183,0.1); }
+    .step:nth-child(2) .step-icon { background: rgba(167,139,250,0.1); }
+    .step:nth-child(3) .step-icon { background: rgba(251,191,36,0.1); }
+
+    /* ── FORM ── */
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    label .required {
+      color: var(--accent);
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    label .optional {
+      color: var(--text-dim);
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      background: var(--surface2);
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+
+    input[type="text"], input[type="url"], textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      width: 100%;
+      resize: vertical;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="url"]:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(110,231,183,0.08);
+    }
+
+    input[type="text"]::placeholder,
+    input[type="url"]::placeholder,
+    textarea::placeholder {
+      color: var(--text-dim);
+    }
+
+    textarea {
+      min-height: 260px;
+      font-size: 13px;
+    }
+
+    .field-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── COPY BUTTON ── */
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #0d0d0f;
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 18px 40px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .copy-btn:hover {
+      background: #4ade80;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(110,231,183,0.25);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    .copy-btn.copied {
+      background: #a78bfa;
+      color: #fff;
+    }
+
+    .copy-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── PREVIEW PANEL ── */
+    .preview-panel {
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: none;
+    }
+
+    .preview-panel.visible { display: block; }
+
+    .preview-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .preview-chars {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .preview-body {
+      background: var(--surface2);
+      padding: 24px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .preview-body pre {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.8;
+      color: #8b8b9e;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .preview-body pre .hl-key {
+      color: var(--accent);
+    }
+
+    .preview-body pre .hl-val {
+      color: #fbbf24;
+    }
+
+    .preview-body pre .hl-copy {
+      color: #e8e8f0;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 48px 0;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      header { padding: 16px 20px; }
+      main { padding: 36px 20px 60px; }
+      .steps { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="logo-dot"></span>
+      Email HTML Generator
+    </div>
+    <div class="badge">Prompt Builder</div>
+  </header>
+
+  <main>
+
+    <div class="hero">
+      <div class="hero-tag">AI-Powered Email Builder</div>
+      <h1>Turn copy into<br><span>production HTML</span><br>email campaigns.</h1>
+      <p class="hero-sub">Paste your email copy and your store URL. Click copy. Paste the prompt into Claude. Get a fully designed, inline-styled, mobile-responsive HTML email — matched to your brand.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">✍️</div>
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Fill in the fields</div>
+        <div class="step-desc">Paste your email copy and your website URL into the form below.</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">📋</div>
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Copy the prompt</div>
+        <div class="step-desc">Click the button — it copies the full prompt including your copy.</div>
+      </div>
+      <div class="step">
+        <div class="step-icon">✨</div>
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Paste into Claude</div>
+        <div class="step-desc">Paste it into Claude and get a fully designed email back.</div>
+      </div>
+    </div>
+
+    <div class="form-section">
+
+      <div class="field">
+        <label>Store / Brand Website URL <span class="required">*</span></label>
+        <input type="url" id="websiteUrl" placeholder="https://yourstore.com" autocomplete="off">
+        <div class="field-hint">Claude will fetch your site's design system — colors, fonts, aesthetic — and match the email to it.</div>
+      </div>
+
+      <div class="field">
+        <label>Hero Image URL <span class="optional">optional</span></label>
+        <input type="url" id="heroImageUrl" placeholder="https://example.com/your-hero-image.jpg" autocomplete="off">
+        <div class="field-hint">If you have a specific image to use as the hero, paste the direct URL here.</div>
+      </div>
+
+      <div class="field">
+        <label>Email Copy <span class="required">*</span></label>
+        <textarea id="emailCopy" placeholder="Paste your full email copy here — subject lines, preview text, sections, CTAs, all of it..."></textarea>
+        <div class="field-hint">Include everything: headline, body, CTAs, section names, PS notes. The more structure you provide, the better the output.</div>
+      </div>
+
+      <button class="copy-btn" id="copyBtn" onclick="copyPrompt()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span id="copyBtnText">Copy Prompt + Email Copy</span>
+      </button>
+
+    </div>
+
+    <div class="preview-panel" id="previewPanel">
+      <div class="preview-header">
+        <div class="preview-label">▸ Prompt Preview</div>
+        <div class="preview-chars" id="previewChars">0 characters</div>
+      </div>
+      <div class="preview-body">
+        <pre id="previewContent"></pre>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function buildPrompt() {
+      const websiteUrl  = document.getElementById('websiteUrl').value.trim();
+      const heroImageUrl = document.getElementById('heroImageUrl').value.trim();
+      const emailCopy   = document.getElementById('emailCopy').value.trim();
+
+      if (!websiteUrl || !emailCopy) return null;
+
+      const heroLine = heroImageUrl
+        ? `\n- Hero image URL to use (place full-width at the top of the email, before the headline block): ${heroImageUrl}`
+        : `\n- No hero image provided — use a text/design-only hero section.`;
+
+      const prompt = `You are an expert email HTML developer and brand designer. Your job is to convert the email copy below into a fully production-ready HTML email.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BRAND REFERENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Fetch and analyze this website to extract the brand's design system:
+${websiteUrl}
+
+Use the following from the site to inform the entire email design:
+- Primary and accent colors (exact hex values where possible)
+- Typography: heading fonts, body fonts, font weights and sizes
+- Overall aesthetic tone (boho, minimal, luxury, playful, earthy, modern, etc.)
+- Spacing, border radius, and layout density style
+- Logo style — reproduce it as a TEXT-BASED logo (no image files), using the correct font, letter-spacing, capitalization, and color from the brand
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ASSETS${heroLine}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TECHNICAL REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. ALL layout and typography styles must be INLINE (style="...") — this is for email clients.
+2. Put hover states, media query mobile styles, and Google Fonts @import inside a <style> block in <head>.
+3. Use TABLE-BASED layout (not divs for structure) — standard for email rendering across clients.
+4. Max email width: 600px, centered in a full-width wrapper.
+5. All images must have: width="600" style="width:100%;max-width:600px;height:auto;display:block;"
+6. DO NOT use position:absolute anywhere.
+7. Text-based logo only — no <img> for the logo.
+8. Google Fonts import should be the first line in the <style> block.
+9. Mobile responsive via @media only screen and (max-width: 620px) — adjust font sizes, padding, stacking.
+10. Include hover styles in the <style> block for: CTA buttons, cards, footer links.
+11. Add a hidden preheader text div (display:none) using the preview text from the copy.
+12. Use a top announcement/nav bar and a branded footer with nav links, legal text, unsubscribe link.
+13. Decorative elements (dividers, ornamental type, accent bars) should reinforce the brand aesthetic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EMAIL COPY TO DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${emailCopy}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OUTPUT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Return ONLY the complete, valid HTML file. No explanation, no markdown fences, no commentary. Start with <!DOCTYPE html> and end with </html>.`;
+
+      return prompt;
+    }
+
+    function copyPrompt() {
+      const prompt = buildPrompt();
+      const btn = document.getElementById('copyBtn');
+      const btnText = document.getElementById('copyBtnText');
+
+      if (!prompt) {
+        // Shake if missing fields
+        btn.style.animation = 'none';
+        btn.style.background = '#ef4444';
+        btnText.textContent = 'Fill in required fields first ↑';
+        setTimeout(() => {
+          btn.style.background = '';
+          btnText.textContent = 'Copy Prompt + Email Copy';
+        }, 2000);
+        return;
+      }
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(prompt).then(() => {
+        btn.classList.add('copied');
+        btnText.textContent = '✓  Prompt Copied — Paste into Claude';
+
+        // Show preview
+        const panel = document.getElementById('previewPanel');
+        const previewContent = document.getElementById('previewContent');
+        const previewChars = document.getElementById('previewChars');
+
+        // Render with basic syntax highlighting
+        const highlighted = prompt
+          .replace(/━+/g, '<span class="hl-key">$&</span>')
+          .replace(/^(BRAND REFERENCE|ASSETS|TECHNICAL REQUIREMENTS|EMAIL COPY TO DESIGN|OUTPUT)$/gm,
+                   '<span class="hl-key">$1</span>')
+          .replace(/(https?:\/\/[^\s\n]+)/g, '<span class="hl-val">$1</span>');
+
+        previewContent.innerHTML = highlighted;
+        previewChars.textContent = prompt.length.toLocaleString() + ' characters';
+        panel.classList.add('visible');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btnText.textContent = 'Copy Prompt + Email Copy';
+        }, 3500);
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = prompt;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btnText.textContent = '✓  Copied!';
+        setTimeout(() => { btnText.textContent = 'Copy Prompt + Email Copy'; }, 2500);
+      });
+    }
+
+    // Live char counter on textarea
+    document.getElementById('emailCopy').addEventListener('input', function() {
+      const panel = document.getElementById('previewPanel');
+      if (panel.classList.contains('visible')) {
+        panel.classList.remove('visible');
+      }
+    });
+  </script>
+
+</body>
+</html>
