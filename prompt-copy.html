@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Copy Prompt Generator — Boho Blanket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --espresso:     #2d1e14;
+    --brown:        #3d2c1e;
+    --amber:        #c0874a;
+    --amber-light:  #d4a96a;
+    --cream:        #faf7f3;
+    --cream-dark:   #f2ebe0;
+    --border:       #e0d0bc;
+    --text:         #2d1e14;
+    --text-muted:   #8a6650;
+    --text-light:   #b09880;
+    --white:        #ffffff;
+    --sage:         #5c7a5a;
+    --sage-bg:      #f0f6f0;
+    --navy:         #1c2d44;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background-color: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--espresso);
+    padding: 11px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #e8d5b7;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .topbar-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--amber);
+    text-transform: uppercase;
+  }
+
+  /* ── PAGE ── */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 52px 24px 80px;
+  }
+
+  .page-header { text-align: center; margin-bottom: 44px; }
+  .eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 700; color: var(--espresso);
+    line-height: 1.2; margin-bottom: 14px;
+  }
+  .page-title em { font-style: italic; color: var(--amber); }
+  .page-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-style: italic;
+    color: var(--text-muted); line-height: 1.65; max-width: 560px; margin: 0 auto;
+  }
+  .accent-line { width: 48px; height: 2px; background: var(--amber); margin: 16px auto 0; }
+
+  /* ── STEP BADGE ── */
+  .step-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; background: var(--amber); color: #fff;
+    font-size: 10px; font-weight: 700; border-radius: 50%;
+    flex-shrink: 0; margin-right: 8px;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 28px; }
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--amber); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 26px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--text-muted); text-transform: uppercase;
+  }
+  .field-hint { font-size: 11px; color: var(--text-light); margin-top: 2px; font-style: italic; }
+
+  input[type="text"], select, textarea {
+    font-family: 'Jost', sans-serif; font-size: 14px;
+    color: var(--text); background: var(--cream);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 14px; width: 100%; outline: none;
+    transition: border-color 0.15s; -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--amber); background: var(--white);
+  }
+  textarea { resize: vertical; line-height: 1.7; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  /* ── STRATEGY ROW PASTE ── */
+  .paste-area {
+    font-family: 'Jost', monospace; font-size: 13px;
+    background: var(--espresso); color: #e8d5b7;
+    border: 1px solid #5a3f30; border-radius: 8px;
+    padding: 16px 20px; width: 100%; outline: none;
+    min-height: 72px; resize: vertical; line-height: 1.7;
+    transition: border-color 0.15s;
+  }
+  .paste-area:focus { border-color: var(--amber); }
+  .paste-area::placeholder { color: #6b4c36; }
+
+  .parse-btn {
+    margin-top: 10px;
+    padding: 9px 22px;
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--brown); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .parse-btn:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
+
+  .parsed-fields {
+    margin-top: 16px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+
+  .parsed-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .parsed-item {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .parsed-item .pi-label { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
+  .parsed-item .pi-val { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .parsed-item.full { grid-column: 1 / -1; }
+  .parse-success {
+    font-size: 11px; color: var(--sage); font-weight: 600;
+    letter-spacing: 0.06em; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ── CHIPS ── */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 7px 14px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 12px; font-weight: 500; color: var(--text-muted);
+    background: var(--cream); cursor: pointer;
+    transition: all 0.15s; user-select: none; letter-spacing: 0.02em;
+  }
+  .chip:hover { border-color: var(--amber-light); color: var(--brown); }
+  .chip.active { background: var(--brown); border-color: var(--brown); color: #fff; font-weight: 600; }
+
+  /* ── TONE CARDS ── */
+  .tone-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tone-card {
+    border: 1px solid var(--border); border-radius: 8px; padding: 14px 12px;
+    cursor: pointer; text-align: center; transition: all 0.15s; background: var(--cream);
+    user-select: none;
+  }
+  .tone-card:hover { border-color: var(--amber-light); }
+  .tone-card.active { background: var(--brown); border-color: var(--brown); color: #fff; }
+  .tone-card .tc-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+  .tone-card .tc-name { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; }
+  .tone-card .tc-desc { font-size: 10px; color: var(--text-light); margin-top: 3px; line-height: 1.3; }
+  .tone-card.active .tc-desc { color: rgba(255,255,255,0.65); }
+
+  /* ── GENERATE BTN ── */
+  .generate-wrap { margin-top: 36px; text-align: center; }
+  .btn-generate {
+    padding: 16px 52px; background: var(--brown); color: #fff;
+    border: none; border-radius: 4px; font-family: 'Jost', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; cursor: pointer;
+    transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-generate:hover { background: var(--espresso); transform: translateY(-1px); }
+
+  /* ── OUTPUT ── */
+  .output-wrap { margin-top: 44px; display: none; }
+  .output-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; flex-wrap: wrap; gap: 10px;
+  }
+  .output-title {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--amber);
+  }
+  .copy-btns { display: flex; gap: 8px; }
+  .btn-copy {
+    padding: 8px 20px; background: var(--white);
+    border: 1px solid var(--border); border-radius: 4px;
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--brown); cursor: pointer; transition: all 0.15s;
+  }
+  .btn-copy:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
+  .btn-copy.copied { background: var(--sage); color: #fff; border-color: var(--sage); }
+
+  .output-box {
+    background: var(--espresso); color: #e8d5b7;
+    border-radius: 8px; padding: 28px 32px;
+    font-family: 'Jost', sans-serif; font-size: 13px;
+    font-weight: 300; line-height: 1.85;
+    white-space: pre-wrap; word-break: break-word;
+    max-height: 560px; overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .output-box::-webkit-scrollbar { width: 6px; }
+  .output-box::-webkit-scrollbar-track { background: transparent; }
+  .output-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 3px; }
+
+  .output-hint {
+    margin-top: 10px; text-align: center;
+    font-size: 12px; color: var(--text-light); font-style: italic;
+  }
+
+  .ornament { text-align: center; font-size: 12px; color: var(--amber); letter-spacing: 0.4em; margin-bottom: 32px; }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-left: 3px solid var(--amber); border-radius: 6px;
+    padding: 14px 18px; margin-bottom: 20px;
+    font-size: 12px; color: var(--text-muted); line-height: 1.7;
+  }
+  .info-box strong { color: var(--brown); font-weight: 600; }
+
+  /* ── COLUMN LEGEND ── */
+  .col-legend {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 6px; margin-bottom: 14px;
+  }
+  .col-leg-item {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 4px; padding: 6px 8px; text-align: center;
+  }
+  .col-leg-num { font-size: 9px; font-weight: 700; color: var(--amber); letter-spacing: 0.08em; }
+  .col-leg-name { font-size: 9px; color: var(--text-muted); margin-top: 2px; line-height: 1.2; }
+
+  .footer {
+    background: var(--espresso); text-align: center;
+    padding: 24px; font-size: 11px; color: #5a3f30; letter-spacing: 0.06em;
+  }
+  .footer span { color: #8a6650; }
+
+  @media (max-width: 640px) {
+    .row2, .row3, .parsed-grid { grid-template-columns: 1fr; }
+    .tone-grid { grid-template-columns: repeat(2, 1fr); }
+    .col-legend { grid-template-columns: repeat(3, 1fr); }
+    .page-title { font-size: 26px; }
+    .page { padding: 32px 16px 60px; }
+    .parsed-item.full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">Boho Blanket</span>
+  <span class="topbar-tag">Email Copy Prompt Generator</span>
+</div>
+
+<div class="page">
+
+  <div class="page-header">
+    <p class="eyebrow">AI Prompt Generator</p>
+    <h1 class="page-title">From Strategy Row<br><em>to Full Email Copy</em></h1>
+    <p class="page-subtitle">Paste one row from your strategy table. Configure your brand voice. Copy the prompt into any AI to get complete email copy, structure, and a hero image brief.</p>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <!-- ── STEP 1: PASTE STRATEGY ROW ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">1</span> Paste Your Strategy Row</div>
+
+    <div class="info-box">
+      <strong>Expected format:</strong> Copy and paste one row directly from your strategy table.<br>
+      Column order: <strong>No. · Email Name · Date · Promo Start · Promo End · Purpose · Subject Line · Preview Text · Segment · Product Focus · Send Time · Discount Code</strong>
+    </div>
+
+    <div class="col-legend">
+      <div class="col-leg-item"><div class="col-leg-num">#1</div><div class="col-leg-name">No.</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#2</div><div class="col-leg-name">Email Name</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#3</div><div class="col-leg-name">Date</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#4</div><div class="col-leg-name">Promo Start</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#5</div><div class="col-leg-name">Promo End</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#6</div><div class="col-leg-name">Purpose</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#7</div><div class="col-leg-name">Subject Line</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#8</div><div class="col-leg-name">Preview Text</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#9</div><div class="col-leg-name">Segment</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#10</div><div class="col-leg-name">Product Focus</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#11</div><div class="col-leg-name">Send Time</div></div>
+      <div class="col-leg-item"><div class="col-leg-num">#12</div><div class="col-leg-name">Discount Code</div></div>
+    </div>
+
+    <textarea class="paste-area" id="strategy-row" placeholder="1	May Maker Kickoff	May 4	May 4	May 6	Engagement & Retention	A New Month to Create	Fresh patterns for your May projects.	All Subscribers	New Patterns	9:00 AM	MAYMAKER" rows="3"></textarea>
+    <button class="parse-btn" onclick="parseRow()">→ &nbsp; Parse Row</button>
+
+    <div class="parsed-fields" id="parsed-fields">
+      <div class="parse-success">✓ &nbsp; Row parsed — review and edit fields below if needed</div>
+      <div class="parsed-grid" id="parsed-grid"></div>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: BRAND CONTEXT ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">2</span> Brand Context</div>
+    <div class="card">
+      <div class="row3" style="margin-bottom:14px;">
+        <div class="field">
+          <label class="field-label" for="brand-name">Brand Name</label>
+          <input type="text" id="brand-name" placeholder="e.g. Boho Blanket">
+        </div>
+        <div class="field">
+          <label class="field-label" for="brand-niche">Niche / Product Type</label>
+          <input type="text" id="brand-niche" placeholder="e.g. Quilt patterns, digital downloads">
+        </div>
+        <div class="field">
+          <label class="field-label" for="brand-url">Store URL (optional)</label>
+          <input type="text" id="brand-url" placeholder="e.g. bohoblanket.com">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label" for="brand-desc">Brand Description / Voice Notes <span style="text-transform:none;letter-spacing:0;font-size:10px;color:var(--text-light)">(optional but improves output)</span></label>
+        <textarea id="brand-desc" rows="2" placeholder="e.g. We sell modern boho quilt patterns to creative home sewers. Our tone is warm, encouraging, community-driven, and never pushy. We use first-person plural (we/our) and speak directly to the maker."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: TONE & STYLE ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">3</span> Email Tone & Style</div>
+    <div class="card">
+      <div class="tone-grid" id="tone-grid">
+        <div class="tone-card active" data-val="Warm & Encouraging — friendly, supportive, community-first. Feels like advice from a trusted fellow maker.">
+          <span class="tc-icon">🌿</span>
+          <div class="tc-name">Warm & Encouraging</div>
+          <div class="tc-desc">Friendly, community-first</div>
+        </div>
+        <div class="tone-card" data-val="Inspirational & Aspirational — paint a picture of the lifestyle. Focus on the feeling and transformation.">
+          <span class="tc-icon">✨</span>
+          <div class="tc-name">Inspirational</div>
+          <div class="tc-desc">Lifestyle-forward, aspirational</div>
+        </div>
+        <div class="tone-card" data-val="Direct & Urgency-Driven — clear, concise, action-oriented. Makes the offer and deadline unmissable.">
+          <span class="tc-icon">⚡</span>
+          <div class="tc-name">Direct & Urgent</div>
+          <div class="tc-desc">Clear, action-focused</div>
+        </div>
+        <div class="tone-card" data-val="Storytelling & Narrative — open with a scene or story. Pull the reader in before revealing the offer.">
+          <span class="tc-icon">📖</span>
+          <div class="tc-name">Storytelling</div>
+          <div class="tc-desc">Scene-setting, narrative arc</div>
+        </div>
+        <div class="tone-card" data-val="Educational & Informative — teach something valuable. Position the brand as the expert guide.">
+          <span class="tc-icon">🎓</span>
+          <div class="tc-name">Educational</div>
+          <div class="tc-desc">Teach, guide, inform</div>
+        </div>
+        <div class="tone-card" data-val="Playful & Conversational — light, fun, with personality. Uses humor, casual phrasing, and emojis where fitting.">
+          <span class="tc-icon">🎨</span>
+          <div class="tc-name">Playful</div>
+          <div class="tc-desc">Fun, casual, personality-led</div>
+        </div>
+        <div class="tone-card" data-val="FOMO & Social Proof — lead with what others are doing or buying. Creates urgency through community validation.">
+          <span class="tc-icon">👀</span>
+          <div class="tc-name">FOMO / Social Proof</div>
+          <div class="tc-desc">Community-driven urgency</div>
+        </div>
+        <div class="tone-card" data-val="Exclusive & VIP — speak to the reader as a valued insider. Emphasize special access, early reveal, or loyalty rewards.">
+          <span class="tc-icon">👑</span>
+          <div class="tc-name">Exclusive / VIP</div>
+          <div class="tc-desc">Insider, loyalty-focused</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: EMAIL ELEMENTS ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">4</span> Email Elements to Include</div>
+    <div class="card">
+      <div class="chip-grid" id="elements-grid">
+        <div class="chip active" data-val="Multiple subject line options (at least 4 variations)">Subject line options</div>
+        <div class="chip active" data-val="Preview / preheader text">Preview text</div>
+        <div class="chip active" data-val="Personalized opening (Hi [First Name])">Personalized opening</div>
+        <div class="chip active" data-val="Hero section headline + subhead">Hero headline</div>
+        <div class="chip active" data-val="Body copy (2–3 paragraphs)">Body copy</div>
+        <div class="chip active" data-val="Primary CTA button with link placeholder">Primary CTA button</div>
+        <div class="chip" data-val="Secondary CTA or soft nudge link">Secondary CTA</div>
+        <div class="chip active" data-val="Closing sign-off from the team">Sign-off</div>
+        <div class="chip active" data-val="P.S. line (curiosity teaser or soft engagement prompt)">P.S. line</div>
+        <div class="chip" data-val="Product feature section (name, brief description, CTA)">Product feature block</div>
+        <div class="chip" data-val="Social proof or community quote">Social proof</div>
+        <div class="chip active" data-val="Hero image prompt (detailed description for AI image generation or photographer brief)">Hero image prompt</div>
+        <div class="chip" data-val="Discount code callout block">Discount code block</div>
+        <div class="chip" data-val="Countdown urgency copy (e.g. 'Ends in 48 hours')">Urgency / countdown copy</div>
+        <div class="chip" data-val="Soft engagement question (reply prompt)">Reply engagement question</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 5: OUTPUT FORMAT ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">5</span> Output Preferences</div>
+    <div class="card">
+      <div class="row2">
+        <div class="field">
+          <label class="field-label" for="copy-length">Email Copy Length</label>
+          <select id="copy-length">
+            <option value="Short (under 150 words of body copy — punchy and scannable)">Short — punchy & scannable</option>
+            <option value="Medium (150–300 words of body copy — balanced detail and brevity)" selected>Medium — balanced</option>
+            <option value="Long (300–500 words of body copy — rich narrative and detail)">Long — rich narrative</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="subject-count">Number of Subject Line Variations</label>
+          <select id="subject-count">
+            <option value="3">3 variations</option>
+            <option value="4" selected>4 variations</option>
+            <option value="5">5 variations</option>
+            <option value="6">6 variations</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:14px;" class="field">
+        <label class="field-label" for="extra-notes">Additional Notes for This Email <span style="text-transform:none;letter-spacing:0;font-size:10px;color:var(--text-light)">(optional)</span></label>
+        <textarea id="extra-notes" rows="2" placeholder="e.g. Mention the new Morning Sunshine pattern specifically. Avoid being too sales-heavy — this is a nurture email. Reference spring season."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GENERATE ── -->
+  <div class="generate-wrap">
+    <button class="btn-generate" onclick="generatePrompt()">
+      <span>→</span> Generate Email Copy Prompt
+    </button>
+  </div>
+
+  <!-- ── OUTPUT ── -->
+  <div class="output-wrap" id="output-wrap">
+    <div class="output-header">
+      <span class="output-title">Your AI Prompt — Ready to Copy</span>
+      <div class="copy-btns">
+        <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+      </div>
+    </div>
+    <div class="output-box" id="output-box"></div>
+    <p class="output-hint">Paste into ChatGPT, Claude, Gemini, or any AI to get your complete email copy, structure &amp; hero image brief.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>BOHO BLANKET</span> &nbsp;·&nbsp; Email Copy Prompt Generator &nbsp;·&nbsp; bohoblanket.com
+</div>
+
+<script>
+  // ── Parsed field references
+  const COLS = [
+    { key: 'num',         label: 'No.' },
+    { key: 'name',        label: 'Email Name' },
+    { key: 'date',        label: 'Send Date' },
+    { key: 'promoStart',  label: 'Promo Start' },
+    { key: 'promoEnd',    label: 'Promo End' },
+    { key: 'purpose',     label: 'Purpose' },
+    { key: 'subject',     label: 'Subject Line (draft)' },
+    { key: 'preview',     label: 'Preview Text' },
+    { key: 'segment',     label: 'Segment' },
+    { key: 'product',     label: 'Product Focus' },
+    { key: 'sendTime',    label: 'Send Time' },
+    { key: 'code',        label: 'Discount Code' },
+  ];
+
+  let parsed = {};
+
+  function parseRow() {
+    const raw = document.getElementById('strategy-row').value.trim();
+    if (!raw) return alert('Please paste your strategy row first.');
+
+    // Split by tab, or multiple spaces, or pipe
+    let cols;
+    if (raw.includes('\t')) {
+      cols = raw.split('\t');
+    } else if (raw.includes('|')) {
+      cols = raw.split('|').map(s => s.trim()).filter(Boolean);
+    } else {
+      cols = raw.split(/  +/);
+    }
+
+    // Map into object
+    parsed = {};
+    COLS.forEach((col, i) => {
+      parsed[col.key] = (cols[i] || '').trim();
+    });
+
+    renderParsedGrid();
+    const pf = document.getElementById('parsed-fields');
+    pf.style.display = 'block';
+    pf.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function renderParsedGrid() {
+    const grid = document.getElementById('parsed-grid');
+    const fullCols = new Set(['subject', 'preview', 'purpose']);
+    grid.innerHTML = COLS.map(col => {
+      const full = fullCols.has(col.key) ? ' full' : '';
+      return `
+        <div class="parsed-item${full}">
+          <div class="pi-label">${col.label}</div>
+          <input type="text" style="font-size:13px;padding:6px 10px;background:var(--white);"
+            id="pf-${col.key}" value="${escHtml(parsed[col.key] || '')}"
+            placeholder="—"
+            oninput="parsed['${col.key}'] = this.value">
+        </div>`;
+    }).join('');
+  }
+
+  function escHtml(s) {
+    return s.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function getParsed(key) {
+    // Try live input first, then parsed object
+    const el = document.getElementById('pf-' + key);
+    return el ? el.value.trim() : (parsed[key] || '');
+  }
+
+  // ── Tone single-select
+  document.querySelectorAll('#tone-grid .tone-card').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#tone-grid .tone-card').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+    });
+  });
+
+  // ── Elements multi-select
+  document.querySelectorAll('#elements-grid .chip').forEach(c => {
+    c.addEventListener('click', () => c.classList.toggle('active'));
+  });
+
+  // ── Generate
+  function generatePrompt() {
+    const brand      = document.getElementById('brand-name').value.trim() || 'the brand';
+    const niche      = document.getElementById('brand-niche').value.trim();
+    const brandUrl   = document.getElementById('brand-url').value.trim();
+    const brandDesc  = document.getElementById('brand-desc').value.trim();
+    const tone       = document.querySelector('#tone-grid .tone-card.active')?.dataset.val || 'Warm & Encouraging';
+    const elements   = [...document.querySelectorAll('#elements-grid .chip.active')].map(c => c.dataset.val);
+    const copyLen    = document.getElementById('copy-length').value;
+    const subCount   = document.getElementById('subject-count').value;
+    const extraNotes = document.getElementById('extra-notes').value.trim();
+
+    // Pull strategy fields (from parsed inputs or raw)
+    const hasParsed = Object.keys(parsed).length > 0;
+    const emailName   = hasParsed ? getParsed('name')       : '—';
+    const sendDate    = hasParsed ? getParsed('date')        : '—';
+    const promoStart  = hasParsed ? getParsed('promoStart')  : '—';
+    const promoEnd    = hasParsed ? getParsed('promoEnd')    : '—';
+    const purpose     = hasParsed ? getParsed('purpose')     : '—';
+    const subjectDraft= hasParsed ? getParsed('subject')     : '—';
+    const previewDraft= hasParsed ? getParsed('preview')     : '—';
+    const segment     = hasParsed ? getParsed('segment')     : '—';
+    const product     = hasParsed ? getParsed('product')     : '—';
+    const sendTime    = hasParsed ? getParsed('sendTime')    : '—';
+    const discCode    = hasParsed ? getParsed('code')        : '—';
+
+    const hasPromo = discCode && discCode.toLowerCase() !== 'none' && discCode !== '—' && discCode !== '';
+    const hasPromoWindow = promoStart !== '—' && promoEnd !== '—' && promoStart !== '' && promoEnd !== '';
+
+    const elemList = elements.length
+      ? elements.map((e, i) => `${i + 1}. ${e}`).join('\n')
+      : '1. Subject line options\n2. Body copy\n3. CTA button\n4. Sign-off\n5. Hero image prompt';
+
+    const prompt = `You are an expert email copywriter for ${brand}${niche ? ', a brand in the ' + niche + ' space' : ''}.${brandUrl ? ' Website: ' + brandUrl : ''}
+
+Your task is to write a complete email campaign based on the strategy brief below.
+
+══════════════════════════════════════
+BRAND VOICE & CONTEXT
+══════════════════════════════════════
+${brandDesc || `${brand} is a creative brand. Write in a tone that feels personal, genuine, and true to the brand's community.`}
+
+Email Tone: ${tone}
+
+══════════════════════════════════════
+CAMPAIGN BRIEF
+══════════════════════════════════════
+Campaign Name:    ${emailName}
+Send Date:        ${sendDate}${hasPromoWindow ? `
+Promo Window:     ${promoStart} → ${promoEnd}` : ''}
+Purpose:          ${purpose}
+Target Segment:   ${segment}
+Product Focus:    ${product}
+Send Time:        ${sendTime}${hasPromo ? `
+Discount Code:    ${discCode}` : ''}
+Draft Subject:    ${subjectDraft}
+Draft Preview:    ${previewDraft}
+
+══════════════════════════════════════
+WHAT TO WRITE
+══════════════════════════════════════
+Please produce the following elements, clearly labeled:
+
+${elemList}
+
+══════════════════════════════════════
+OUTPUT GUIDELINES
+══════════════════════════════════════
+- Body copy length: ${copyLen}
+- Write ${subCount} subject line variations with different angles: curiosity, benefit-driven, urgency, personalization, and/or question-based
+- Each subject line should be under 50 characters where possible
+- Preview text: max 90 characters, complements (not repeats) the subject line
+- Use [First Name] as the personalization tag in the opening
+- CTA buttons: write the label as action-oriented text (e.g. "→ Shop the Collection", "→ Grab My Discount")
+- Use placeholder links like [PRODUCT LINK] or [SHOP NOW LINK] — do not invent real URLs
+${hasPromo ? `- Feature the discount code "${discCode}" prominently — in the body and optionally in a styled callout block` : '- This is a non-promotional email — do not lead with a hard sell. Focus on value, story, or education first.'}
+- The hero image prompt should be a detailed, vivid description suitable for AI image generation (Midjourney, DALL-E, Firefly) or as a photographer brief. It must reflect the email's theme, season, and product focus.
+- Label every section clearly (e.g. SUBJECT LINES, PREVIEW TEXT, HERO SECTION, OPENING, BODY, CTA, CLOSING, P.S., HERO IMAGE PROMPT)
+- Do not add commentary or meta-notes — output only the ready-to-use copy${extraNotes ? `
+
+══════════════════════════════════════
+ADDITIONAL NOTES
+══════════════════════════════════════
+${extraNotes}` : ''}`;
+
+    document.getElementById('output-box').textContent = prompt;
+    const wrap = document.getElementById('output-wrap');
+    wrap.style.display = 'block';
+    document.getElementById('copy-btn').textContent = 'Copy Prompt';
+    document.getElementById('copy-btn').classList.remove('copied');
+    setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+
+  // ── Copy
+  function copyPrompt() {
+    const text = document.getElementById('output-box').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+</script>
+</body>
+</html>
