@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Strategy Prompt Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --espresso: #2d1e14;
+    --brown: #3d2c1e;
+    --amber: #c0874a;
+    --amber-light: #d4a96a;
+    --cream: #faf7f3;
+    --cream-dark: #f2ebe0;
+    --border: #e0d0bc;
+    --text: #2d1e14;
+    --text-muted: #8a6650;
+    --text-light: #b09880;
+    --white: #ffffff;
+    --sage: #5c7a5a;
+    --navy: #1c2d44;
+    --success-bg: #f0f7ee;
+    --success-border: #7fb87a;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background-color: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--espresso);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #e8d5b7;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .topbar-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--amber);
+    text-transform: uppercase;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--espresso);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .page-title em { font-style: italic; color: var(--amber); }
+  .page-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .accent-line {
+    width: 48px;
+    height: 2px;
+    background: var(--amber);
+    margin: 16px auto 0;
+  }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 28px; }
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  input[type="text"],
+  input[type="month"],
+  select,
+  textarea {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--amber);
+    background: var(--white);
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  select { cursor: pointer; }
+
+  /* ── CHIP TOGGLES ── */
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    letter-spacing: 0.02em;
+  }
+  .chip:hover { border-color: var(--amber-light); color: var(--brown); }
+  .chip.active {
+    background: var(--brown);
+    border-color: var(--brown);
+    color: #fff;
+    font-weight: 600;
+  }
+  .chip.active-sage {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: #fff;
+    font-weight: 600;
+  }
+  .chip.active-navy {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* ── CUSTOM GOAL ADD ── */
+  .add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .add-row input { flex: 1; }
+  .btn-add {
+    padding: 9px 18px;
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--brown);
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-add:hover { background: var(--border); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--brown);
+  }
+  .tag-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-light);
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+  }
+  .tag-remove:hover { color: #b94040; }
+
+  /* ── GENERATE BUTTON ── */
+  .generate-wrap { margin-top: 36px; text-align: center; }
+  .btn-generate {
+    padding: 16px 48px;
+    background: var(--brown);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-generate:hover { background: var(--espresso); transform: translateY(-1px); }
+
+  /* ── OUTPUT ── */
+  .output-wrap {
+    margin-top: 40px;
+    display: none;
+  }
+  .output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .output-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .btn-copy {
+    padding: 8px 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brown);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-copy:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
+  .btn-copy.copied { background: var(--sage); color: #fff; border-color: var(--sage); }
+
+  .output-box {
+    background: var(--espresso);
+    color: #e8d5b7;
+    border-radius: 8px;
+    padding: 24px 28px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 520px;
+    overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .output-box::-webkit-scrollbar { width: 6px; }
+  .output-box::-webkit-scrollbar-track { background: transparent; }
+  .output-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+  .output-hint {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  /* ── ORNAMENT ── */
+  .ornament {
+    text-align: center;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.4em;
+    margin-bottom: 28px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--espresso);
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: #5a3f30;
+    letter-spacing: 0.06em;
+  }
+  .footer span { color: #8a6650; }
+
+  @media (max-width: 600px) {
+    .row2, .row3 { grid-template-columns: 1fr; }
+    .page-title { font-size: 26px; }
+    .page { padding: 32px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">Boho Blanket</span>
+  <span class="topbar-tag">Email Strategy Tool</span>
+</div>
+
+<div class="page">
+
+  <div class="page-header">
+    <p class="eyebrow">AI Prompt Generator</p>
+    <h1 class="page-title">Build Your Email<br><em>Strategy in Minutes</em></h1>
+    <p class="page-subtitle">Fill in the form below. Copy the generated prompt and paste it into ChatGPT, Claude, Gemini, or any AI of your choice.</p>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <!-- ── BRAND & MONTH ── -->
+  <div class="section">
+    <div class="section-label">Brand & Target Month</div>
+    <div class="card">
+      <div class="row2">
+        <div class="field">
+          <label class="field-label" for="brand">Brand / Store Name</label>
+          <input type="text" id="brand" placeholder="e.g. Boho Blanket">
+        </div>
+        <div class="field">
+          <label class="field-label" for="strat-month">Strategy Month</label>
+          <input type="month" id="strat-month">
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="field">
+          <label class="field-label" for="niche">Store Niche / Industry</label>
+          <input type="text" id="niche" placeholder="e.g. Quilt patterns, digital downloads, handmade crafts">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GOALS ── -->
+  <div class="section">
+    <div class="section-label">Campaign Goals</div>
+    <div class="card">
+      <div class="chip-grid" id="goal-grid">
+        <div class="chip active" data-val="Increase revenue">Increase revenue</div>
+        <div class="chip" data-val="Customer retention">Customer retention</div>
+        <div class="chip" data-val="Win back lapsed buyers">Win-back lapsed buyers</div>
+        <div class="chip" data-val="Grow new subscribers">Grow new subscribers</div>
+        <div class="chip" data-val="Promote a sale or discount">Run a sale / discount</div>
+        <div class="chip" data-val="Increase average order value">Increase AOV</div>
+        <div class="chip" data-val="Build brand loyalty">Build brand loyalty</div>
+        <div class="chip" data-val="Drive product education">Product education</div>
+        <div class="chip" data-val="Seasonal promotion">Seasonal promotion</div>
+        <div class="chip" data-val="Community building">Community building</div>
+        <div class="chip" data-val="Upsell / cross-sell existing customers">Upsell / cross-sell</div>
+        <div class="chip" data-val="Recover abandoned carts">Recover abandoned carts</div>
+      </div>
+      <div class="add-row">
+        <input type="text" id="custom-goal-input" placeholder="Add a custom goal...">
+        <button class="btn-add" onclick="addCustomGoal()">+ Add</button>
+      </div>
+      <div class="tags" id="custom-goals-list"></div>
+    </div>
+  </div>
+
+  <!-- ── SEND FREQUENCY ── -->
+  <div class="section">
+    <div class="section-label">Send Frequency</div>
+    <div class="card">
+      <div class="chip-grid" id="freq-grid">
+        <div class="chip" data-val="Every day">Every day</div>
+        <div class="chip active" data-val="Every other day">Every other day</div>
+        <div class="chip" data-val="3 times per week">3× per week</div>
+        <div class="chip" data-val="2 times per week">2× per week</div>
+        <div class="chip" data-val="Once per week">Weekly</div>
+        <div class="chip" data-val="custom">Custom cadence</div>
+      </div>
+      <div id="custom-freq-wrap" style="display:none; margin-top:10px;">
+        <input type="text" id="custom-freq" placeholder="Describe your cadence, e.g. Mon + Thu + Sat">
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEND TIME ── -->
+  <div class="section">
+    <div class="section-label">Preferred Send Time (Subscriber's Local Time)</div>
+    <div class="card">
+      <div class="chip-grid" id="time-grid">
+        <div class="chip" data-val="6–8 AM (early morning)">6–8 AM</div>
+        <div class="chip active" data-val="9–11 AM (mid-morning)">9–11 AM</div>
+        <div class="chip" data-val="12–2 PM (midday)">12–2 PM</div>
+        <div class="chip" data-val="5–7 PM (early evening)">5–7 PM</div>
+        <div class="chip" data-val="8–10 PM (evening)">8–10 PM</div>
+        <div class="chip" data-val="Based on data analysis">Let AI decide</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEGMENTS ── -->
+  <div class="section">
+    <div class="section-label">Audience Segments to Plan For</div>
+    <div class="card">
+      <div class="chip-grid" id="seg-grid">
+        <div class="chip active" data-val="All subscribers">All subscribers</div>
+        <div class="chip" data-val="VIP / repeat buyers">VIP / repeat buyers</div>
+        <div class="chip" data-val="First-time buyers">First-time buyers</div>
+        <div class="chip" data-val="Lapsed subscribers (90+ days inactive)">Lapsed (90+ days)</div>
+        <div class="chip" data-val="Browse / cart abandoners">Browse abandoners</div>
+        <div class="chip" data-val="Non-openers">Non-openers</div>
+        <div class="chip" data-val="New subscribers (joined last 30 days)">New subscribers</div>
+        <div class="chip" data-val="Engaged subscribers (opened last 30 days)">Highly engaged</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DISCOUNTS ── -->
+  <div class="section">
+    <div class="section-label">Promotions & Discounts</div>
+    <div class="card">
+      <div class="row2">
+        <div class="field">
+          <label class="field-label" for="discount">Discount Range</label>
+          <select id="discount">
+            <option value="No discounts planned">No discounts planned</option>
+            <option value="5–10% off">5–10% off</option>
+            <option value="15–20% off">15–20% off</option>
+            <option value="25–30% off">25–30% off</option>
+            <option value="BOGO or bundle deals">BOGO / bundle deals</option>
+            <option value="Free shipping offers">Free shipping</option>
+            <option value="Flash sales (24–48 hr)">Flash sales</option>
+            <option value="A mix of discounts and non-discount campaigns">Mix of discount + non-discount</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="discount-style">Discount Code Style</label>
+          <select id="discount-style">
+            <option value="No codes needed">No codes needed</option>
+            <option value="Suggest generic codes (e.g. SUMMER20)">Suggest generic codes</option>
+            <option value="Segment-specific codes (e.g. VIP20, WINBACK15)">Segment-specific codes</option>
+            <option value="Event-based codes (e.g. MEMORIAL25)">Event-based codes</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAST DATA ── -->
+  <div class="section">
+    <div class="section-label">Last 90-Day Performance Data</div>
+    <div class="card">
+      <p style="font-size:12px;color:var(--text-light);margin-bottom:12px;font-style:italic;">Paste any metrics you have. The AI will use this to optimize send days, subject lines, and product focus.</p>
+      <textarea id="past-data" placeholder="e.g.&#10;- Average open rate: 34%&#10;- Best send day: Tuesday (42% open rate)&#10;- Worst day: Sunday (18%)&#10;- Top product: Morning Sunshine Quilt Pattern&#10;- Best subject line type: curiosity / question style&#10;- Revenue from email last 90 days: $4,200&#10;- Lapsed segment size: ~320 subscribers&#10;- Most clicked CTA: 'Shop Now' button"></textarea>
+    </div>
+  </div>
+
+  <!-- ── ADDITIONAL CONTEXT ── -->
+  <div class="section">
+    <div class="section-label">Known Events, Launches & Notes</div>
+    <div class="card">
+      <textarea id="extras" placeholder="e.g.&#10;- New pattern launch: June 10&#10;- Memorial Day sale: May 24–26&#10;- Collaborating with a quilting influencer in June&#10;- Bundle deal planned for end of month&#10;- Avoid emailing on June 15 (team away)"></textarea>
+    </div>
+  </div>
+
+  <!-- ── GENERATE ── -->
+  <div class="generate-wrap">
+    <button class="btn-generate" onclick="generatePrompt()">→ &nbsp; Generate My Strategy Prompt</button>
+  </div>
+
+  <!-- ── OUTPUT ── -->
+  <div class="output-wrap" id="output-wrap">
+    <div class="output-header">
+      <span class="output-title">Your AI Prompt — Ready to Copy</span>
+      <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+    </div>
+    <div class="output-box" id="output-box"></div>
+    <p class="output-hint">Paste this into ChatGPT, Claude, Gemini, or any AI assistant to generate your full strategy table.</p>
+  </div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  <span>BOHO BLANKET</span> &nbsp;·&nbsp; Email Strategy Prompt Generator &nbsp;·&nbsp; bohoblanket.com
+</div>
+
+<script>
+  const customGoals = [];
+
+  // ── Single-select chip groups
+  document.querySelectorAll('#freq-grid .chip').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#freq-grid .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      document.getElementById('custom-freq-wrap').style.display = c.dataset.val === 'custom' ? 'block' : 'none';
+    });
+  });
+
+  document.querySelectorAll('#time-grid .chip').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#time-grid .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+    });
+  });
+
+  // ── Multi-select chip groups
+  ['#goal-grid', '#seg-grid'].forEach(sel => {
+    document.querySelectorAll(sel + ' .chip').forEach(c => {
+      c.addEventListener('click', () => c.classList.toggle('active'));
+    });
+  });
+
+  // ── Custom goals
+  function addCustomGoal() {
+    const inp = document.getElementById('custom-goal-input');
+    const val = inp.value.trim();
+    if (!val) return;
+    customGoals.push(val);
+    renderTags();
+    inp.value = '';
+  }
+  document.getElementById('custom-goal-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); addCustomGoal(); }
+  });
+  function removeGoal(i) { customGoals.splice(i, 1); renderTags(); }
+  function renderTags() {
+    document.getElementById('custom-goals-list').innerHTML = customGoals.map((g, i) =>
+      `<span class="tag">${g}<button class="tag-remove" onclick="removeGoal(${i})">×</button></span>`
+    ).join('');
+  }
+
+  // ── Helpers
+  function getChips(selector) {
+    return [...document.querySelectorAll(selector + ' .chip.active')].map(c => c.dataset.val);
+  }
+  function formatMonth(val) {
+    if (!val) return '[Month not specified]';
+    const d = new Date(val + '-02');
+    return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  // ── Generate
+  function generatePrompt() {
+    const brand   = document.getElementById('brand').value.trim() || '[Your Brand]';
+    const month   = formatMonth(document.getElementById('strat-month').value);
+    const niche   = document.getElementById('niche').value.trim();
+    const goals   = [...getChips('#goal-grid'), ...customGoals];
+    const freqEl  = document.querySelector('#freq-grid .chip.active');
+    let   freq    = freqEl?.dataset.val || 'Every other day';
+    if (freq === 'custom') freq = document.getElementById('custom-freq').value.trim() || 'custom cadence';
+    const time    = document.querySelector('#time-grid .chip.active')?.dataset.val || '9–11 AM (mid-morning)';
+    const segs    = getChips('#seg-grid');
+    const disc    = document.getElementById('discount').value;
+    const codeStyle = document.getElementById('discount-style').value;
+    const pastData  = document.getElementById('past-data').value.trim();
+    const extras    = document.getElementById('extras').value.trim();
+
+    const goalStr = goals.length ? goals.join(', ') : 'Increase revenue';
+    const segStr  = segs.length  ? segs.join(', ')  : 'All subscribers';
+
+    const prompt = `You are an expert email marketing strategist. Your task is to create a detailed, data-informed email marketing calendar for the brand described below.
+
+══════════════════════════════════════
+BRAND INFORMATION
+══════════════════════════════════════
+Brand Name: ${brand}
+${niche ? `Niche / Industry: ${niche}` : ''}
+Strategy Month: ${month}
+
+══════════════════════════════════════
+CAMPAIGN GOALS
+══════════════════════════════════════
+${goalStr}
+
+══════════════════════════════════════
+SEND CONFIGURATION
+══════════════════════════════════════
+Send Frequency: ${freq}
+Preferred Send Time: ${time} (subscriber's local time)
+Audience Segments to Plan For: ${segStr}
+Promotions / Discounts: ${disc}
+Discount Code Style: ${codeStyle}
+
+${pastData ? `══════════════════════════════════════
+LAST 90-DAY PERFORMANCE DATA
+══════════════════════════════════════
+${pastData}
+
+` : ''}${extras ? `══════════════════════════════════════
+KNOWN EVENTS, LAUNCHES & NOTES
+══════════════════════════════════════
+${extras}
+
+` : ''}══════════════════════════════════════
+YOUR TASK
+══════════════════════════════════════
+
+Step 1 — Analyze the data
+If performance data was provided above, identify:
+- Best and worst send days / times
+- Subject line patterns that drove high open rates
+- Top-performing products or categories
+- Segments with the most opportunity
+- Any notable gaps or risks to address
+
+Step 2 — Identify key dates
+List all relevant holidays, shopping events, observances, and cultural moments for ${month} that apply to this brand's niche and audience. Factor these into the email calendar.
+
+Step 3 — Build the email calendar
+Output a complete email strategy table for the entire month of ${month}, following the send frequency of "${freq}".
+
+The table MUST use these exact column headers:
+
+| No. | Email Name | Date | Promo Start | Promo End | Purpose | Subject Line (draft) | Preview Text | Segment | Product Focus | Send Time | Discount Code |
+
+Column definitions:
+- No.: Sequential email number for the month
+- Email Name: Short internal name for the campaign (e.g. "Summer Kick-Off", "Memorial Day Flash Sale")
+- Date: The exact send date (e.g. June 3, 2025)
+- Promo Start: Date the promotion begins (same as send date if no pre-promo; leave blank if no promo)
+- Promo End: Date the promotion expires (leave blank if evergreen)
+- Purpose: Primary goal of this email (e.g. Nurture, Sale, Win-back, New launch, Re-engagement)
+- Subject Line (draft): A compelling, ready-to-use subject line — no placeholders
+- Preview Text: A complementary preview/preheader text (max 90 characters)
+- Segment: Which audience receives this email
+- Product Focus: Specific product(s) or category to feature (or "General brand" if none)
+- Send Time: Recommended send time for this specific email
+- Discount Code: Suggested promo code (or "None" if no discount)
+
+Step 4 — Strategic rationale
+After the table, write a brief section titled "Strategic Notes" with 5–7 bullet points explaining:
+- Why the cadence was structured this way
+- Key opportunities in the calendar (high-revenue moments)
+- Segmentation logic used
+- Subject line style choices
+- Any risks or things to A/B test
+
+Make the strategy feel tailored, specific, and actionable — not generic. Every email in the table should have a clear purpose that ties back to the stated goals.`;
+
+    document.getElementById('output-box').textContent = prompt;
+    const wrap = document.getElementById('output-wrap');
+    wrap.style.display = 'block';
+    document.getElementById('copy-btn').textContent = 'Copy Prompt';
+    document.getElementById('copy-btn').classList.remove('copied');
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Copy
+  function copyPrompt() {
+    const text = document.getElementById('output-box').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+</script>
+</body>
+</html>
