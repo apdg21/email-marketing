@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign Performance Analysis Prompt — Boho Blanket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --espresso:    #2d1e14;
+    --brown:       #3d2c1e;
+    --amber:       #c0874a;
+    --amber-light: #d4a96a;
+    --amber-pale:  #f5ede0;
+    --cream:       #faf7f3;
+    --cream-dark:  #f2ebe0;
+    --border:      #e0d0bc;
+    --text:        #2d1e14;
+    --text-muted:  #8a6650;
+    --text-light:  #b09880;
+    --white:       #ffffff;
+    --sage:        #5c7a5a;
+    --sage-pale:   #eef5ee;
+    --navy:        #1c2d44;
+    --rose:        #9a4a4a;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--espresso);
+    padding: 11px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.18em;
+    color: #e8d5b7; text-transform: uppercase; text-decoration: none;
+  }
+  .topbar-tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+    color: var(--amber); text-transform: uppercase;
+  }
+
+  /* ── PAGE ── */
+  .page { max-width: 860px; margin: 0 auto; padding: 52px 24px 80px; }
+
+  .page-header { text-align: center; margin-bottom: 44px; }
+  .eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 700; color: var(--espresso);
+    line-height: 1.2; margin-bottom: 14px;
+  }
+  .page-title em { font-style: italic; color: var(--amber); }
+  .page-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-style: italic; color: var(--text-muted);
+    line-height: 1.65; max-width: 540px; margin: 0 auto;
+  }
+  .accent-line { width: 40px; height: 2px; background: var(--amber); margin: 16px auto 0; }
+  .ornament { text-align: center; font-size: 12px; color: var(--amber); letter-spacing: 0.4em; margin-bottom: 32px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 28px; }
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--amber); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .step-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; background: var(--amber); color: #fff;
+    font-size: 10px; font-weight: 700; border-radius: 50%; flex-shrink: 0;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 26px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--text-muted); text-transform: uppercase;
+  }
+  .optional { text-transform: none; letter-spacing: 0; font-size: 10px; color: var(--text-light); font-weight: 400; }
+
+  input[type="text"], input[type="number"], select, textarea {
+    font-family: 'Jost', sans-serif; font-size: 14px;
+    color: var(--text); background: var(--cream);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 14px; width: 100%; outline: none;
+    transition: border-color 0.15s; -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--amber); background: var(--white);
+  }
+  textarea { resize: vertical; line-height: 1.7; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .row4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+  /* ── METRICS ROW ── */
+  .metrics-paste {
+    font-family: 'Jost', monospace; font-size: 13px;
+    background: var(--espresso); color: #e8d5b7;
+    border: 1px solid #5a3f30; border-radius: 8px;
+    padding: 14px 20px; width: 100%; outline: none;
+    min-height: 56px; resize: none; line-height: 1.7;
+    transition: border-color 0.15s;
+  }
+  .metrics-paste:focus { border-color: var(--amber); }
+  .metrics-paste::placeholder { color: #6b4c36; }
+
+  .parse-btn {
+    margin-top: 10px; padding: 9px 22px;
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 6px; font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--brown); cursor: pointer; transition: all 0.15s;
+  }
+  .parse-btn:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
+
+  /* ── METRIC CARDS ── */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .metric-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 10px 8px;
+  }
+  .mc-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-light); margin-bottom: 5px;
+  }
+  .mc-val {
+    font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.2;
+  }
+
+  /* ── BENCHMARK TABLE ── */
+  .bench-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .bench-table th {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-light);
+    padding: 8px 10px; text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .bench-table td {
+    padding: 9px 10px; border-bottom: 1px solid var(--border);
+    color: var(--text); vertical-align: middle;
+  }
+  .bench-table tr:last-child td { border-bottom: none; }
+  .bench-table td input {
+    font-size: 13px; padding: 6px 10px; background: var(--white);
+  }
+  .bench-table td:first-child input { color: var(--brown); font-weight: 500; }
+
+  .add-row-btn {
+    margin-top: 10px; padding: 7px 16px;
+    background: transparent; border: 1px dashed var(--border);
+    border-radius: 6px; font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--text-light); cursor: pointer; transition: all 0.15s;
+    width: 100%;
+  }
+  .add-row-btn:hover { border-color: var(--amber); color: var(--amber); }
+
+  .remove-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-light); font-size: 16px; line-height: 1;
+    padding: 0 4px; transition: color 0.15s;
+  }
+  .remove-btn:hover { color: var(--rose); }
+
+  /* ── CHIP TOGGLES ── */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 7px 14px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 12px; font-weight: 500; color: var(--text-muted);
+    background: var(--cream); cursor: pointer; transition: all 0.15s;
+    user-select: none; letter-spacing: 0.02em;
+  }
+  .chip:hover { border-color: var(--amber-light); color: var(--brown); }
+  .chip.active { background: var(--brown); border-color: var(--brown); color: #fff; font-weight: 600; }
+
+  /* ── INFO BOX ── */
+  .info-box {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-left: 3px solid var(--amber); border-radius: 6px;
+    padding: 12px 16px; margin-bottom: 14px;
+    font-size: 12px; color: var(--text-muted); line-height: 1.65;
+  }
+  .info-box strong { color: var(--brown); font-weight: 600; }
+
+  .skip-note {
+    font-size: 11px; color: var(--text-light); font-style: italic;
+    display: flex; align-items: center; gap: 5px; margin-top: 8px;
+  }
+
+  /* ── GENERATE ── */
+  .generate-wrap { margin-top: 36px; text-align: center; }
+  .btn-generate {
+    padding: 16px 52px; background: var(--brown); color: #fff;
+    border: none; border-radius: 4px; font-family: 'Jost', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-generate:hover { background: var(--espresso); transform: translateY(-1px); }
+
+  /* ── OUTPUT ── */
+  .output-wrap { margin-top: 44px; display: none; }
+  .output-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px; flex-wrap: wrap; gap: 10px;
+  }
+  .output-title {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--amber);
+  }
+  .btn-copy {
+    padding: 8px 20px; background: var(--white);
+    border: 1px solid var(--border); border-radius: 4px;
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--brown); cursor: pointer; transition: all 0.15s;
+  }
+  .btn-copy:hover { background: var(--brown); color: #fff; border-color: var(--brown); }
+  .btn-copy.copied { background: var(--sage); color: #fff; border-color: var(--sage); }
+
+  .output-box {
+    background: var(--espresso); color: #e8d5b7;
+    border-radius: 8px; padding: 28px 32px;
+    font-family: 'Jost', sans-serif; font-size: 13px;
+    font-weight: 300; line-height: 1.85;
+    white-space: pre-wrap; word-break: break-word;
+    max-height: 560px; overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .output-box::-webkit-scrollbar { width: 6px; }
+  .output-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 3px; }
+  .output-hint {
+    margin-top: 10px; text-align: center;
+    font-size: 12px; color: var(--text-light); font-style: italic;
+  }
+
+  .parsed-ok {
+    font-size: 11px; color: var(--sage); font-weight: 600;
+    margin-top: 10px; display: none; align-items: center; gap: 6px;
+  }
+
+  .footer {
+    background: var(--espresso); text-align: center;
+    padding: 24px; font-size: 11px; color: #5a3f30; letter-spacing: 0.06em;
+    margin-top: 0;
+  }
+  .footer span { color: #8a6650; }
+
+  @media (max-width: 640px) {
+    .row2, .row3, .row4 { grid-template-columns: 1fr; }
+    .metric-grid { grid-template-columns: repeat(3, 1fr); }
+    .page-title { font-size: 26px; }
+    .page { padding: 32px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">Boho Blanket</span>
+  <span class="topbar-tag">Campaign Analysis Prompt</span>
+</div>
+
+<div class="page">
+
+  <div class="page-header">
+    <p class="eyebrow">AI Prompt Generator</p>
+    <h1 class="page-title">48-Hour Campaign<br><em>Performance Analysis</em></h1>
+    <p class="page-subtitle">Enter your campaign metrics, add past context if available, and generate a prompt for deep AI-powered analysis and next-step recommendations.</p>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <!-- ── STEP 1: CAMPAIGN METRICS ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">1</span> This Campaign's Metrics</div>
+
+    <div class="info-box">
+      <strong>Quick paste:</strong> Copy one row from your Omnisend or Klaviyo export and hit Parse — or fill in the fields manually below.
+    </div>
+
+    <textarea class="metrics-paste" id="paste-row" rows="2"
+      placeholder="Paste tab-separated row:  Campaign Name   Date   Sends   Open Rate   Click Rate   Revenue&#10;e.g.  A Simple Offer, Before April Ends   Apr 27 2026 10:00 AM   8787   74.50%   2.70%   €312.43"></textarea>
+    <button class="parse-btn" onclick="parseMetrics()">→ &nbsp; Parse Row</button>
+    <div class="parsed-ok" id="parsed-ok">✓ &nbsp; Parsed — review fields below</div>
+
+    <div class="metric-grid" style="margin-top:16px;">
+      <div class="metric-card" style="grid-column:1/4;">
+        <div class="mc-label">Campaign Name</div>
+        <input type="text" id="m-name" placeholder="e.g. A Simple Offer, Before April Ends">
+      </div>
+      <div class="metric-card" style="grid-column:4/5;">
+        <div class="mc-label">Send Date & Time</div>
+        <input type="text" id="m-date" placeholder="e.g. Apr 27, 10:00 AM">
+      </div>
+      <div class="metric-card" style="grid-column:5/7;">
+        <div class="mc-label">Channel</div>
+        <select id="m-channel">
+          <option value="Email">Email</option>
+          <option value="SMS">SMS</option>
+          <option value="Email + SMS">Email + SMS</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="metric-grid" style="margin-top:10px;">
+      <div class="metric-card">
+        <div class="mc-label">Sends</div>
+        <input type="text" id="m-sends" placeholder="e.g. 8,787">
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Open Rate</div>
+        <input type="text" id="m-open" placeholder="e.g. 74.50%">
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Click Rate</div>
+        <input type="text" id="m-click" placeholder="e.g. 2.70%">
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Revenue</div>
+        <input type="text" id="m-rev" placeholder="e.g. €312.43">
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Orders</div>
+        <input type="text" id="m-orders" placeholder="e.g. 29">
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Unsubscribes</div>
+        <input type="text" id="m-unsub" placeholder="e.g. 29">
+      </div>
+    </div>
+
+    <div class="metric-grid" style="margin-top:10px;">
+      <div class="metric-card" style="grid-column:1/3;">
+        <div class="mc-label">Discount Code Used <span class="optional">(optional)</span></div>
+        <input type="text" id="m-code" placeholder="e.g. APRIL20">
+      </div>
+      <div class="metric-card" style="grid-column:3/5;">
+        <div class="mc-label">Segment Sent To</div>
+        <input type="text" id="m-segment" placeholder="e.g. All Subscribers">
+      </div>
+      <div class="metric-card" style="grid-column:5/7;">
+        <div class="mc-label">Analysis Window</div>
+        <select id="m-window">
+          <option value="24 hours">24 hours after send</option>
+          <option value="48 hours" selected>48 hours after send</option>
+          <option value="72 hours">72 hours after send</option>
+          <option value="7 days">7 days after send</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── STEP 2: BRAND CONTEXT ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">2</span> Brand & Niche Context</div>
+    <div class="card">
+      <div class="row3">
+        <div class="field">
+          <label class="field-label">Brand Name</label>
+          <input type="text" id="brand" placeholder="e.g. Boho Blanket">
+        </div>
+        <div class="field">
+          <label class="field-label">Niche</label>
+          <input type="text" id="niche" placeholder="e.g. Quilt patterns, digital downloads">
+        </div>
+        <div class="field">
+          <label class="field-label">ESP / Platform</label>
+          <select id="esp">
+            <option value="Omnisend">Omnisend</option>
+            <option value="Klaviyo">Klaviyo</option>
+            <option value="Mailchimp">Mailchimp</option>
+            <option value="ActiveCampaign">ActiveCampaign</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: PREVIOUS CAMPAIGNS (OPTIONAL) ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">3</span> Recent Campaign Context <span class="optional" style="text-transform:none;letter-spacing:0;color:var(--text-light);font-size:10px;font-weight:400;">(optional — skip if not available)</span></div>
+
+    <div class="info-box">
+      Add 2–5 recent campaigns for comparison. The AI will benchmark this send against them to identify patterns, rank performance, and give sharper insights. <strong>Leave blank if not available</strong> — the AI will skip comparisons gracefully.
+    </div>
+
+    <div class="card" style="padding:16px 20px;">
+      <table class="bench-table" id="bench-table">
+        <thead>
+          <tr>
+            <th style="width:30%;">Campaign Name</th>
+            <th style="width:13%;">Date</th>
+            <th style="width:12%;">Open Rate</th>
+            <th style="width:12%;">Click Rate</th>
+            <th style="width:14%;">Revenue</th>
+            <th style="width:14%;">Purpose / Type</th>
+            <th style="width:5%;"></th>
+          </tr>
+        </thead>
+        <tbody id="bench-body">
+          <tr>
+            <td><input type="text" placeholder="e.g. Weekend Surprise"></td>
+            <td><input type="text" placeholder="Apr 19"></td>
+            <td><input type="text" placeholder="81.50%"></td>
+            <td><input type="text" placeholder="3.40%"></td>
+            <td><input type="text" placeholder="€288"></td>
+            <td><input type="text" placeholder="Value / Engagement"></td>
+            <td><button class="remove-btn" onclick="removeRow(this)" title="Remove">×</button></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="e.g. You're Closer Than You Think"></td>
+            <td><input type="text" placeholder="Apr 25"></td>
+            <td><input type="text" placeholder="78.80%"></td>
+            <td><input type="text" placeholder="1.60%"></td>
+            <td><input type="text" placeholder="€143"></td>
+            <td><input type="text" placeholder="Reassurance"></td>
+            <td><button class="remove-btn" onclick="removeRow(this)" title="Remove">×</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="add-row-btn" onclick="addRow()">+ Add another campaign</button>
+    </div>
+    <p class="skip-note">↑ Leaving this section empty is fine — the AI will note that comparison data isn't available and focus on absolute performance instead.</p>
+  </div>
+
+  <!-- ── STEP 4: CAMPAIGN PURPOSE ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">4</span> Campaign Purpose & Context</div>
+    <div class="card">
+      <div class="row2" style="margin-bottom:14px;">
+        <div class="field">
+          <label class="field-label">Campaign Type</label>
+          <select id="camp-type">
+            <option value="Direct offer / promotion">Direct offer / promotion</option>
+            <option value="Flash sale">Flash sale</option>
+            <option value="Engagement / nurture">Engagement / nurture</option>
+            <option value="New product launch">New product launch</option>
+            <option value="Holiday / seasonal">Holiday / seasonal</option>
+            <option value="Win-back">Win-back</option>
+            <option value="Social proof / community">Social proof / community</option>
+            <option value="Educational / value">Educational / value</option>
+            <option value="Storytelling">Storytelling</option>
+            <option value="Urgency / last chance">Urgency / last chance</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label">Primary Goal</label>
+          <select id="camp-goal">
+            <option value="Drive revenue">Drive revenue</option>
+            <option value="Drive clicks / traffic">Drive clicks / traffic</option>
+            <option value="Build engagement">Build engagement</option>
+            <option value="Re-engage lapsed subscribers">Re-engage lapsed subscribers</option>
+            <option value="Grow brand awareness">Grow brand awareness</option>
+            <option value="Collect replies / feedback">Collect replies / feedback</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Additional Context <span class="optional">(optional)</span></label>
+        <textarea id="context" rows="2" placeholder="e.g. This was a soft offer placed after 3 nurture emails. No discount code, just a gentle CTA. Followed a 4-day silence window after the Easter sale."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STEP 5: ANALYSIS FOCUS ── -->
+  <div class="section">
+    <div class="section-label"><span class="step-badge">5</span> Analysis Focus Areas</div>
+    <div class="card">
+      <div class="chip-grid" id="focus-grid">
+        <div class="chip active" data-val="Open rate interpretation and subject line effectiveness">Open rate analysis</div>
+        <div class="chip active" data-val="Click rate and CTA performance">Click rate & CTA</div>
+        <div class="chip active" data-val="Revenue performance and monetization efficiency">Revenue & monetization</div>
+        <div class="chip active" data-val="Comparison vs recent campaigns (if data provided)">Benchmark comparison</div>
+        <div class="chip active" data-val="Funnel role and strategic positioning of this email">Funnel role</div>
+        <div class="chip active" data-val="Immediate next-step recommendations (what to send next and when)">Next-step recommendations</div>
+        <div class="chip" data-val="Unsubscribe rate and list health signals">Unsubscribe / list health</div>
+        <div class="chip" data-val="Audience fatigue signals and send frequency analysis">Send fatigue signals</div>
+        <div class="chip" data-val="SMS opportunity window (if applicable)">SMS follow-up opportunity</div>
+        <div class="chip" data-val="Subject line and preview text critique">Subject line critique</div>
+        <div class="chip" data-val="Segment performance and targeting insights">Segment insights</div>
+        <div class="chip" data-val="Revenue per send efficiency rating">Revenue per send rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GENERATE ── -->
+  <div class="generate-wrap">
+    <button class="btn-generate" onclick="generatePrompt()">
+      <span>→</span> Generate Analysis Prompt
+    </button>
+  </div>
+
+  <!-- ── OUTPUT ── -->
+  <div class="output-wrap" id="output-wrap">
+    <div class="output-header">
+      <span class="output-title">Your AI Prompt — Ready to Copy</span>
+      <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+    </div>
+    <div class="output-box" id="output-box"></div>
+    <p class="output-hint">Paste into ChatGPT, Claude, Gemini, or any AI to get your full campaign performance analysis.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>BOHO BLANKET</span> &nbsp;·&nbsp; Campaign Analysis Prompt Generator &nbsp;·&nbsp; bohoblanket.com
+</div>
+
+<script>
+  // ── Parse pasted metrics row
+  function parseMetrics() {
+    const raw = document.getElementById('paste-row').value.trim();
+    if (!raw) return;
+
+    const cols = raw.includes('\t') ? raw.split('\t') : raw.split(/  {2,}/);
+    const clean = cols.map(c => c.trim());
+
+    // Try to auto-detect column positions
+    // Expected: Name | Date+Time | Sends | Open% | Click% | Revenue | [Orders] [Unsub]
+    const nameGuess  = clean[0] || '';
+    const dateGuess  = clean[1] || '';
+    const sendsGuess = clean[2] || '';
+    const openGuess  = clean[3] || '';
+    const clickGuess = clean[4] || '';
+    const revGuess   = clean[5] || '';
+    const ordersGuess = clean[6] || '';
+    const unsubGuess  = clean[7] || '';
+
+    if (nameGuess)  document.getElementById('m-name').value  = nameGuess;
+    if (dateGuess)  document.getElementById('m-date').value  = dateGuess;
+    if (sendsGuess) document.getElementById('m-sends').value = sendsGuess;
+    if (openGuess)  document.getElementById('m-open').value  = openGuess;
+    if (clickGuess) document.getElementById('m-click').value = clickGuess;
+    if (revGuess)   document.getElementById('m-rev').value   = revGuess;
+    if (ordersGuess) document.getElementById('m-orders').value = ordersGuess;
+    if (unsubGuess)  document.getElementById('m-unsub').value  = unsubGuess;
+
+    const ok = document.getElementById('parsed-ok');
+    ok.style.display = 'flex';
+    setTimeout(() => ok.style.display = 'none', 3000);
+  }
+
+  // ── Benchmark table
+  function addRow() {
+    const tbody = document.getElementById('bench-body');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" placeholder="Campaign name"></td>
+      <td><input type="text" placeholder="Date"></td>
+      <td><input type="text" placeholder="Open %"></td>
+      <td><input type="text" placeholder="Click %"></td>
+      <td><input type="text" placeholder="Revenue"></td>
+      <td><input type="text" placeholder="Purpose / type"></td>
+      <td><button class="remove-btn" onclick="removeRow(this)" title="Remove">×</button></td>`;
+    tbody.appendChild(tr);
+  }
+  function removeRow(btn) {
+    const tr = btn.closest('tr');
+    if (document.querySelectorAll('#bench-body tr').length > 1) tr.remove();
+    else tr.querySelectorAll('input').forEach(i => i.value = '');
+  }
+
+  // ── Chips
+  document.querySelectorAll('#focus-grid .chip').forEach(c => {
+    c.addEventListener('click', () => c.classList.toggle('active'));
+  });
+
+  // ── Get benchmark rows
+  function getBenchRows() {
+    const rows = [];
+    document.querySelectorAll('#bench-body tr').forEach(tr => {
+      const inputs = tr.querySelectorAll('input');
+      const vals = [...inputs].map(i => i.value.trim());
+      if (vals.some(v => v !== '')) {
+        rows.push({
+          name:    vals[0] || '—',
+          date:    vals[1] || '—',
+          open:    vals[2] || '—',
+          click:   vals[3] || '—',
+          rev:     vals[4] || '—',
+          purpose: vals[5] || '—',
+        });
+      }
+    });
+    return rows;
+  }
+
+  function val(id) { return document.getElementById(id).value.trim(); }
+
+  // ── Generate prompt
+  function generatePrompt() {
+    const brand    = val('brand')    || 'the brand';
+    const niche    = val('niche');
+    const esp      = val('esp');
+    const name     = val('m-name')   || '[Campaign Name]';
+    const date     = val('m-date')   || '—';
+    const channel  = val('m-channel');
+    const sends    = val('m-sends')  || '—';
+    const openRate = val('m-open')   || '—';
+    const clickRate= val('m-click')  || '—';
+    const revenue  = val('m-rev')    || '—';
+    const orders   = val('m-orders');
+    const unsub    = val('m-unsub');
+    const code     = val('m-code');
+    const segment  = val('m-segment')|| 'All Subscribers';
+    const window_  = val('m-window');
+    const campType = val('camp-type');
+    const campGoal = val('camp-goal');
+    const context  = val('context');
+
+    const focusAreas = [...document.querySelectorAll('#focus-grid .chip.active')].map(c => c.dataset.val);
+    const benchRows  = getBenchRows();
+    const hasBench   = benchRows.length > 0 && benchRows.some(r => r.name !== '—');
+
+    // Build benchmark block
+    let benchBlock = '';
+    if (hasBench) {
+      benchBlock = `\n══════════════════════════════════════
+RECENT CAMPAIGNS FOR COMPARISON
+══════════════════════════════════════
+${benchRows.map(r =>
+  `• ${r.name} (${r.date}) — Open: ${r.open} | Click: ${r.click} | Revenue: ${r.rev} | Type: ${r.purpose}`
+).join('\n')}
+`;
+    }
+
+    const focusList = focusAreas.length
+      ? focusAreas.map((f, i) => `${i + 1}. ${f}`).join('\n')
+      : '1. Open rate\n2. Click rate\n3. Revenue\n4. Recommendations';
+
+    const prompt = `You are an expert email marketing analyst${niche ? ' specializing in the ' + niche + ' space' : ''}.
+
+Your task is to analyze the ${window_} performance of the campaign below and provide deep, actionable insights.
+
+══════════════════════════════════════
+BRAND & PLATFORM
+══════════════════════════════════════
+Brand: ${brand}${niche ? '\nNiche: ' + niche : ''}
+Platform (ESP): ${esp}
+
+══════════════════════════════════════
+CAMPAIGN METRICS (${window_})
+══════════════════════════════════════
+Campaign Name:  ${name}
+Send Date/Time: ${date}
+Channel:        ${channel}
+Segment:        ${segment}
+Campaign Type:  ${campType}
+Primary Goal:   ${campGoal}
+${code ? 'Discount Code:  ' + code + '\n' : ''}
+Sends:          ${sends}
+Open Rate:      ${openRate}
+Click Rate:     ${clickRate}
+Revenue:        ${revenue}${orders ? '\nOrders:         ' + orders : ''}${unsub ? '\nUnsubscribes:   ' + unsub : ''}
+${context ? '\nCONTEXT / NOTES:\n' + context + '\n' : ''}${benchBlock}
+══════════════════════════════════════
+ANALYSIS INSTRUCTIONS
+══════════════════════════════════════
+Please analyze the following areas. For each one, provide:
+- A clear interpretation of what the number means
+- How it compares to benchmarks or previous campaigns (ONLY if comparison data was provided above — skip comparisons gracefully if not)
+- What it tells us about audience behavior and campaign effectiveness
+
+FOCUS AREAS:
+${focusList}
+
+══════════════════════════════════════
+OUTPUT FORMAT
+══════════════════════════════════════
+Structure your response as follows:
+
+1. 📊 PERFORMANCE SUMMARY
+   A quick 3–4 line snapshot of how this campaign performed overall.
+
+2. 🔍 METRIC-BY-METRIC BREAKDOWN
+   Go through each focus area with clear headers. Use bullet points.
+   Rate each metric with a star rating (⭐⭐⭐⭐☆ style).
+
+3. 🎯 FUNNEL ROLE
+   What role did this email play in the overall sequence? (Conversion spike, nurture, re-engagement, etc.)
+   What behavioral pattern does the data reveal?
+
+4. 🧠 KEY INSIGHT
+   The single most important takeaway from this campaign. Bold and direct.
+${hasBench ? `
+5. 📈 BENCHMARK COMPARISON
+   How does this campaign rank against the recent campaigns provided? Include a mini comparison table.
+` : ''}
+${focusAreas.includes('Immediate next-step recommendations (what to send next and when)') ? `
+6. 🚀 WHAT TO DO NEXT
+   Give 2–3 concrete recommendations for what to send in the next 24–72 hours.
+   For each option include: timing, message type, expected outcome.
+   Also flag anything NOT to do that would waste this momentum.
+` : ''}
+7. 📋 FINAL VERDICT TABLE
+   A quick summary table with: Category | Result | Rating
+
+Keep the analysis sharp, specific, and directly actionable. Avoid generic advice.
+If any data is missing or unavailable, skip that section without apology — just focus on what is available.`;
+
+    document.getElementById('output-box').textContent = prompt;
+    const wrap = document.getElementById('output-wrap');
+    wrap.style.display = 'block';
+    document.getElementById('copy-btn').textContent = 'Copy Prompt';
+    document.getElementById('copy-btn').classList.remove('copied');
+    setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+
+  // ── Copy
+  function copyPrompt() {
+    const text = document.getElementById('output-box').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.classList.remove('copied'); }, 2500);
+    });
+  }
+</script>
+</body>
+</html>
