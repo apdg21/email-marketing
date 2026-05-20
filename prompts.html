@@ -3,323 +3,725 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Marketing Hub</title>
+<title>Email Marketing Hub — Boho Blanket</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Jost:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #F5F2EC;
-    --surface: #FDFAF5;
-    --ink: #1A1812;
-    --ink-muted: #7A7468;
-    --ink-light: #C4BFB4;
-    --accent-1: #D85A30;
-    --accent-2: #1D9E75;
-    --accent-3: #7F77DD;
-    --border: rgba(26,24,18,0.12);
-    --radius: 16px;
+    --espresso:    #2d1e14;
+    --brown:       #3d2c1e;
+    --amber:       #c0874a;
+    --amber-light: #d4a96a;
+    --amber-pale:  #f5ede0;
+    --cream:       #faf7f3;
+    --cream-dark:  #f2ebe0;
+    --border:      #e0d0bc;
+    --text:        #2d1e14;
+    --text-muted:  #8a6650;
+    --text-light:  #b09880;
+    --white:       #ffffff;
+    --sage:        #5c7a5a;
+    --sage-pale:   #eef5ee;
+    --navy:        #1c2d44;
+    --navy-pale:   #edf0f5;
+    --teal:        #3a7a7a;
+    --teal-pale:   #edf5f5;
+    --rose:        #9a4a4a;
+    --rose-pale:   #f5eeed;
   }
+
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
     min-height: 100vh;
-    padding: 48px 24px;
   }
 
-  .container {
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  header {
-    margin-bottom: 56px;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-    margin-bottom: 12px;
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--espresso);
+    padding: 12px 40px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
   }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.18em; color: #e8d5b7;
+    text-transform: uppercase; text-decoration: none;
+  }
+  .topbar-right {
+    display: flex; align-items: center; gap: 24px;
+  }
+  .topnav a {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+    color: #b09880; text-decoration: none; text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .topnav a:hover { color: var(--amber); }
+  .topnav { display: flex; gap: 20px; }
 
-  .eyebrow::before {
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, var(--espresso) 0%, #1a0e08 100%);
+    padding: 72px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
     content: '';
-    display: inline-block;
-    width: 24px;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(192,135,74,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(192,135,74,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.28em;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 700; color: #f5ede0;
+    line-height: 1.15; margin-bottom: 18px;
+  }
+  .hero-title em { font-style: italic; color: var(--amber-light); }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic;
+    color: #b09880; line-height: 1.65;
+    max-width: 560px; margin: 0 auto 32px;
+  }
+  .hero-ornament {
+    font-size: 13px; color: var(--amber);
+    letter-spacing: 0.5em; margin-bottom: 0;
+    opacity: 0.6;
+  }
+
+  /* ── PAGE BODY ── */
+  .page { max-width: 1040px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-head { text-align: center; margin-bottom: 40px; }
+  .section-eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; color: var(--espresso); line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--amber); }
+  .section-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px; font-style: italic; color: var(--text-muted);
+    margin-top: 10px; line-height: 1.6;
+  }
+  .accent-line { width: 40px; height: 2px; background: var(--amber); margin: 14px auto 0; }
+
+  /* ── DIVIDER ── */
+  .divider {
     height: 1px;
-    background: var(--ink-muted);
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 56px 0;
   }
 
-  h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(40px, 6vw, 64px);
-    font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 16px;
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--accent-1);
-  }
-
-  .subtitle {
-    font-size: 16px;
-    color: var(--ink-muted);
-    font-weight: 300;
-    max-width: 420px;
-    line-height: 1.6;
-  }
-
-  .grid {
+  /* ── WORKFLOW STEPS ── */
+  .workflow {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
+    margin-bottom: 20px;
   }
+  .workflow-full { grid-column: 1 / -1; }
 
-  @media (max-width: 640px) {
-    .grid { grid-template-columns: 1fr; }
-  }
-
-  .card {
-    background: var(--surface);
+  .step-card {
+    background: var(--white);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px 28px;
-    text-decoration: none;
-    color: inherit;
+    border-radius: 12px;
+    padding: 28px 28px 24px;
     display: flex;
     flex-direction: column;
     gap: 0;
     position: relative;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
   }
-
-  .card::before {
+  .step-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(45,30,20,0.10);
+  }
+  .step-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+  }
+  .step-card.amber::before  { background: linear-gradient(90deg, var(--amber), var(--amber-light)); }
+  .step-card.sage::before   { background: linear-gradient(90deg, var(--sage), #7fad7a); }
+  .step-card.navy::before   { background: linear-gradient(90deg, var(--navy), #3a5a7a); }
+  .step-card.teal::before   { background: linear-gradient(90deg, var(--teal), #5aadad); }
+  .step-card.rose::before   { background: linear-gradient(90deg, var(--rose), #c07070); }
+
+  .step-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 700; line-height: 1;
+    flex-shrink: 0; margin-top: -2px;
+  }
+  .amber .step-num  { color: var(--amber); }
+  .sage  .step-num  { color: var(--sage); }
+  .navy  .step-num  { color: var(--navy); }
+  .teal  .step-num  { color: var(--teal); }
+  .rose  .step-num  { color: var(--rose); }
+
+  .step-meta {}
+  .step-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .amber .step-label { color: var(--amber); }
+  .sage  .step-label { color: var(--sage); }
+  .navy  .step-label { color: var(--navy); }
+  .teal  .step-label { color: var(--teal); }
+  .rose  .step-label { color: var(--rose); }
+
+  .step-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700; color: var(--espresso); line-height: 1.2;
+  }
+  .step-desc {
+    font-size: 13px; font-weight: 300; color: var(--text-muted);
+    line-height: 1.75; margin-bottom: 20px; flex: 1;
   }
 
-  .card:nth-child(1)::before { background: var(--accent-1); }
-  .card:nth-child(2)::before { background: var(--accent-2); }
-  .card:nth-child(3)::before { background: var(--accent-3); }
-
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(26,24,18,0.1);
-    border-color: rgba(26,24,18,0.2);
+  /* Tool badge(s) */
+  .tool-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .tool-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; transition: all 0.15s; border: 1px solid transparent;
   }
+  .tool-badge .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-  .card:hover::before { opacity: 1; }
+  .amber .tool-badge { background: var(--amber-pale); color: var(--brown); border-color: #e0c8a0; }
+  .amber .tool-badge:hover { background: var(--amber); color: #fff; border-color: var(--amber); }
+  .amber .tool-badge .dot { background: var(--amber); }
 
-  .card-number {
-    font-family: 'Instrument Serif', serif;
-    font-size: 13px;
-    color: var(--ink-light);
-    margin-bottom: 20px;
-    font-style: italic;
+  .sage  .tool-badge { background: var(--sage-pale); color: #2a4a2a; border-color: #b0d0b0; }
+  .sage  .tool-badge:hover { background: var(--sage); color: #fff; border-color: var(--sage); }
+  .sage  .tool-badge .dot { background: var(--sage); }
+
+  .navy  .tool-badge { background: var(--navy-pale); color: var(--navy); border-color: #b0c0d8; }
+  .navy  .tool-badge:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .navy  .tool-badge .dot { background: var(--navy); }
+
+  .teal  .tool-badge { background: var(--teal-pale); color: var(--teal); border-color: #a0c8c8; }
+  .teal  .tool-badge:hover { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .teal  .tool-badge .dot { background: var(--teal); }
+
+  .rose  .tool-badge { background: var(--rose-pale); color: var(--rose); border-color: #d0a8a8; }
+  .rose  .tool-badge:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .rose  .tool-badge .dot { background: var(--rose); }
+
+  /* CTA button on card */
+  .step-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; border: 1.5px solid; transition: all 0.18s; align-self: flex-start;
   }
+  .amber .step-cta { color: var(--brown); border-color: var(--amber); }
+  .amber .step-cta:hover { background: var(--amber); color: #fff; }
+  .sage  .step-cta { color: var(--sage); border-color: var(--sage); }
+  .sage  .step-cta:hover { background: var(--sage); color: #fff; }
+  .navy  .step-cta { color: var(--navy); border-color: var(--navy); }
+  .navy  .step-cta:hover { background: var(--navy); color: #fff; }
+  .teal  .step-cta { color: var(--teal); border-color: var(--teal); }
+  .teal  .step-cta:hover { background: var(--teal); color: #fff; }
+  .rose  .step-cta { color: var(--rose); border-color: var(--rose); }
+  .rose  .step-cta:hover { background: var(--rose); color: #fff; }
 
-  .card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
+  /* ── HOW IT WORKS GUIDE ── */
+  .guide-timeline {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    flex-shrink: 0;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .guide-timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px; top: 28px; bottom: 28px; width: 2px;
+    background: linear-gradient(180deg, var(--amber), var(--sage), var(--navy), var(--teal), var(--rose));
+    opacity: 0.3;
   }
 
-  .card:nth-child(1) .card-icon { background: #FAECE7; }
-  .card:nth-child(2) .card-icon { background: #E1F5EE; }
-  .card:nth-child(3) .card-icon { background: #EEEDFE; }
-
-  .card-icon svg {
-    width: 22px;
-    height: 22px;
+  .guide-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 0;
+    position: relative;
+  }
+  .guide-item + .guide-item {
+    border-top: 1px solid var(--border);
   }
 
-  .card:nth-child(1) .card-icon svg { stroke: var(--accent-1); }
-  .card:nth-child(2) .card-icon svg { stroke: var(--accent-2); }
-  .card:nth-child(3) .card-icon svg { stroke: var(--accent-3); }
+  .guide-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+    border: 2px solid;
+    position: relative; z-index: 1;
+    background: var(--white);
+  }
+  .guide-icon.amber { border-color: var(--amber); color: var(--amber); background: var(--amber-pale); }
+  .guide-icon.sage  { border-color: var(--sage);  color: var(--sage);  background: var(--sage-pale); }
+  .guide-icon.navy  { border-color: var(--navy);  color: var(--navy);  background: var(--navy-pale); }
+  .guide-icon.teal  { border-color: var(--teal);  color: var(--teal);  background: var(--teal-pale); }
+  .guide-icon.rose  { border-color: var(--rose);  color: var(--rose);  background: var(--rose-pale); }
 
-  .card-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
+  .guide-content { flex: 1; padding-top: 6px; }
+  .guide-step-label {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .amber .guide-step-label { color: var(--amber); }
+  .sage  .guide-step-label { color: var(--sage); }
+  .navy  .guide-step-label { color: var(--navy); }
+  .teal  .guide-step-label { color: var(--teal); }
+  .rose  .guide-step-label { color: var(--rose); }
+
+  .guide-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700; color: var(--espresso); margin-bottom: 6px;
+  }
+  .guide-body {
+    font-size: 13px; font-weight: 300; color: var(--text-muted); line-height: 1.75;
+  }
+  .guide-body strong { font-weight: 600; color: var(--brown); }
+
+  .guide-timing {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 12px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
     margin-bottom: 8px;
   }
+  .amber .guide-timing { background: var(--amber-pale); color: var(--amber); }
+  .sage  .guide-timing { background: var(--sage-pale);  color: var(--sage); }
+  .navy  .guide-timing { background: var(--navy-pale);  color: var(--navy); }
+  .teal  .guide-timing { background: var(--teal-pale);  color: var(--teal); }
+  .rose  .guide-timing { background: var(--rose-pale);  color: var(--rose); }
 
-  .card-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 26px;
-    font-weight: 400;
-    line-height: 1.15;
-    color: var(--ink);
-    margin-bottom: 14px;
-  }
-
-  .card-desc {
-    font-size: 14px;
-    color: var(--ink-muted);
-    line-height: 1.65;
-    font-weight: 300;
-    flex: 1;
-    margin-bottom: 28px;
-  }
-
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    transition: gap 0.2s ease;
-    margin-top: auto;
-  }
-
-  .card:nth-child(1) .card-link { color: var(--accent-1); }
-  .card:nth-child(2) .card-link { color: var(--accent-2); }
-  .card:nth-child(3) .card-link { color: var(--accent-3); }
-
-  .card:hover .card-link { gap: 10px; }
-
-  .card-link svg {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-  }
-
-  footer {
-    margin-top: 56px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+  /* ── QUICK ACCESS GRID ── */
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
   }
-
-  .footer-label {
-    font-size: 12px;
-    color: var(--ink-light);
-    font-weight: 300;
-    letter-spacing: 0.04em;
+  .quick-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 14px; text-align: center;
+    text-decoration: none; transition: all 0.18s; display: block;
+    position: relative; overflow: hidden;
   }
-
-  .footer-dot {
-    display: flex;
-    gap: 6px;
-    align-items: center;
+  .quick-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    transition: opacity 0.18s;
+    opacity: 0;
   }
+  .quick-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,30,20,0.1); }
+  .quick-card:hover::after { opacity: 1; }
+  .qc-a::after { background: var(--amber); }
+  .qc-b::after { background: var(--sage); }
+  .qc-c::after { background: var(--navy); }
+  .qc-d::after { background: var(--teal); }
+  .qc-e::after { background: var(--rose); }
+  .quick-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+  .quick-num {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .qc-a .quick-num { color: var(--amber); }
+  .qc-b .quick-num { color: var(--sage); }
+  .qc-c .quick-num { color: var(--navy); }
+  .qc-d .quick-num { color: var(--teal); }
+  .qc-e .quick-num { color: var(--rose); }
+  .quick-name {
+    font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3;
+  }
+  .quick-sub { font-size: 10px; color: var(--text-light); margin-top: 4px; line-height: 1.3; }
 
-  .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
+  /* ── TIPS BOX ── */
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tip-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 18px 20px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .tip-icon {
+    font-size: 20px; flex-shrink: 0; margin-top: 2px;
+  }
+  .tip-title { font-size: 13px; font-weight: 600; color: var(--espresso); margin-bottom: 4px; }
+  .tip-body { font-size: 12px; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--espresso);
+    text-align: center; padding: 28px 24px;
+    font-size: 11px; color: #5a3f30; letter-spacing: 0.06em;
+  }
+  .footer a { color: var(--amber); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .footer span { color: #8a6650; }
+
+  @media (max-width: 720px) {
+    .workflow { grid-template-columns: 1fr; }
+    .workflow-full { grid-column: 1; }
+    .quick-grid { grid-template-columns: repeat(3, 1fr); }
+    .tips-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 32px; }
+    .hero { padding: 48px 20px 40px; }
+    .topnav { display: none; }
+    .guide-timeline::before { left: 26px; }
   }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <header>
-    <p class="eyebrow">Resource Hub</p>
-    <h1>Email <em>Marketing</em><br>Prompts</h1>
-    <p class="subtitle">Three focused prompt guides to sharpen your copy, design, and strategy.</p>
-  </header>
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <span class="logo">Boho Blanket</span>
+  <div class="topbar-right">
+    <nav class="topnav">
+      <a href="#workflow">Workflow</a>
+      <a href="#guide">How It Works</a>
+      <a href="#tools">All Tools</a>
+      <a href="#tips">Tips</a>
+    </nav>
+  </div>
+</div>
 
-  <div class="grid">
+<!-- ── HERO ── -->
+<div class="hero">
+  <p class="hero-eyebrow">Email Marketing Hub</p>
+  <h1 class="hero-title">Your Complete<br><em>Email Workflow</em></h1>
+  <p class="hero-sub">From monthly strategy to final send — every tool you need, in the right order.</p>
+  <p class="hero-ornament">✦ &nbsp; ✦ &nbsp; ✦</p>
+</div>
 
-    <a class="card" href="https://apdg21.github.io/email-marketing/prompt-copy" target="_blank" rel="noopener">
-      <span class="card-number">01</span>
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-        </svg>
-      </div>
-      <span class="card-label">Prompts</span>
-      <h2 class="card-title">Copy</h2>
-      <p class="card-desc">Write compelling subject lines, body copy, and CTAs that convert readers into customers.</p>
-      <span class="card-link">
-        Open guide
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-    </a>
+<div class="page">
 
-    <a class="card" href="https://apdg21.github.io/email-marketing/prompt-design" target="_blank" rel="noopener">
-      <span class="card-number">02</span>
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <path d="M3 9h18M9 21V9"/>
-        </svg>
-      </div>
-      <span class="card-label">Prompts</span>
-      <h2 class="card-title">Design</h2>
-      <p class="card-desc">Build visually engaging email layouts, hierarchy, and structure that guide the reader's eye.</p>
-      <span class="card-link">
-        Open guide
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-    </a>
+  <!-- ── QUICK ACCESS ── -->
+  <div id="tools" style="margin-bottom:56px;">
+    <div class="section-head">
+      <p class="section-eyebrow">Quick Access</p>
+      <h2 class="section-title">All <em>Five Tools</em></h2>
+      <div class="accent-line"></div>
+    </div>
 
-    <a class="card" href="https://apdg21.github.io/email-marketing/prompt-strategy" target="_blank" rel="noopener">
-      <span class="card-number">03</span>
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 20h20M5 20V10l7-7 7 7v10"/>
-          <path d="M9 20v-5h6v5"/>
-        </svg>
-      </div>
-      <span class="card-label">Prompts</span>
-      <h2 class="card-title">Strategy</h2>
-      <p class="card-desc">Plan campaigns, sequences, and targeting approaches that maximise engagement over time.</p>
-      <span class="card-link">
-        Open guide
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-    </a>
-
+    <div class="quick-grid">
+      <a href="https://apdg21.github.io/email-marketing/prompt-strategy" target="_blank" class="quick-card qc-a">
+        <span class="quick-icon">📅</span>
+        <div class="quick-num">Step 01</div>
+        <div class="quick-name">Strategy Prompt</div>
+        <div class="quick-sub">Build your monthly calendar</div>
+      </a>
+      <a href="https://apdg21.github.io/email-marketing/prompt-copy" target="_blank" class="quick-card qc-b">
+        <span class="quick-icon">✍️</span>
+        <div class="quick-num">Step 02</div>
+        <div class="quick-name">Copy Prompt</div>
+        <div class="quick-sub">Write each email's copy</div>
+      </a>
+      <a href="https://apdg21.github.io/email-marketing/prompt-design" target="_blank" class="quick-card qc-c">
+        <span class="quick-icon">🎨</span>
+        <div class="quick-num">Step 03</div>
+        <div class="quick-name">Design Prompt</div>
+        <div class="quick-sub">Build the HTML email</div>
+      </a>
+      <a href="https://resumepro.pages.dev/omnisend" target="_blank" class="quick-card qc-d">
+        <span class="quick-icon">📊</span>
+        <div class="quick-num">Step 04a</div>
+        <div class="quick-name">Omnisend Analytics</div>
+        <div class="quick-sub">Analyze campaign performance</div>
+      </a>
+      <a href="https://resumepro.pages.dev/klaviyo-tool" target="_blank" class="quick-card qc-e">
+        <span class="quick-icon">📈</span>
+        <div class="quick-num">Step 04b</div>
+        <div class="quick-name">Klaviyo Analytics</div>
+        <div class="quick-sub">Deep-dive CSV dashboard</div>
+      </a>
+    </div>
   </div>
 
-  <footer>
-    <span class="footer-label">Email Marketing Prompt Collection</span>
-    <div class="footer-dot">
-      <div class="dot" style="background:#D85A30;"></div>
-      <div class="dot" style="background:#1D9E75;"></div>
-      <div class="dot" style="background:#7F77DD;"></div>
+  <div class="divider"></div>
+
+  <!-- ── WORKFLOW CARDS ── -->
+  <div id="workflow" style="margin-bottom:56px;">
+    <div class="section-head">
+      <p class="section-eyebrow">The Workflow</p>
+      <h2 class="section-title">Four Steps. <em>Every Month.</em></h2>
+      <p class="section-sub">Follow this sequence from planning to performance review.</p>
+      <div class="accent-line"></div>
     </div>
-  </footer>
+
+    <div class="workflow">
+
+      <!-- Step 1 -->
+      <div class="step-card amber">
+        <div class="step-header">
+          <div class="step-num">01</div>
+          <div class="step-meta">
+            <div class="step-label">Start of Month</div>
+            <div class="step-name">Build Your Strategy</div>
+          </div>
+        </div>
+        <p class="step-desc">Before writing a single word, plan the whole month. Set your goals, frequency, segments, and promo windows. Paste your last 90 days of campaign data — the AI will analyze open rates, best send days, and top products to build a complete email calendar with all 12 columns filled in.</p>
+        <div class="tool-badges">
+          <span class="tool-badge"><span class="dot"></span>Strategy Prompt Generator</span>
+        </div>
+        <a href="https://apdg21.github.io/email-marketing/prompt-strategy" target="_blank" class="step-cta">→ &nbsp; Open Tool</a>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card sage">
+        <div class="step-header">
+          <div class="step-num">02</div>
+          <div class="step-meta">
+            <div class="step-label">Per Campaign</div>
+            <div class="step-name">Write the Email Copy</div>
+          </div>
+        </div>
+        <p class="step-desc">Take one row from your strategy table and paste it in. Choose your tone, select which elements to include, and generate a ready-to-use AI prompt. The output will include subject line variations, preview text, full body copy, CTAs, sign-off, P.S. line — and a detailed hero image prompt for your designer or AI image tool.</p>
+        <div class="tool-badges">
+          <span class="tool-badge"><span class="dot"></span>Copy Prompt Generator</span>
+        </div>
+        <a href="https://apdg21.github.io/email-marketing/prompt-copy" target="_blank" class="step-cta">→ &nbsp; Open Tool</a>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card navy">
+        <div class="step-header">
+          <div class="step-num">03</div>
+          <div class="step-meta">
+            <div class="step-label">Per Campaign</div>
+            <div class="step-name">Build the HTML Email</div>
+          </div>
+        </div>
+        <p class="step-desc">Paste the email copy from Step 2 and generate a production-ready HTML email prompt. The design tool applies your brand system — Playfair Display headings, warm earthy palette, table-based layout — and outputs a fully inlined, mobile-responsive HTML file ready to upload into Omnisend, Klaviyo, or any ESP.</p>
+        <div class="tool-badges">
+          <span class="tool-badge"><span class="dot"></span>Design Prompt Generator</span>
+        </div>
+        <a href="https://apdg21.github.io/email-marketing/prompt-design" target="_blank" class="step-cta">→ &nbsp; Open Tool</a>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card teal">
+        <div class="step-header">
+          <div class="step-num">04</div>
+          <div class="step-meta">
+            <div class="step-label">2–3 Days After Send</div>
+            <div class="step-name">Analyze Performance</div>
+          </div>
+        </div>
+        <p class="step-desc">Wait 48–72 hours after sending — that's when open and click rates stabilize and revenue attribution is most accurate. Export your campaign CSV from Omnisend or Klaviyo and upload it to the analytics dashboard. Review open rates, click rates, revenue per send, and segment performance to inform your next strategy round.</p>
+        <div class="tool-badges">
+          <a href="https://resumepro.pages.dev/omnisend" target="_blank" class="tool-badge"><span class="dot"></span>Omnisend Analytics</a>
+          <a href="https://resumepro.pages.dev/klaviyo-tool" target="_blank" class="tool-badge"><span class="dot"></span>Klaviyo Analytics</a>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://resumepro.pages.dev/omnisend" target="_blank" class="step-cta">→ &nbsp; Omnisend</a>
+          <a href="https://resumepro.pages.dev/klaviyo-tool" target="_blank" class="step-cta">→ &nbsp; Klaviyo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── HOW IT WORKS GUIDE ── -->
+  <div id="guide" style="margin-bottom:56px;">
+    <div class="section-head">
+      <p class="section-eyebrow">Step-by-Step Guide</p>
+      <h2 class="section-title">How the <em>Workflow Works</em></h2>
+      <p class="section-sub">A practical walkthrough from first planning session to performance review.</p>
+      <div class="accent-line"></div>
+    </div>
+
+    <div style="max-width:720px;margin:0 auto;">
+      <div class="guide-timeline">
+
+        <div class="guide-item">
+          <div class="guide-icon amber">📅</div>
+          <div class="guide-content">
+            <div class="amber">
+              <div class="guide-step-label">Step 01 · Strategy</div>
+              <div class="guide-timing">🗓 Start of each month</div>
+            </div>
+            <div class="guide-title">Plan your full month calendar</div>
+            <p class="guide-body">
+              Open the <strong>Strategy Prompt Generator</strong>. Set your brand name, target month, goals (revenue, retention, win-back, etc.), send frequency, and audience segments. Paste your last 90 days of campaign data into the metrics field — even a few key numbers like open rates and top products helps significantly.<br><br>
+              Copy the generated prompt and paste it into <strong>ChatGPT, Claude, or Gemini</strong>. The AI will return a full email calendar table with: No., Email Name, Date, Promo Start, Promo End, Purpose, Subject Line, Preview Text, Segment, Product Focus, Send Time, and Discount Code — one row per send.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-icon sage">✍️</div>
+          <div class="guide-content">
+            <div class="sage">
+              <div class="guide-step-label">Step 02 · Copy</div>
+              <div class="guide-timing">🖊 Before each send</div>
+            </div>
+            <div class="guide-title">Turn each strategy row into full email copy</div>
+            <p class="guide-body">
+              Open the <strong>Copy Prompt Generator</strong>. Copy one row from your strategy table and paste it into the row parser — it will split all 12 fields automatically. Set your brand voice, choose a tone (warm, urgent, storytelling, etc.), and select which elements to include.<br><br>
+              Copy the prompt and paste it into your AI of choice. You'll receive: <strong>4+ subject line variations</strong>, preview text, personalized opening, full body copy, primary CTA, closing, P.S. line, and a detailed <strong>hero image prompt</strong> for Midjourney, DALL-E, or Adobe Firefly.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-icon navy">🎨</div>
+          <div class="guide-content">
+            <div class="navy">
+              <div class="guide-step-label">Step 03 · Design</div>
+              <div class="guide-timing">💻 After copy is approved</div>
+            </div>
+            <div class="guide-title">Build the production HTML email</div>
+            <p class="guide-body">
+              Open the <strong>Design Prompt Generator</strong>. Paste the email copy from Step 2, add your hero image URL, and configure the brand settings. Copy the generated prompt and run it through Claude or ChatGPT.<br><br>
+              The output is a <strong>fully production-ready HTML email</strong> — all styles inlined, mobile responsive, table-based layout, and matching the Boho Blanket brand system. Upload directly into Omnisend or Klaviyo's custom HTML block.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-icon teal">⏳</div>
+          <div class="guide-content">
+            <div class="teal">
+              <div class="guide-step-label">Step 04 · Wait</div>
+              <div class="guide-timing">⏱ 48–72 hours after send</div>
+            </div>
+            <div class="guide-title">Wait before checking results</div>
+            <p class="guide-body">
+              Don't check performance too early. <strong>Open rates take 24–48 hours to stabilize</strong> as subscribers open across time zones and devices. Revenue attribution needs 48–72 hours for post-click purchases to fully register in your ESP.<br><br>
+              Check back on Day 2 or Day 3 for the most accurate read on how a campaign performed.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <div class="guide-icon rose">📊</div>
+          <div class="guide-content">
+            <div class="rose">
+              <div class="guide-step-label">Step 05 · Analyze</div>
+              <div class="guide-timing">📤 Export CSV from your ESP</div>
+            </div>
+            <div class="guide-title">Review performance and feed it back into next month</div>
+            <p class="guide-body">
+              Export your campaign CSV from <strong>Omnisend</strong> or <strong>Klaviyo</strong> and upload it to the analytics dashboard. Review: open rate by send day, click rate by campaign type, revenue per send, segment performance, and unsubscribe trends.<br><br>
+              Note which subject line styles, send days, and campaign types performed best. <strong>Paste these insights into the Strategy Prompt Generator</strong> at the start of next month — the AI will use them to build a smarter, more optimized calendar.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── TIPS ── -->
+  <div id="tips">
+    <div class="section-head">
+      <p class="section-eyebrow">Pro Tips</p>
+      <h2 class="section-title">Get the Most from <em>Each Tool</em></h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">📋</div>
+        <div>
+          <div class="tip-title">Paste your 90-day data as a table</div>
+          <p class="tip-body">Copy your campaign export directly from Omnisend or Klaviyo and paste the raw tab-separated data into the Strategy tool's metrics field. The AI reads column headers and values natively — no reformatting needed.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔁</div>
+        <div>
+          <div class="tip-title">Reuse the strategy table row-by-row</div>
+          <p class="tip-body">Your AI-generated strategy table is your source of truth for the month. Copy one row at a time into the Copy Prompt Generator. No need to re-enter brand context every time — it saves between sessions.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🖼️</div>
+        <div>
+          <div class="tip-title">Use the hero image prompt in Midjourney</div>
+          <p class="tip-body">The Copy Prompt Generator outputs a detailed hero image brief. Paste it directly into Midjourney with <code style="font-size:11px;background:var(--cream-dark);padding:1px 5px;border-radius:3px;">--ar 3:2 --style raw</code> for a clean flat-lay that matches your email's mood.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">⚡</div>
+        <div>
+          <div class="tip-title">A/B test using the subject line variations</div>
+          <p class="tip-body">The Copy tool generates 4–6 subject line options across different angles. Use Omnisend or Klaviyo's A/B split feature to test two at a time. Note the winner in your next month's 90-day data paste to train future strategy prompts.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">⏰</div>
+        <div>
+          <div class="tip-title">Check analytics on Day 2, not Day 1</div>
+          <p class="tip-body">Resisting the urge to check immediately leads to better decisions. Open rates on Day 1 are often 15–20% lower than final totals. Wait 48 hours before drawing conclusions or deciding whether to resend to non-openers.</p>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔄</div>
+        <div>
+          <div class="tip-title">The loop: data → strategy → copy → design</div>
+          <p class="tip-body">This workflow compounds over time. Each month's analytics feed the next month's strategy, which produces better copy, which drives better results. After 3 months, the AI has enough context to build highly personalized, data-optimized calendars.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
+
+<!-- ── FOOTER ── -->
+<div class="footer">
+  <p style="margin-bottom:8px;">
+    <span style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;letter-spacing:0.18em;color:#e8d5b7;text-transform:uppercase;">BOHO BLANKET</span>
+  </p>
+  <p>
+    <a href="https://apdg21.github.io/email-marketing/prompt-strategy" target="_blank">Strategy</a>
+    &nbsp;·&nbsp;
+    <a href="https://apdg21.github.io/email-marketing/prompt-copy" target="_blank">Copy</a>
+    &nbsp;·&nbsp;
+    <a href="https://apdg21.github.io/email-marketing/prompt-design" target="_blank">Design</a>
+    &nbsp;·&nbsp;
+    <a href="https://resumepro.pages.dev/omnisend" target="_blank">Omnisend Analytics</a>
+    &nbsp;·&nbsp;
+    <a href="https://resumepro.pages.dev/klaviyo-tool" target="_blank">Klaviyo Analytics</a>
+  </p>
+  <p style="margin-top:10px;"><span>© 2025 Boho Blanket · Email Marketing Hub</span></p>
+</div>
+
 </body>
 </html>
