@@ -349,24 +349,48 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);heigh
 <div class="modal-overlay" id="metricsModal">
   <div class="modal modal-wide">
     <div class="modal-title">Campaign Metrics</div>
-    <div class="modal-sub">Enter numbers only — no % signs needed for rates.</div>
-    <div class="metrics-form">
-      <div class="form-group"><label class="form-label">Messages Sent</label><input class="form-input" id="mSent" type="number" placeholder="83" /></div>
-      <div class="form-group"><label class="form-label">Open Rate (%)</label><input class="form-input" id="mOpen" type="number" step="0.1" placeholder="26.5" /></div>
-      <div class="form-group"><label class="form-label">Click Rate (%)</label><input class="form-input" id="mClick" type="number" step="0.1" placeholder="1.2" /></div>
-      <div class="form-group"><label class="form-label">Placed Order Rate (%)</label><input class="form-input" id="mOrder" type="number" step="0.1" placeholder="0" /></div>
-      <div class="form-group"><label class="form-label">Revenue ($)</label><input class="form-input" id="mRevenue" type="number" step="0.01" placeholder="0.00" /></div>
-      <div class="form-group"><label class="form-label">Failed Delivery (%)</label><input class="form-input" id="mFailed" type="number" step="0.1" placeholder="0" /></div>
-      <div class="form-group"><label class="form-label">Marked as Spam (%)</label><input class="form-input" id="mSpam" type="number" step="0.1" placeholder="0" /></div>
-      <div class="form-group"><label class="form-label">Unsubscribe Rate (%)</label><input class="form-input" id="mUnsub" type="number" step="0.1" placeholder="0" /></div>
-      <div class="form-group full-width"><label class="form-label">Opens (count) — optional</label><input class="form-input" id="mOpenCount" type="number" placeholder="22" /></div>
-      <div class="form-group full-width"><label class="form-label">Clicks (count) — optional</label><input class="form-input" id="mClickCount" type="number" placeholder="1" /></div>
+    <div class="modal-sub">Paste a row from your export, or fill in manually.</div>
+
+    <!-- PASTE SECTION -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:8px">📋 Paste from Klaviyo / export</div>
+      <div style="font-size:11px;color:var(--text-dim);margin-bottom:8px;line-height:1.6">
+        Copy a data row (tab-separated) and paste it below. Format:<br>
+        <span style="color:var(--accent);font-family:monospace">Name · Type · Send date · Month · Messages sent · Open rate · Open qty · Click rate · Click qty · Order rate · Order qty · Revenue · Failed rate · Failed qty · Spam rate · Spam qty · Unsub rate · Unsub qty</span>
+      </div>
+      <textarea class="form-textarea" id="metricsPaste" rows="3" placeholder="May Final Hours: Clear the Cutting Table&#9;Email&#9;5/31/2026&#9;May&#9;1145&#9;60.00%&#9;688&#9;1.80%&#9;21&#9;0%&#9;1&#9;€26.85&#9;0.00%&#9;0&#9;0%&#9;0&#9;0%&#9;1" style="font-size:11px;font-family:monospace"></textarea>
+      <div id="parseStatus" style="font-size:11px;margin-top:6px;min-height:16px"></div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="parseMetricsRow()">🔍 Parse Row</button>
     </div>
-    <div style="margin-top:10px;padding:10px 14px;background:var(--surface2);border-radius:8px;font-size:12px;color:var(--text-dim)">💡 Or paste data below and click Parse:</div>
-    <textarea class="form-textarea" id="metricsPaste" style="margin-top:8px" rows="4" placeholder="Paste CSV or tab-separated metrics data here..."></textarea>
+
+    <!-- MANUAL FIELDS -->
+    <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:10px">Or enter manually:</div>
+    <div class="metrics-form">
+      <div class="form-group"><label class="form-label">Messages Sent</label><input class="form-input" id="mSent" type="number" placeholder="1145" /></div>
+      <div class="form-group"><label class="form-label">Month</label><input class="form-input" id="mMonth" placeholder="May" /></div>
+
+      <div class="form-group"><label class="form-label">Open Rate (%)</label><input class="form-input" id="mOpen" type="number" step="0.01" placeholder="60.00" /></div>
+      <div class="form-group"><label class="form-label">Opens (qty)</label><input class="form-input" id="mOpenCount" type="number" placeholder="688" /></div>
+
+      <div class="form-group"><label class="form-label">Click Rate (%)</label><input class="form-input" id="mClick" type="number" step="0.01" placeholder="1.80" /></div>
+      <div class="form-group"><label class="form-label">Clicks (qty)</label><input class="form-input" id="mClickCount" type="number" placeholder="21" /></div>
+
+      <div class="form-group"><label class="form-label">Placed Order Rate (%)</label><input class="form-input" id="mOrder" type="number" step="0.01" placeholder="0" /></div>
+      <div class="form-group"><label class="form-label">Orders (qty)</label><input class="form-input" id="mOrderCount" type="number" placeholder="1" /></div>
+
+      <div class="form-group"><label class="form-label">Revenue</label><input class="form-input" id="mRevenue" placeholder="€26.85 or 26.85" /></div>
+      <div class="form-group"><label class="form-label">Failed Delivery (%)</label><input class="form-input" id="mFailed" type="number" step="0.01" placeholder="0.00" /></div>
+
+      <div class="form-group"><label class="form-label">Failed (qty)</label><input class="form-input" id="mFailedCount" type="number" placeholder="0" /></div>
+      <div class="form-group"><label class="form-label">Spam Rate (%)</label><input class="form-input" id="mSpam" type="number" step="0.01" placeholder="0" /></div>
+
+      <div class="form-group"><label class="form-label">Spam (qty)</label><input class="form-input" id="mSpamCount" type="number" placeholder="0" /></div>
+      <div class="form-group"><label class="form-label">Unsubscribe Rate (%)</label><input class="form-input" id="mUnsub" type="number" step="0.01" placeholder="0" /></div>
+
+      <div class="form-group"><label class="form-label">Unsubs (qty)</label><input class="form-input" id="mUnsubCount" type="number" placeholder="1" /></div>
+    </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal('metricsModal')">Cancel</button>
-      <button class="btn btn-ghost" onclick="parseMetrics()">🔍 Parse</button>
       <button class="btn btn-primary" onclick="saveMetrics()">Save Metrics</button>
     </div>
   </div>
@@ -689,12 +713,12 @@ function buildDesignPreview(design) {
 
 function buildSignalBars(m) {
   var bars = [
-    {label:'Open Rate',   val:m.openRate,   unit:'%', color:'fill-green',  max:50},
-    {label:'Click Rate',  val:m.clickRate,  unit:'%', color:'fill-accent', max:10},
-    {label:'Order Rate',  val:m.orderRate,  unit:'%', color:'fill-accent', max:5},
-    {label:'Unsub Rate',  val:m.unsubRate,  unit:'%', color:'fill-yellow', max:2},
-    {label:'Spam Rate',   val:m.spamRate,   unit:'%', color:'fill-red',    max:1},
-    {label:'Failed Del.', val:m.failedRate, unit:'%', color:'fill-red',    max:5}
+    {label:'Open Rate',   val:(m.openRate||0),   unit:'%', color:'fill-green',  max:60},
+    {label:'Click Rate',  val:(m.clickRate||0),  unit:'%', color:'fill-accent', max:10},
+    {label:'Order Rate',  val:(m.orderRate||0),  unit:'%', color:'fill-accent', max:5},
+    {label:'Unsub Rate',  val:(m.unsubRate||0),  unit:'%', color:'fill-yellow', max:2},
+    {label:'Spam Rate',   val:(m.spamRate||0),   unit:'%', color:'fill-red',    max:1},
+    {label:'Failed Del.', val:(m.failedRate||0), unit:'%', color:'fill-red',    max:5}
   ];
   return bars.map(function(b) {
     var pct = Math.min(100, (b.val / b.max) * 100) || 0;
@@ -707,15 +731,19 @@ function buildSignalBars(m) {
 }
 
 function buildMetricsGrid(m) {
+  function fmtRev(m) {
+    if (m.revenueFmt) return m.revenueFmt;
+    return '$'+parseFloat(m.revenue||0).toFixed(2);
+  }
   var cards = [
-    {label:'Messages Sent',    val:m.sent.toLocaleString(),               cls:''},
-    {label:'Open Rate',        val:m.openRate+'%',  sub:m.openCount?'('+m.openCount+')':'',  cls:m.openRate>=20?'good':m.openRate>=10?'neutral':'bad'},
-    {label:'Click Rate',       val:m.clickRate+'%', sub:m.clickCount?'('+m.clickCount+')':'', cls:m.clickRate>=2?'good':m.clickRate>=.5?'neutral':''},
-    {label:'Placed Order Rate',val:m.orderRate+'%',                        cls:m.orderRate>0?'good':''},
-    {label:'Revenue',          val:'$'+parseFloat(m.revenue||0).toFixed(2),cls:m.revenue>0?'good':''},
-    {label:'Failed Delivery',  val:m.failedRate+'%',                       cls:m.failedRate>2?'bad':m.failedRate>0?'neutral':'good'},
-    {label:'Marked as Spam',   val:m.spamRate+'%',                         cls:m.spamRate>.1?'bad':'good'},
-    {label:'Unsubscribe Rate', val:m.unsubRate+'%',                        cls:m.unsubRate>.5?'bad':'good'}
+    {label:'Messages Sent',    val:m.sent.toLocaleString(),  sub:m.month||'',              cls:''},
+    {label:'Open Rate',        val:m.openRate+'%',           sub:m.openCount?'('+m.openCount+' opens)':'',  cls:m.openRate>=20?'good':m.openRate>=10?'neutral':'bad'},
+    {label:'Click Rate',       val:m.clickRate+'%',          sub:m.clickCount?'('+m.clickCount+' clicks)':'', cls:m.clickRate>=2?'good':m.clickRate>=.5?'neutral':''},
+    {label:'Placed Orders',    val:m.orderRate+'%',          sub:m.orderCount?'('+m.orderCount+' orders)':'', cls:m.orderRate>0?'good':''},
+    {label:'Revenue',          val:fmtRev(m),                sub:'',                        cls:m.revenue>0?'good':''},
+    {label:'Failed Delivery',  val:m.failedRate+'%',         sub:m.failedCount?'('+m.failedCount+')':'',  cls:m.failedRate>2?'bad':m.failedRate>0?'neutral':'good'},
+    {label:'Marked as Spam',   val:m.spamRate+'%',           sub:m.spamCount?'('+m.spamCount+')':'',      cls:m.spamRate>.1?'bad':'good'},
+    {label:'Unsubscribes',     val:m.unsubRate+'%',          sub:m.unsubCount?'('+m.unsubCount+' unsubs)':'', cls:m.unsubRate>.5?'bad':'good'}
   ];
   return '<div class="metrics-grid">'+cards.map(function(c){
     return '<div class="metric-card">'+
@@ -814,71 +842,111 @@ function saveDesign() {
 }
 
 // ── METRICS ──
+// Column order (0-based, tab-separated):
+// 0:name 1:type 2:senddate 3:month 4:sent 5:openRate 6:openQty 7:clickRate 8:clickQty
+// 9:orderRate 10:orderQty 11:revenue 12:failedRate 13:failedQty 14:spamRate 15:spamQty 16:unsubRate 17:unsubQty
+
+function parseNum(s) {
+  if (s === undefined || s === null || s === '') return 0;
+  return parseFloat(String(s).replace(/[%€$£¥,\s]/g,'')) || 0;
+}
+function parseRevenue(s) {
+  if (!s) return 0;
+  return parseFloat(String(s).replace(/[€$£¥,\s]/g,'')) || 0;
+}
+
+function fillMetricsFields(m) {
+  document.getElementById('mSent').value       = m.sent       || '';
+  document.getElementById('mMonth').value      = m.month      || '';
+  document.getElementById('mOpen').value       = m.openRate   != null ? m.openRate   : '';
+  document.getElementById('mOpenCount').value  = m.openCount  || '';
+  document.getElementById('mClick').value      = m.clickRate  != null ? m.clickRate  : '';
+  document.getElementById('mClickCount').value = m.clickCount || '';
+  document.getElementById('mOrder').value      = m.orderRate  != null ? m.orderRate  : '';
+  document.getElementById('mOrderCount').value = m.orderCount || '';
+  document.getElementById('mRevenue').value    = m.revenue    != null ? m.revenue    : '';
+  document.getElementById('mFailed').value     = m.failedRate != null ? m.failedRate : '';
+  document.getElementById('mFailedCount').value= m.failedCount|| '';
+  document.getElementById('mSpam').value       = m.spamRate   != null ? m.spamRate   : '';
+  document.getElementById('mSpamCount').value  = m.spamCount  || '';
+  document.getElementById('mUnsub').value      = m.unsubRate  != null ? m.unsubRate  : '';
+  document.getElementById('mUnsubCount').value = m.unsubCount || '';
+  document.getElementById('metricsPaste').value = '';
+  document.getElementById('parseStatus').innerHTML = '';
+}
+
 function openMetricsModal(id) {
   editingField = id;
   var c = campaigns.find(function(x){return x.id===id;});
-  var m = c.metrics || {};
-  document.getElementById('mSent').value      = m.sent      || '';
-  document.getElementById('mOpen').value      = m.openRate  != null ? m.openRate  : '';
-  document.getElementById('mClick').value     = m.clickRate != null ? m.clickRate : '';
-  document.getElementById('mOrder').value     = m.orderRate != null ? m.orderRate : '';
-  document.getElementById('mRevenue').value   = m.revenue   != null ? m.revenue   : '';
-  document.getElementById('mFailed').value    = m.failedRate!= null ? m.failedRate: '';
-  document.getElementById('mSpam').value      = m.spamRate  != null ? m.spamRate  : '';
-  document.getElementById('mUnsub').value     = m.unsubRate != null ? m.unsubRate : '';
-  document.getElementById('mOpenCount').value = m.openCount || '';
-  document.getElementById('mClickCount').value= m.clickCount|| '';
-  document.getElementById('metricsPaste').value = '';
+  fillMetricsFields(c.metrics || {});
   openModal('metricsModal');
 }
-function parseMetrics() {
+
+function parseMetricsRow() {
   var raw = document.getElementById('metricsPaste').value.trim();
-  if (!raw) return;
-  var lines = raw.split('\n').map(function(l){return l.trim();}).filter(Boolean);
-  var delim = raw.indexOf('\t') >= 0 ? '\t' : ',';
-  var parsed = {};
-  lines.forEach(function(line) {
-    var parts = line.split(delim).map(function(p){return p.trim();});
-    var key = (parts[0]||'').toLowerCase();
-    var val = parts[1] || parts[0];
-    var num = parseFloat(val.replace(/[%$,]/g,''));
-    if (!isNaN(num)) {
-      if (key.indexOf('sent')>=0||key.indexOf('messages')>=0) parsed.sent=num;
-      else if (key.indexOf('open rate')>=0)  parsed.openRate=num;
-      else if (key.indexOf('click rate')>=0) parsed.clickRate=num;
-      else if (key.indexOf('order')>=0)      parsed.orderRate=num;
-      else if (key.indexOf('revenue')>=0)    parsed.revenue=num;
-      else if (key.indexOf('fail')>=0)       parsed.failedRate=num;
-      else if (key.indexOf('spam')>=0)       parsed.spamRate=num;
-      else if (key.indexOf('unsub')>=0)      parsed.unsubRate=num;
-    }
-  });
-  var count = Object.keys(parsed).length;
-  if (count) {
-    if (parsed.sent)        document.getElementById('mSent').value   = parsed.sent;
-    if (parsed.openRate  != null) document.getElementById('mOpen').value   = parsed.openRate;
-    if (parsed.clickRate != null) document.getElementById('mClick').value  = parsed.clickRate;
-    if (parsed.orderRate != null) document.getElementById('mOrder').value  = parsed.orderRate;
-    if (parsed.revenue   != null) document.getElementById('mRevenue').value= parsed.revenue;
-    if (parsed.failedRate!= null) document.getElementById('mFailed').value = parsed.failedRate;
-    if (parsed.spamRate  != null) document.getElementById('mSpam').value   = parsed.spamRate;
-    if (parsed.unsubRate != null) document.getElementById('mUnsub').value  = parsed.unsubRate;
-    showToast('Parsed ' + count + ' metrics');
-  } else { showToast('Could not parse — try manual entry'); }
+  var status = document.getElementById('parseStatus');
+  if (!raw) { status.innerHTML = '<span style="color:var(--red)">Nothing pasted.</span>'; return; }
+
+  var parts = raw.split('\t');
+  // Expect 18 columns; tolerate fewer
+  if (parts.length < 5) {
+    status.innerHTML = '<span style="color:var(--red)">Expected tab-separated data with at least 5 columns. Got '+parts.length+'.</span>';
+    return;
+  }
+
+  // Detect if first row is a header (col 0 contains "campaign" or "name")
+  var firstLower = parts[0].toLowerCase();
+  if (firstLower.indexOf('campaign') >= 0 || firstLower === 'name') {
+    status.innerHTML = '<span style="color:var(--yellow)">Looks like a header row — paste a data row instead.</span>';
+    return;
+  }
+
+  var m = {
+    sent:        parseInt(parts[4])       || 0,
+    month:       (parts[3]||'').trim(),
+    openRate:    parseNum(parts[5]),
+    openCount:   parseInt(parts[6])       || 0,
+    clickRate:   parseNum(parts[7]),
+    clickCount:  parseInt(parts[8])       || 0,
+    orderRate:   parseNum(parts[9]),
+    orderCount:  parseInt(parts[10])      || 0,
+    revenue:     parseRevenue(parts[11]),
+    revenueFmt:  (parts[11]||'').trim(),
+    failedRate:  parseNum(parts[12]),
+    failedCount: parseInt(parts[13])      || 0,
+    spamRate:    parseNum(parts[14]),
+    spamCount:   parseInt(parts[15])      || 0,
+    unsubRate:   parseNum(parts[16]),
+    unsubCount:  parseInt(parts[17])      || 0
+  };
+
+  fillMetricsFields(m);
+  // Also update name/date/type if user wants
+  var nameHint = (parts[0]||'').trim();
+  var dateHint = (parts[2]||'').trim();
+  status.innerHTML = '<span style="color:var(--green)">✓ Parsed '+parts.length+' columns. Campaign: "'+esc(nameHint)+'" · Date: '+esc(dateHint)+'</span>';
 }
+
 function saveMetrics() {
   var c = campaigns.find(function(x){return x.id===editingField;});
+  var revRaw = document.getElementById('mRevenue').value.trim();
   c.metrics = {
-    sent:        parseInt(document.getElementById('mSent').value)   || 0,
-    openRate:    parseFloat(document.getElementById('mOpen').value) || 0,
-    clickRate:   parseFloat(document.getElementById('mClick').value)|| 0,
-    orderRate:   parseFloat(document.getElementById('mOrder').value)|| 0,
-    revenue:     parseFloat(document.getElementById('mRevenue').value)||0,
-    failedRate:  parseFloat(document.getElementById('mFailed').value)||0,
-    spamRate:    parseFloat(document.getElementById('mSpam').value) || 0,
-    unsubRate:   parseFloat(document.getElementById('mUnsub').value)|| 0,
-    openCount:   parseInt(document.getElementById('mOpenCount').value) || null,
-    clickCount:  parseInt(document.getElementById('mClickCount').value)|| null
+    sent:        parseInt(document.getElementById('mSent').value)        || 0,
+    month:       document.getElementById('mMonth').value.trim(),
+    openRate:    parseFloat(document.getElementById('mOpen').value)      || 0,
+    openCount:   parseInt(document.getElementById('mOpenCount').value)   || 0,
+    clickRate:   parseFloat(document.getElementById('mClick').value)     || 0,
+    clickCount:  parseInt(document.getElementById('mClickCount').value)  || 0,
+    orderRate:   parseFloat(document.getElementById('mOrder').value)     || 0,
+    orderCount:  parseInt(document.getElementById('mOrderCount').value)  || 0,
+    revenue:     parseRevenue(revRaw),
+    revenueFmt:  revRaw,
+    failedRate:  parseFloat(document.getElementById('mFailed').value)    || 0,
+    failedCount: parseInt(document.getElementById('mFailedCount').value) || 0,
+    spamRate:    parseFloat(document.getElementById('mSpam').value)      || 0,
+    spamCount:   parseInt(document.getElementById('mSpamCount').value)   || 0,
+    unsubRate:   parseFloat(document.getElementById('mUnsub').value)     || 0,
+    unsubCount:  parseInt(document.getElementById('mUnsubCount').value)  || 0
   };
   save(); closeModal('metricsModal'); renderCampaignDetail(c); showToast('Metrics saved');
 }
@@ -1022,8 +1090,16 @@ function buildCampaignsContext() {
   if (!campaigns.length) return 'No campaigns added yet.';
   return campaigns.map(function(c) {
     var m = c.metrics;
-    return '"'+c.name+'" ('+c.type+', '+(c.date||'no date')+')' +
-      (m ? ' | Sent:'+m.sent+' Open:'+m.openRate+'% Click:'+m.clickRate+'% Orders:'+m.orderRate+'% Revenue:$'+m.revenue+' Spam:'+m.spamRate+'% Unsub:'+m.unsubRate+'%' : ' | No metrics yet');
+    if (!m) return '"'+c.name+'" ('+c.type+', '+(c.date||'no date')+') | No metrics yet';
+    return '"'+c.name+'" ('+c.type+', '+(c.date||'no date')+(m.month?', '+m.month:'')+')'+
+      ' | Sent:'+m.sent+
+      ' Open:'+m.openRate+'% ('+( m.openCount||0)+'qty)'+
+      ' Click:'+m.clickRate+'% ('+(m.clickCount||0)+'qty)'+
+      ' Orders:'+m.orderRate+'% ('+(m.orderCount||0)+'qty)'+
+      ' Revenue:'+(m.revenueFmt||('$'+m.revenue))+
+      ' Failed:'+m.failedRate+'% ('+(m.failedCount||0)+'qty)'+
+      ' Spam:'+m.spamRate+'% ('+(m.spamCount||0)+'qty)'+
+      ' Unsub:'+m.unsubRate+'% ('+(m.unsubCount||0)+'qty)';
   }).join('\n');
 }
 
