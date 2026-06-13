@@ -305,7 +305,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);heigh
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg ai">
       <div class="msg-avatar ai-av">✨</div>
-      <div class="msg-bubble">Hi! I'm your campaign analyst. Ask me anything about performance, trends, or how to improve your next campaign.</div>
+      <div class="msg-bubble">Hi! I'm your Campfire AI analyst. I can already see all your campaigns — their names, send dates, copy (subject &amp; body), and metrics. Just ask me anything!</div>
     </div>
   </div>
   <div class="chat-suggestions" id="chatSuggestions">
@@ -557,10 +557,10 @@ var MODELS = {
     {id:'claude-haiku-4-5',  label:'Claude Haiku 4.5'}
   ],
   openrouter: [
-    {id:'openai/gpt-oss-120b:free',          label:'GPT OSS 120B (free)'},
-    {id:'openai/gpt-oss-20b:free',           label:'GPT OSS 20B (free)'},
-    {id:'qwen/qwen3-next-80b-a3b-instruct:free',       label:'Qwen3 80B (free)'},
-    {id:'liquid/lfm-2.5-1.2b-thinking:free', label:'LFM 2.5 Thinking (free)'},
+    {id:'anthropic/claude-sonnet-4-5',       label:'Claude Sonnet 4.5', rec:true},
+    {id:'anthropic/claude-opus-4-5',         label:'Claude Opus 4.5'},
+    {id:'google/gemini-2.0-flash-001',       label:'Gemini 2.0 Flash'},
+    {id:'meta-llama/llama-3.3-70b-instruct', label:'Llama 3.3 70B'},
     {id:'qwen/qwen3-8b:free',                label:'Qwen3 8B (free)'},
     {id:'mistralai/mistral-7b-instruct:free',label:'Mistral 7B (free)'}
   ],
@@ -571,10 +571,10 @@ var MODELS = {
     {id:'gemma2-9b-it',            label:'Gemma 2 9B'}
   ],
   gemini: [
-    {id:'gemini-3.5-flash',               label:'Gemini 3.5 Flash', rec:true},
-    {id:'gemini-3.1-flash-lite',          label:'Gemini 3.1 Flash-Lite'},
-    {id:'gemma-4-26b-a4b-it',             label:'Gemma 4-26b'},
-    {id:'gemma-4-31b-it',                 label:'Gemma-4-31b-it'}
+    {id:'gemini-2.0-flash',               label:'Gemini 2.0 Flash', rec:true},
+    {id:'gemini-1.5-flash',               label:'Gemini 1.5 Flash'},
+    {id:'gemini-1.5-pro',                 label:'Gemini 1.5 Pro'},
+    {id:'gemini-2.5-flash-preview-05-20', label:'Gemini 2.5 Flash Preview'}
   ]
 };
 
@@ -1410,19 +1410,33 @@ function buildCampaignsContext() {
   var brand      = brands.find(function(b){ return b.id === activeBrandId; });
   var brandLabel = brand ? brand.name : 'Unknown Brand';
   if (!campaigns.length) return 'Brand: ' + brandLabel + ' — No campaigns added yet.';
-  var lines = ['Brand: ' + brandLabel];
-  campaigns.forEach(function(c) {
+  var lines = ['Brand: ' + brandLabel, 'Total campaigns: ' + campaigns.length, ''];
+  campaigns.forEach(function(c, i) {
     var m = c.metrics;
-    if (!m) { lines.push('"' + c.name + '" (' + c.type + ', ' + (c.date || 'no date') + ') | No metrics yet'); return; }
-    lines.push(
-      '"' + c.name + '" (' + c.type + ', ' + (c.date || 'no date') + (m.month ? ', ' + m.month : '') + ')' +
-      ' | Sent:' + m.sent +
-      ' Open:' + m.openRate + '% (' + (m.openCount||0) + ')' +
-      ' Click:' + m.clickRate + '% (' + (m.clickCount||0) + ')' +
-      ' Orders:' + m.orderRate + '% (' + (m.orderCount||0) + ')' +
-      ' Revenue:' + (m.revenueFmt || ('$' + m.revenue)) +
-      ' Failed:' + m.failedRate + '% Spam:' + m.spamRate + '% Unsub:' + m.unsubRate + '%'
-    );
+    lines.push('--- Campaign ' + (i+1) + ': "' + c.name + '" ---');
+    lines.push('Type: ' + c.type + ' | Date: ' + (c.date || 'not set') + (m && m.month ? ' | Month: ' + m.month : ''));
+    if (c.copy) {
+      lines.push('Subject: ' + (c.copy.subject || '(none)'));
+      if (c.copy.preheader) lines.push('Preheader: ' + c.copy.preheader);
+      if (c.copy.body) lines.push('Body snippet: ' + c.copy.body.slice(0, 300) + (c.copy.body.length > 300 ? '...' : ''));
+    } else {
+      lines.push('Copy: not added');
+    }
+    if (m) {
+      lines.push(
+        'Metrics: Sent=' + m.sent +
+        ' | Open=' + m.openRate + '% (' + (m.openCount||0) + ')' +
+        ' | Click=' + m.clickRate + '% (' + (m.clickCount||0) + ')' +
+        ' | Orders=' + m.orderRate + '% (' + (m.orderCount||0) + ')' +
+        ' | Revenue=' + (m.revenueFmt || ('$' + m.revenue)) +
+        ' | Failed=' + m.failedRate + '%' +
+        ' | Spam=' + m.spamRate + '%' +
+        ' | Unsub=' + m.unsubRate + '%'
+      );
+    } else {
+      lines.push('Metrics: not added yet');
+    }
+    lines.push('');
   });
   return lines.join('\n');
 }
@@ -1574,14 +1588,35 @@ function updateChatContext() {
   var nameEl = document.getElementById('chatContextName');
   var sub    = document.getElementById('chatSubtitle');
   var brand  = brands.find(function(b){ return b.id === activeBrandId; });
-  var bl     = brand ? brand.name + ' - ' : '';
+  var bl     = brand ? brand.name + ' — ' : '';
+
   if (activeCampaignId) {
     var c = campaigns.find(function(x){ return x.id === activeCampaignId; });
-    if (c) { bar.classList.remove('hidden'); nameEl.textContent = bl + c.name; sub.textContent = 'Asking about: ' + c.name; return; }
+    if (c) {
+      var parts = [];
+      if (c.copy) parts.push('copy');
+      if (c.metrics) parts.push('metrics');
+      var detail = parts.length ? ' (has: ' + parts.join(', ') + ')' : ' (no data yet)';
+      bar.classList.remove('hidden');
+      nameEl.textContent = bl + c.name + detail;
+      sub.textContent = 'Focused on: ' + c.name;
+      return;
+    }
   }
-  if (campaigns.length) { bar.classList.remove('hidden'); nameEl.textContent = bl + 'All ' + campaigns.length + ' campaigns'; sub.textContent = 'Ask about all campaigns'; }
-  else if (brand)       { bar.classList.remove('hidden'); nameEl.textContent = brand.name; sub.textContent = 'Ask about ' + brand.name; }
-  else                  { bar.classList.add('hidden'); sub.textContent = 'Ask anything about your campaigns'; }
+  if (campaigns.length) {
+    var withCopy    = campaigns.filter(function(c){ return c.copy; }).length;
+    var withMetrics = campaigns.filter(function(c){ return c.metrics; }).length;
+    bar.classList.remove('hidden');
+    nameEl.textContent = bl + campaigns.length + ' campaigns | ' + withCopy + ' with copy, ' + withMetrics + ' with metrics';
+    sub.textContent = 'I can see all ' + campaigns.length + ' campaigns';
+  } else if (brand) {
+    bar.classList.remove('hidden');
+    nameEl.textContent = brand.name + ' — no campaigns yet';
+    sub.textContent = 'Add campaigns to get started';
+  } else {
+    bar.classList.add('hidden');
+    sub.textContent = 'Ask anything about your campaigns';
+  }
 }
 function autoResizeChat(el) {
   el.style.height = 'auto';
@@ -1609,7 +1644,7 @@ async function sendChat() {
   var brand      = brands.find(function(b){ return b.id === activeBrandId; });
   var activeName = '';
   if (activeCampaignId) { var ac = campaigns.find(function(x){ return x.id === activeCampaignId; }); if (ac) activeName = ac.name; }
-  var sysCtx = 'You are Campfire AI, an expert email marketing analyst for ' + (brand ? brand.name : 'this brand') + '. Help analyze campaign performance and provide actionable recommendations.\n\n' + buildCampaignsContext() + (activeName ? '\n\nCURRENT FOCUS: User is viewing campaign "' + activeName + '"' : '') + buildHistoricalContext() + '\n\nBe concise and specific. Use ### headers and bullet points when helpful.';
+  var sysCtx = 'You are Campfire AI, an expert email marketing analyst for ' + (brand ? brand.name : 'this brand') + '. You have FULL access to all campaign data below — names, dates, copy (subject lines and email body text), and performance metrics. Use this data to give specific, accurate answers. Never say you cannot see campaign data.\n\n' + buildCampaignsContext() + (activeName ? '\n\nCURRENT FOCUS: User is currently viewing campaign "' + activeName + '". Prioritize answering about this campaign unless asked otherwise.' : '') + buildHistoricalContext() + '\n\nBe concise and specific. Reference campaign names and actual numbers from the data. Use ### headers and bullet points when helpful.';
   var thinkId = 'think_' + uid();
   var msgs = document.getElementById('chatMessages');
   msgs.innerHTML += '<div class="chat-msg ai" id="' + thinkId + '"><div class="msg-avatar ai-av">✨</div><div class="msg-bubble"><div class="ai-thinking"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div></div></div>';
@@ -1627,7 +1662,11 @@ async function sendChat() {
       if (d.error) throw new Error(d.error.message);
       result = d.content.map(function(b){ return b.text || ''; }).join('');
     } else {
-      var apiMsgs = [{role:'user',content:sysCtx + '\n\nUser question: ' + recent[0].content},{role:'assistant',content:'Understood, I have your campaign context.'}].concat(recent.slice(1));
+      // For non-Anthropic providers, inject system context as the first user/assistant exchange
+      var apiMsgs = [
+        {role:'user', content:'SYSTEM CONTEXT (campaign data & instructions):\n' + sysCtx},
+        {role:'assistant', content:'Understood. I have full access to all campaign data and will use it to answer accurately.'}
+      ].concat(recent);
       result = await callAI(apiMsgs, keyObj, 600);
     }
     var th = document.getElementById(thinkId); if (th) th.remove();
