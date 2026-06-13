@@ -305,7 +305,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);heigh
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg ai">
       <div class="msg-avatar ai-av">✨</div>
-      <div class="msg-bubble">Hi! I'm your Campfire AI analyst. I can already see all your campaigns — their names, send dates, copy (subject &amp; body), and metrics. Just ask me anything!</div>
+      <div class="msg-bubble">Hi! I'm your Campfire AI analyst. I can see everything you've added to each campaign — names, dates, subject lines, full email body copy, HTML design code, and all performance metrics. Just ask!</div>
     </div>
   </div>
   <div class="chat-suggestions" id="chatSuggestions">
@@ -1415,13 +1415,25 @@ function buildCampaignsContext() {
     var m = c.metrics;
     lines.push('--- Campaign ' + (i+1) + ': "' + c.name + '" ---');
     lines.push('Type: ' + c.type + ' | Date: ' + (c.date || 'not set') + (m && m.month ? ' | Month: ' + m.month : ''));
+    // Copy text
     if (c.copy) {
       lines.push('Subject: ' + (c.copy.subject || '(none)'));
       if (c.copy.preheader) lines.push('Preheader: ' + c.copy.preheader);
-      if (c.copy.body) lines.push('Body snippet: ' + c.copy.body.slice(0, 300) + (c.copy.body.length > 300 ? '...' : ''));
+      if (c.copy.body) lines.push('Full body copy:\n' + c.copy.body);
     } else {
       lines.push('Copy: not added');
     }
+    // HTML design code
+    if (c.design) {
+      if (c.design.type === 'html' && c.design.data) {
+        lines.push('HTML design code (full):\n' + c.design.data);
+      } else if (c.design.type === 'image') {
+        lines.push('Design: image uploaded (not readable as text)');
+      }
+    } else {
+      lines.push('Design: not added');
+    }
+    // Metrics
     if (m) {
       lines.push(
         'Metrics: Sent=' + m.sent +
@@ -1644,7 +1656,7 @@ async function sendChat() {
   var brand      = brands.find(function(b){ return b.id === activeBrandId; });
   var activeName = '';
   if (activeCampaignId) { var ac = campaigns.find(function(x){ return x.id === activeCampaignId; }); if (ac) activeName = ac.name; }
-  var sysCtx = 'You are Campfire AI, an expert email marketing analyst for ' + (brand ? brand.name : 'this brand') + '. You have FULL access to all campaign data below — names, dates, copy (subject lines and email body text), and performance metrics. Use this data to give specific, accurate answers. Never say you cannot see campaign data.\n\n' + buildCampaignsContext() + (activeName ? '\n\nCURRENT FOCUS: User is currently viewing campaign "' + activeName + '". Prioritize answering about this campaign unless asked otherwise.' : '') + buildHistoricalContext() + '\n\nBe concise and specific. Reference campaign names and actual numbers from the data. Use ### headers and bullet points when helpful.';
+  var sysCtx = 'You are Campfire AI, an expert email marketing analyst for ' + (brand ? brand.name : 'this brand') + '. You have FULL access to all campaign data below — names, dates, copy (subject lines and full email body text), HTML design code, and performance metrics. Use this data to give specific, accurate answers. When HTML is provided you can analyze its structure, content, links, CTAs, and layout. Never say you cannot see campaign data or HTML.\n\n' + buildCampaignsContext() + (activeName ? '\n\nCURRENT FOCUS: User is currently viewing campaign "' + activeName + '". Prioritize answering about this campaign unless asked otherwise.' : '') + buildHistoricalContext() + '\n\nBe concise and specific. Reference campaign names and actual numbers from the data. Use ### headers and bullet points when helpful.';
   var thinkId = 'think_' + uid();
   var msgs = document.getElementById('chatMessages');
   msgs.innerHTML += '<div class="chat-msg ai" id="' + thinkId + '"><div class="msg-avatar ai-av">✨</div><div class="msg-bubble"><div class="ai-thinking"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div></div></div>';
