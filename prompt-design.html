@@ -649,7 +649,7 @@
       <div class="field">
         <label>Hero Image URL <span class="optional">optional</span></label>
         <input type="url" id="heroImageUrl" placeholder="https://example.com/your-hero-image.jpg" autocomplete="off">
-        <div class="field-hint">Paste a direct image URL to use as the full-width hero. It will be placed before the headline block.</div>
+        <div class="field-hint">Paste a direct image URL to use as the full-width hero. It will be placed before the headline block. If the image has a graphic divider/wave/fade along its bottom edge, Claude will look at the image, match the section right below it to that exact edge color so there's no visible seam.</div>
       </div>
 
       <!-- Email Copy -->
@@ -853,7 +853,8 @@
       if (!websiteUrl || !emailCopy) return null;
 
       const heroLine = heroImageUrl
-        ? `- Hero image URL (render full-width before the headline block, line-height:0, font-size:0 on the td, no padding): ${heroImageUrl}`
+        ? `- Hero image URL (render full-width before the headline block, line-height:0, font-size:0 on the td, no padding): ${heroImageUrl}
+- IMAGE-TO-SECTION BLEND (critical): Before writing the hero section, look at the actual hero image (fetch/view it, don't guess). Many hero images are designed with a decorative bottom edge — a wave, fade, gradient, or graphic divider — that is meant to dissolve into a solid color. Identify the EXACT color that edge transitions into (sample it — it is very often pure white #FFFFFF, but confirm from the image itself rather than assuming). Then set the background-color of the <td>/section immediately following the image to that EXACT same hex color, not an approximate brand off-white or cream. If the image has a hard-edged bottom with no fade/divider, this does not apply and the following section can use the normal brand background color. Do this same check for any other full-bleed/edge-to-edge image referenced in the email copy below (e.g. a "middle image" placeholder) — treat each one independently, since different images may transition into different colors.`
         : `- No hero image — design a branded text/graphic-only hero section instead.`;
 
       /* Products block */
@@ -939,6 +940,7 @@ TECHNICAL REQUIREMENTS
 13. Use decorative elements (dividers, ornamental characters, accent bars, pull quotes) to reinforce brand.
 14. CTA buttons: use inline styles for base state, hover class in <style> block.
 15. No placeholder lorem ipsum — use only the copy provided.
+16. SEAMLESS IMAGE BLENDING: For every full-width/edge-to-edge image that has a decorative bottom edge (wave, fade, gradient, or graphic divider) meant to dissolve into a solid color, inspect the actual image, identify the exact hex color it fades into, and set the background-color of the section directly below it to that identical hex value — never approximate with a nearby brand tone. A mismatched background here is a visible defect, not a style choice.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EMAIL COPY
