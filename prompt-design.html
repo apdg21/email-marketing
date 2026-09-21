@@ -16,6 +16,7 @@
       --accent: #6ee7b7;
       --accent2: #a78bfa;
       --accent3: #fbbf24;
+      --danger: #ef4444;
       --text: #e8e8f0;
       --text-muted: #6b6b7a;
       --text-dim: #3a3a44;
@@ -205,7 +206,7 @@
       border: 1px solid var(--border);
     }
 
-    input[type="text"], input[type="url"], textarea {
+    input[type="text"], input[type="url"], textarea, select {
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
@@ -220,7 +221,7 @@
       outline: none;
     }
 
-    input[type="text"]:focus, input[type="url"]:focus, textarea:focus {
+    input[type="text"]:focus, input[type="url"]:focus, textarea:focus, select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(110,231,183,0.08);
     }
@@ -230,6 +231,254 @@
     textarea { min-height: 260px; font-size: 13px; }
 
     .field-hint { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+    .field-hint code {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--accent);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+
+    /* BRAND MANAGER */
+    .brand-wrapper {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .brand-bar {
+      background: var(--surface);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .brand-bar-left .toggle-label { color: var(--accent2); }
+
+    #brandSelect {
+      padding: 10px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    #brandSelect:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(167,139,250,0.1);
+    }
+
+    .brand-actions { display: flex; gap: 8px; }
+
+    .mini-btn {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .mini-btn:hover:not(:disabled) {
+      border-color: var(--accent2);
+      color: var(--accent2);
+      background: rgba(167,139,250,0.05);
+    }
+
+    .mini-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .mini-btn.primary {
+      background: var(--accent2);
+      border-color: var(--accent2);
+      color: #0d0d0f;
+      font-weight: 600;
+    }
+
+    .mini-btn.primary:hover:not(:disabled) { background: #b9a4fb; color: #0d0d0f; }
+
+    .mini-btn.danger:hover:not(:disabled) {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: rgba(239,68,68,0.06);
+    }
+
+    .brand-summary {
+      padding: 10px 20px 12px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(167,139,250,0.08);
+      border: 1px solid rgba(167,139,250,0.25);
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    .chip.muted {
+      color: var(--text-muted);
+      background: var(--surface2);
+      border-color: var(--border);
+    }
+
+    .brand-editor {
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      padding: 24px;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+    }
+
+    .brand-editor.open { display: flex; }
+
+    .brand-editor-title {
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .brand-editor .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .brand-editor input[type="text"],
+    .brand-editor input[type="url"],
+    .brand-editor textarea {
+      background: var(--surface);
+      font-size: 13px;
+      padding: 11px 13px;
+    }
+
+    .brand-editor textarea { min-height: 130px; }
+
+    .brand-editor input:focus, .brand-editor textarea:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(167,139,250,0.1);
+    }
+
+    .drop-zone {
+      border: 1px dashed var(--border-bright);
+      border-radius: 6px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+      transition: all 0.15s;
+      background: var(--surface);
+    }
+
+    .drop-zone:hover, .drop-zone.drag {
+      border-color: var(--accent2);
+      color: var(--accent2);
+      background: rgba(167,139,250,0.04);
+    }
+
+    .drop-zone small { display: block; color: var(--text-dim); font-size: 10.5px; margin-top: 2px; }
+
+    .file-list { display: flex; flex-direction: column; gap: 6px; }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 8px 10px 8px 12px;
+      font-size: 12px;
+    }
+
+    .file-item .fname {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .file-item .fsize { color: var(--text-muted); font-size: 10.5px; margin-left: 8px; flex-shrink: 0; }
+
+    .file-item .file-x {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      width: 22px;
+      height: 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 11px;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+
+    .file-item .file-x:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+      background: rgba(239,68,68,0.06);
+    }
+
+    .brand-editor-footer {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .brand-editor-footer .spacer { flex: 1; }
+
+    .brand-msg {
+      font-size: 11.5px;
+      line-height: 1.5;
+      padding: 9px 12px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .brand-msg.show { display: block; }
+    .brand-msg.ok { color: var(--accent); background: rgba(110,231,183,0.06); border: 1px solid rgba(110,231,183,0.2); }
+    .brand-msg.err { color: #f87171; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.25); }
 
     /* PRODUCTS SECTION */
     .products-wrapper {
@@ -594,6 +843,8 @@
       .product-fields { grid-template-columns: 1fr; }
       .pf-full { grid-column: 1; }
       .col-options { gap: 6px; }
+      .brand-editor .row-2 { grid-template-columns: 1fr; }
+      .brand-bar-left { min-width: 100%; }
     }
   </style>
 </head>
@@ -612,21 +863,21 @@
     <div class="hero">
       <div class="hero-tag">AI-Powered Email Builder</div>
       <h1>Turn copy into<br><span>production HTML</span><br>email campaigns.</h1>
-      <p class="hero-sub">Paste your email copy and your store URL. Click copy. Paste the prompt into Claude. Get a fully designed, inline-styled, mobile-responsive HTML email — matched to your brand.</p>
+      <p class="hero-sub">Pick a saved brand (or add one), paste your email copy, click copy. Paste the prompt into Claude. Get a fully designed, inline-styled, mobile-responsive HTML email — matched to your brand and to the layout notes in your copy.</p>
     </div>
 
     <div class="steps">
       <div class="step">
         <div class="step-icon">✍️</div>
         <div class="step-num">Step 01</div>
-        <div class="step-title">Fill in the fields</div>
-        <div class="step-desc">Paste your email copy and your website URL into the form below.</div>
+        <div class="step-title">Pick a brand + paste copy</div>
+        <div class="step-desc">Select a saved brand (guide and notes load automatically) and paste your email copy.</div>
       </div>
       <div class="step">
         <div class="step-icon">📋</div>
         <div class="step-num">Step 02</div>
         <div class="step-title">Copy the prompt</div>
-        <div class="step-desc">Click the button — it copies the full prompt including your copy.</div>
+        <div class="step-desc">Click the button — it copies the full prompt including your brand guide and copy.</div>
       </div>
       <div class="step">
         <div class="step-icon">✨</div>
@@ -638,25 +889,88 @@
 
     <div class="form-section">
 
+      <!-- BRAND MANAGER -->
+      <div class="field">
+        <label>Brand <span class="optional">saved in this browser</span></label>
+
+        <div class="brand-wrapper">
+          <div class="brand-bar">
+            <div class="brand-bar-left">
+              <select id="brandSelect" onchange="onBrandSelect()"></select>
+            </div>
+            <div class="brand-actions">
+              <button class="mini-btn" type="button" onclick="newBrand()">＋ New brand</button>
+              <button class="mini-btn" type="button" id="editBrandBtn" onclick="editBrand()" disabled>Edit</button>
+            </div>
+          </div>
+
+          <div class="brand-summary" id="brandSummary"></div>
+
+          <div class="brand-editor" id="brandEditor">
+            <div class="brand-editor-title" id="brandEditorTitle">New brand</div>
+
+            <div class="row-2">
+              <div class="pf-wrap">
+                <div class="pf-label">Brand name *</div>
+                <input type="text" id="brandName" placeholder="e.g. Mama Moon Crochet" autocomplete="off">
+              </div>
+              <div class="pf-wrap">
+                <div class="pf-label">Website URL</div>
+                <input type="url" id="brandUrl" placeholder="https://yourstore.com" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="pf-wrap">
+              <div class="pf-label">Brand notes / style guide</div>
+              <textarea id="brandNotes" placeholder="Anything you'd otherwise retype every time — e.g.&#10;Colors: cream #F6EFE4, terracotta #B5573A, ink #2B1E16&#10;Fonts: headings Cormorant Garamond, body Lato&#10;Tone: warm, cozy, handmade. Buttons: pill-shaped, uppercase, letter-spaced.&#10;Footer: always include Instagram + Pinterest links. Sign off as 'Hannah'."></textarea>
+            </div>
+
+            <div class="pf-wrap">
+              <div class="pf-label">Design guide files <span style="text-transform:none;letter-spacing:0;">(optional)</span></div>
+              <div class="drop-zone" id="dropZone" onclick="document.getElementById('brandFileInput').click()">
+                Click to upload or drop files here
+                <small>Text-based only: .txt .md .json .css .html .csv · max 300 KB each</small>
+              </div>
+              <input type="file" id="brandFileInput" multiple accept=".txt,.md,.markdown,.json,.css,.html,.htm,.csv" style="display:none" onchange="handleFiles(this.files); this.value='';">
+              <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="brand-msg" id="brandMsg"></div>
+
+            <div class="brand-editor-footer">
+              <button class="mini-btn primary" type="button" onclick="saveBrand()">Save brand</button>
+              <button class="mini-btn" type="button" onclick="closeBrandEditor()">Cancel</button>
+              <button class="mini-btn danger" type="button" id="deleteBrandBtn" onclick="deleteBrand()" style="display:none">Delete</button>
+              <span class="spacer"></span>
+              <button class="mini-btn" type="button" onclick="exportBrands()" title="Download all brands as a backup file">Export all</button>
+              <button class="mini-btn" type="button" onclick="document.getElementById('brandImportInput').click()" title="Load brands from a backup file">Import</button>
+              <input type="file" id="brandImportInput" accept=".json,application/json" style="display:none" onchange="importBrands(this.files[0]); this.value='';">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-hint">Brands are stored in this browser only. Use <b>Export all</b> to back them up or move them to another browser/computer. The saved guide takes priority over what Claude infers from the website.</div>
+      </div>
+
       <!-- Website URL -->
       <div class="field">
         <label>Store / Brand Website URL <span class="required">*</span></label>
         <input type="url" id="websiteUrl" placeholder="https://yourstore.com" autocomplete="off">
-        <div class="field-hint">Claude will fetch your site's design system — colors, fonts, aesthetic — and match the email to it.</div>
+        <div class="field-hint">Auto-filled when you pick a brand. Claude will fetch your site's design system — colors, fonts, aesthetic — and use it to fill any gaps your saved brand guide doesn't cover.</div>
       </div>
 
       <!-- Hero Image -->
       <div class="field">
         <label>Hero Image URL <span class="optional">optional</span></label>
         <input type="url" id="heroImageUrl" placeholder="https://example.com/your-hero-image.jpg" autocomplete="off">
-        <div class="field-hint">Paste a direct image URL to use as the full-width hero. It will be placed before the headline block. If the image has a graphic divider/wave/fade along its bottom edge, Claude will look at the image, match the section right below it to that exact edge color so there's no visible seam.</div>
+        <div class="field-hint">Paste a direct image URL to use as the full-width hero. By default it's placed before the headline block. If your copy says the hero has a <b>text overlay</b>, the image becomes a background behind the text instead. If the image has a graphic divider/wave/fade along its bottom edge, Claude will look at the image and match the section right below it to that exact edge color so there's no visible seam.</div>
       </div>
 
       <!-- Email Copy -->
       <div class="field">
         <label>Email Copy <span class="required">*</span></label>
         <textarea id="emailCopy" placeholder="Paste your full email copy here — subject lines, preview text, sections, CTAs, PS notes, all of it..."></textarea>
-        <div class="field-hint">Include everything: headline, body, CTAs, section names, PS notes. The more structure you provide, the better the output.</div>
+        <div class="field-hint">Include everything: headline, body, CTAs, section names, PS notes. Layout notes are read and followed — e.g. <code>[HERO: text overlay]</code> <code>[ZIGZAG: image left/right alternating]</code> <code>[2 columns]</code> <code>[full-width banner]</code>. They are treated as instructions and won't appear in the email.</div>
       </div>
 
       <!-- FEATURED PRODUCTS -->
@@ -747,7 +1061,352 @@
     let selectedColumns = 1;
     let productCounter = 0;
 
-    /* TOGGLE PRODUCTS PANEL */
+    /* ══════════════════════════════════════════
+       SAFE STORAGE (localStorage can be blocked)
+    ══════════════════════════════════════════ */
+    const BRANDS_KEY     = 'emailGen.brands.v1';
+    const LAST_BRAND_KEY = 'emailGen.lastBrand.v1';
+    const MAX_FILE_BYTES = 300 * 1024;
+    const ALLOWED_EXT    = ['txt', 'md', 'markdown', 'json', 'css', 'html', 'htm', 'csv'];
+
+    function storeGet(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    }
+    function storeSet(key, val) {
+      try { localStorage.setItem(key, val); return true; } catch (e) { return false; }
+    }
+
+    /* ══════════════════════════════════════════
+       BRAND MANAGER
+    ══════════════════════════════════════════ */
+    let brands       = [];     // [{ id, name, url, notes, files: [{name, content}] }]
+    let editingId    = null;   // null = creating a new brand
+    let draftFiles   = [];     // files attached in the open editor
+
+    function loadBrands() {
+      try {
+        const raw = storeGet(BRANDS_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        brands = Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        brands = [];
+      }
+    }
+
+    function persistBrands() {
+      return storeSet(BRANDS_KEY, JSON.stringify(brands));
+    }
+
+    function getBrand(id) {
+      return brands.find(b => b.id === id) || null;
+    }
+
+    function selectedBrand() {
+      return getBrand(document.getElementById('brandSelect').value);
+    }
+
+    function fmtSize(n) {
+      return n < 1024 ? n + ' B' : (n / 1024).toFixed(1) + ' KB';
+    }
+
+    function renderBrandSelect(selectId) {
+      const sel = document.getElementById('brandSelect');
+      sel.innerHTML = '';
+
+      const none = document.createElement('option');
+      none.value = '';
+      none.textContent = brands.length ? '— No brand (one-off email) —' : '— No brands saved yet —';
+      sel.appendChild(none);
+
+      brands
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(b => {
+          const o = document.createElement('option');
+          o.value = b.id;
+          o.textContent = b.name;
+          sel.appendChild(o);
+        });
+
+      sel.value = selectId && getBrand(selectId) ? selectId : '';
+      refreshBrandUI();
+    }
+
+    function refreshBrandUI() {
+      const b = selectedBrand();
+      document.getElementById('editBrandBtn').disabled = !b;
+
+      const summary = document.getElementById('brandSummary');
+      summary.innerHTML = '';
+
+      const chip = (text, muted) => {
+        const s = document.createElement('span');
+        s.className = 'chip' + (muted ? ' muted' : '');
+        s.textContent = text;
+        summary.appendChild(s);
+      };
+
+      if (!b) {
+        const t = document.createElement('span');
+        t.textContent = 'No brand selected — Claude will work from the website URL alone.';
+        summary.appendChild(t);
+        return;
+      }
+
+      chip(b.name);
+      chip(b.url ? 'URL saved' : 'no URL', !b.url);
+      chip(b.notes && b.notes.trim() ? 'notes saved' : 'no notes', !(b.notes && b.notes.trim()));
+      const fc = (b.files || []).length;
+      chip(fc ? fc + ' guide file' + (fc > 1 ? 's' : '') : 'no guide files', !fc);
+    }
+
+    function onBrandSelect() {
+      const b = selectedBrand();
+      storeSet(LAST_BRAND_KEY, b ? b.id : '');
+      if (b && b.url) document.getElementById('websiteUrl').value = b.url;
+      refreshBrandUI();
+      if (document.getElementById('brandEditor').classList.contains('open')) closeBrandEditor();
+      hidePreview();
+    }
+
+    function openBrandEditor(brand) {
+      editingId  = brand ? brand.id : null;
+      draftFiles = brand ? (brand.files || []).map(f => ({ name: f.name, content: f.content })) : [];
+
+      document.getElementById('brandEditorTitle').textContent = brand ? 'Edit brand — ' + brand.name : 'New brand';
+      document.getElementById('brandName').value  = brand ? brand.name : '';
+      document.getElementById('brandUrl').value   = brand ? (brand.url || '') : document.getElementById('websiteUrl').value.trim();
+      document.getElementById('brandNotes').value = brand ? (brand.notes || '') : '';
+      document.getElementById('deleteBrandBtn').style.display = brand ? '' : 'none';
+
+      showBrandMsg('');
+      renderDraftFiles();
+      document.getElementById('brandEditor').classList.add('open');
+      document.getElementById('brandName').focus();
+    }
+
+    function closeBrandEditor() {
+      document.getElementById('brandEditor').classList.remove('open');
+      editingId  = null;
+      draftFiles = [];
+      showBrandMsg('');
+    }
+
+    function newBrand()  { openBrandEditor(null); }
+    function editBrand() { const b = selectedBrand(); if (b) openBrandEditor(b); }
+
+    function showBrandMsg(text, type) {
+      const el = document.getElementById('brandMsg');
+      el.textContent = text || '';
+      el.className = 'brand-msg' + (text ? ' show ' + (type || 'ok') : '');
+    }
+
+    /* FILES */
+    function renderDraftFiles() {
+      const list = document.getElementById('fileList');
+      list.innerHTML = '';
+      draftFiles.forEach((f, i) => {
+        const row = document.createElement('div');
+        row.className = 'file-item';
+
+        const left = document.createElement('div');
+        left.style.cssText = 'display:flex;align-items:baseline;min-width:0;';
+        const name = document.createElement('span');
+        name.className = 'fname';
+        name.textContent = f.name;
+        const size = document.createElement('span');
+        size.className = 'fsize';
+        size.textContent = fmtSize(f.content.length);
+        left.appendChild(name);
+        left.appendChild(size);
+
+        const x = document.createElement('button');
+        x.type = 'button';
+        x.className = 'file-x';
+        x.title = 'Remove file';
+        x.textContent = '✕';
+        x.onclick = () => { draftFiles.splice(i, 1); renderDraftFiles(); };
+
+        row.appendChild(left);
+        row.appendChild(x);
+        list.appendChild(row);
+      });
+    }
+
+    function handleFiles(fileList) {
+      const files = Array.from(fileList || []);
+      const errors = [];
+      let pending = files.length;
+      if (!pending) return;
+
+      files.forEach(file => {
+        const ext = (file.name.split('.').pop() || '').toLowerCase();
+        if (!ALLOWED_EXT.includes(ext)) {
+          errors.push(file.name + ': unsupported type (use ' + ALLOWED_EXT.map(e => '.' + e).join(' ') + ')');
+          pending--; if (!pending) finish();
+          return;
+        }
+        if (file.size > MAX_FILE_BYTES) {
+          errors.push(file.name + ': too large (' + fmtSize(file.size) + ', max 300 KB)');
+          pending--; if (!pending) finish();
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          const existing = draftFiles.findIndex(f => f.name === file.name);
+          const entry = { name: file.name, content: String(reader.result || '') };
+          if (existing >= 0) draftFiles[existing] = entry; else draftFiles.push(entry);
+          pending--; if (!pending) finish();
+        };
+        reader.onerror = () => {
+          errors.push(file.name + ': could not be read');
+          pending--; if (!pending) finish();
+        };
+        reader.readAsText(file);
+      });
+
+      function finish() {
+        renderDraftFiles();
+        if (errors.length) showBrandMsg(errors.join('\n'), 'err');
+        else showBrandMsg('');
+      }
+    }
+
+    /* Drag & drop */
+    (function initDropZone() {
+      const dz = document.getElementById('dropZone');
+      ['dragenter', 'dragover'].forEach(ev =>
+        dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('drag'); }));
+      ['dragleave', 'drop'].forEach(ev =>
+        dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('drag'); }));
+      dz.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+    })();
+
+    /* SAVE / DELETE */
+    function saveBrand() {
+      const name  = document.getElementById('brandName').value.trim();
+      const url   = document.getElementById('brandUrl').value.trim();
+      const notes = document.getElementById('brandNotes').value.trim();
+
+      if (!name) { showBrandMsg('Give the brand a name first.', 'err'); return; }
+
+      const snapshot = JSON.stringify(brands);
+      let id = editingId;
+
+      if (id) {
+        const b = getBrand(id);
+        b.name = name; b.url = url; b.notes = notes;
+        b.files = draftFiles.map(f => ({ name: f.name, content: f.content }));
+      } else {
+        id = 'b_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        brands.push({
+          id, name, url, notes,
+          files: draftFiles.map(f => ({ name: f.name, content: f.content }))
+        });
+      }
+
+      if (!persistBrands()) {
+        brands = JSON.parse(snapshot);
+        showBrandMsg('Couldn\'t save — browser storage is full or blocked. Try removing a large file, or use Export all as a backup.', 'err');
+        return;
+      }
+
+      storeSet(LAST_BRAND_KEY, id);
+      renderBrandSelect(id);
+      const b = getBrand(id);
+      if (b && b.url) document.getElementById('websiteUrl').value = b.url;
+      closeBrandEditor();
+      hidePreview();
+    }
+
+    function deleteBrand() {
+      if (!editingId) return;
+      const b = getBrand(editingId);
+      if (!b) return;
+      if (!confirm('Delete brand "' + b.name + '"? This can\'t be undone.')) return;
+
+      brands = brands.filter(x => x.id !== editingId);
+      persistBrands();
+      storeSet(LAST_BRAND_KEY, '');
+      closeBrandEditor();
+      renderBrandSelect('');
+      hidePreview();
+    }
+
+    /* EXPORT / IMPORT */
+    function exportBrands() {
+      if (!brands.length) { showBrandMsg('Nothing to export yet — save a brand first.', 'err'); return; }
+      const blob = new Blob([JSON.stringify({ version: 1, brands }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'email-generator-brands.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      showBrandMsg('Exported ' + brands.length + ' brand' + (brands.length !== 1 ? 's' : '') + '.', 'ok');
+    }
+
+    function importBrands(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(String(reader.result));
+          const incoming = Array.isArray(data) ? data : data.brands;
+          if (!Array.isArray(incoming)) throw new Error('bad format');
+
+          const snapshot = JSON.stringify(brands);
+          let added = 0, updated = 0;
+
+          incoming.forEach(raw => {
+            if (!raw || !raw.name) return;
+            const clean = {
+              id:    raw.id || ('b_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)),
+              name:  String(raw.name),
+              url:   String(raw.url || ''),
+              notes: String(raw.notes || ''),
+              files: Array.isArray(raw.files)
+                ? raw.files.filter(f => f && f.name).map(f => ({ name: String(f.name), content: String(f.content || '') }))
+                : []
+            };
+            const match = brands.find(b => b.id === clean.id) || brands.find(b => b.name.toLowerCase() === clean.name.toLowerCase());
+            if (match) {
+              clean.id = match.id;
+              Object.assign(match, clean);
+              updated++;
+            } else {
+              brands.push(clean);
+              added++;
+            }
+          });
+
+          if (!persistBrands()) {
+            brands = JSON.parse(snapshot);
+            showBrandMsg('Import failed — browser storage is full or blocked.', 'err');
+            return;
+          }
+
+          renderBrandSelect(document.getElementById('brandSelect').value);
+          showBrandMsg('Imported: ' + added + ' new, ' + updated + ' updated.', 'ok');
+        } catch (e) {
+          showBrandMsg('That file doesn\'t look like a brands export.', 'err');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    /* INIT BRANDS */
+    loadBrands();
+    renderBrandSelect(storeGet(LAST_BRAND_KEY) || '');
+    (function restoreLastBrandUrl() {
+      const b = selectedBrand();
+      if (b && b.url) document.getElementById('websiteUrl').value = b.url;
+    })();
+
+    /* ══════════════════════════════════════════
+       TOGGLE PRODUCTS PANEL
+    ══════════════════════════════════════════ */
     function toggleProducts() {
       const bar     = document.getElementById('productsToggleBar');
       const body    = document.getElementById('productsBody');
@@ -764,6 +1423,7 @@
       [1, 2, 3].forEach(i => {
         document.getElementById('col-' + i).classList.toggle('active', i === n);
       });
+      updatePill();
       hidePreview();
     }
 
@@ -845,7 +1505,9 @@
       return out;
     }
 
-    /* BUILD PROMPT */
+    /* ══════════════════════════════════════════
+       BUILD PROMPT
+    ══════════════════════════════════════════ */
     function buildPrompt() {
       const websiteUrl   = document.getElementById('websiteUrl').value.trim();
       const heroImageUrl = document.getElementById('heroImageUrl').value.trim();
@@ -853,9 +1515,38 @@
       if (!websiteUrl || !emailCopy) return null;
 
       const heroLine = heroImageUrl
-        ? `- Hero image URL (render full-width before the headline block, line-height:0, font-size:0 on the td, no padding): ${heroImageUrl}
+        ? `- Hero image URL: ${heroImageUrl}
+- HERO PLACEMENT: Default = render full-width as an <img> BEFORE the headline block (line-height:0, font-size:0 on the td, no padding). EXCEPTION: if the email copy says the hero has a text overlay (text on/over the image), do NOT use an <img> — use this image as a BACKGROUND instead, following "HERO WITH TEXT OVERLAY" in the LAYOUT INSTRUCTIONS section below.
 - IMAGE-TO-SECTION BLEND (critical): Before writing the hero section, look at the actual hero image (fetch/view it, don't guess). Many hero images are designed with a decorative bottom edge — a wave, fade, gradient, or graphic divider — that is meant to dissolve into a solid color. Identify the EXACT color that edge transitions into (sample it — it is very often pure white #FFFFFF, but confirm from the image itself rather than assuming). Then set the background-color of the <td>/section immediately following the image to that EXACT same hex color, not an approximate brand off-white or cream. If the image has a hard-edged bottom with no fade/divider, this does not apply and the following section can use the normal brand background color. Do this same check for any other full-bleed/edge-to-edge image referenced in the email copy below (e.g. a "middle image" placeholder) — treat each one independently, since different images may transition into different colors.`
-        : `- No hero image — design a branded text/graphic-only hero section instead.`;
+        : `- No hero image URL provided — design a branded text/graphic-only hero section instead (a solid brand color, gradient, or pattern background). If the copy asks for a text overlay hero, build it as a background-color/pattern cell with the text on top.`;
+
+      /* Saved brand block */
+      const brand = selectedBrand();
+      let brandBlock = '';
+      if (brand) {
+        const hasNotes = brand.notes && brand.notes.trim();
+        const files    = brand.files || [];
+        if (hasNotes || files.length) {
+          const fileText = files.map(f =>
+`--- FILE: ${f.name} ---
+${f.content.trim()}
+--- END FILE: ${f.name} ---`).join('\n\n');
+
+          brandBlock = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SAVED BRAND GUIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Brand: ${brand.name}
+PRIORITY RULE: Everything in this saved guide is authoritative and OVERRIDES anything you infer from the website. Use the website only to fill gaps this guide does not cover. If the guide and the website conflict, follow the guide.
+${hasNotes ? `
+BRAND NOTES:
+${brand.notes.trim()}
+` : ''}${files.length ? `
+DESIGN GUIDE FILES:
+${fileText}
+` : ''}`;
+        }
+      }
 
       /* Products block */
       const products = collectProducts();
@@ -898,6 +1589,58 @@ Products:
 ${productLines}`;
       }
 
+      /* Layout instructions (built with string pieces so the HTML comment / conditional-comment
+         syntax never sits raw inside this <script> block) */
+      const heroSrc = heroImageUrl || 'HERO_IMAGE_URL';
+      const vmlOpen  = '<' + '!--[if gte mso 9]><v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:HEIGHTpx;"><v:fill type="frame" src="' + heroSrc + '" color="FALLBACK_HEX" /><v:textbox inset="0,0,0,0"><![endif]-->';
+      const vmlClose = '<' + '!--[if gte mso 9]></v:textbox></v:rect><![endif]-->';
+
+      const layoutBlock = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LAYOUT INSTRUCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP ZERO — READ THE COPY FOR LAYOUT NOTES BEFORE DESIGNING ANYTHING.
+The copywriter may have written layout directions inside the email copy at the bottom of this prompt. They can appear as bracketed notes, labels, or plain-language instructions, for example: "[HERO: text overlay]", "text over the image", "image left / text right", "zigzag", "alternating rows", "2 columns", "3-up grid", "full-width banner", "centered", "button", "divider", "pull quote".
+- Scan the ENTIRE copy first and list every layout direction you find.
+- Treat each one as a REQUIREMENT. It overrides your own default layout choices for that section.
+- Layout notes are instructions to you, NOT email content. Never print them in the final email.
+- Where no layout is specified for a section, choose whatever best fits the brand.
+- Everything here must still use table-based markup, inline styles, and the mobile rules from TECHNICAL REQUIREMENTS.
+
+── HERO WITH TEXT OVERLAY ──
+Trigger: the copy says the hero has text on / over / overlaid on the image (e.g. "text overlay", "headline over the hero image", "text on top of image").
+If triggered:
+- Do NOT render the hero as an <img> with the headline in a separate block underneath. Use the hero image as the BACKGROUND of a table cell so the headline, subtext and CTA sit on top of it. (This is the one exception to technical requirement 5.)
+- Cell pattern:
+  <td background="${heroSrc}" bgcolor="FALLBACK_HEX" width="600" height="HEIGHT" valign="middle" align="center" style="background-image:url('${heroSrc}');background-size:cover;background-position:center;background-repeat:no-repeat;height:HEIGHTpx;">
+- Outlook desktop ignores CSS backgrounds, so wrap the cell contents in VML using conditional comments. Open it right after the <td> tag with:
+  ${vmlOpen}
+  ...headline / subtext / CTA table goes here...
+  and close it before </td> with:
+  ${vmlClose}
+- HEIGHT = the image's height at 600px wide (keep its aspect ratio — view the image), or the height the text needs, whichever is larger. FALLBACK_HEX = the dominant color of the image, so text is still readable if images are blocked.
+- Legibility: look at the actual image and choose text color for good contrast. If the image is busy, place the text in an inner table with a semi-transparent panel (background-color:rgba(...) plus a solid bgcolor fallback) or add a soft tint behind the text.
+- Mobile: reduce the cell height and padding, shrink the headline, keep all text inside the background area (use background-position:center).
+- No position:absolute anywhere.
+- The IMAGE-TO-SECTION BLEND rule still applies to the bottom edge of this hero.
+If the copy does NOT ask for an overlay, use the normal <img> hero described in ASSETS.
+
+── ZIGZAG / ALTERNATING IMAGE + TEXT ROWS ──
+Trigger: the copy calls for zigzag, alternating, staggered, or "image left then image right" rows.
+If triggered, create the zigzag with the HTML direction attribute — NOT by re-ordering the markup:
+- Build each row as its own 2-column table: one image cell and one text cell (about 50% each), both with class="stack-col".
+- Keep the DOM order IDENTICAL in every row: image cell first, text cell second.
+- Odd rows (1st, 3rd, 5th…): normal direction → image on the left, text on the right.
+- Even rows (2nd, 4th, 6th…): add dir="rtl" (and style="direction:rtl;") to that row's <table> → image on the right, text on the left.
+- Every <td> inside an rtl row must reset direction so the text still reads normally: dir="ltr" style="direction:ltr;text-align:left;" (use the brand's text alignment).
+- If the copy states which side the first image goes on, follow it and flip the pattern accordingly; otherwise start with the image on the left.
+- Use vertical-align:middle on both cells and consistent padding so the rows feel balanced.
+- Mobile: @media only screen and (max-width:620px) { .stack-col { display:block !important; width:100% !important; } } — because the DOM order never changes, the image stacks above its text in every row. Add direction:ltr !important for rtl rows on mobile if needed.
+- Do NOT use float, absolute positioning, or per-row re-ordered markup.
+
+── OTHER LAYOUTS ──
+Multi-column rows, grids, banners, dividers, pull quotes and any other layout named in the copy: build them as table-based markup, stack multi-column layouts to a single column on mobile, and follow the copy's wording exactly.`;
+
       return `You are an expert email HTML developer and brand designer. Your task is to convert the email copy below into a fully production-ready HTML email.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -906,19 +1649,21 @@ BRAND REFERENCE
 Fetch and analyze this website to extract the brand's design system:
 ${websiteUrl}
 
-Extract and apply the following:
+Extract and apply the following${brandBlock ? ' (the SAVED BRAND GUIDE below takes priority over what you find)' : ''}:
 - Primary, secondary, and accent colors (exact hex values)
 - Heading fonts and body fonts — import via Google Fonts if available
 - Font weights, sizes, and line-height style
 - Overall aesthetic tone (boho, minimal, luxury, playful, earthy, modern, etc.)
 - Spacing rhythm, border-radius style, and layout density
 - Logo — reproduce as TEXT-BASED ONLY (no <img>), matching the brand's font, letter-spacing, capitalization, and color exactly
-
+${brandBlock}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ASSETS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${heroLine}
 ${productsBlock}
+${layoutBlock}
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TECHNICAL REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -926,14 +1671,14 @@ TECHNICAL REQUIREMENTS
 2.  Use a <style> block in <head> for: Google Fonts @import, hover states, and @media mobile rules only.
 3.  Use TABLE-BASED layout throughout — no div-based layout for structure.
 4.  Max email width: 600px, centered in a full-width background wrapper table.
-5.  All content images: width="600" style="width:100%;max-width:600px;height:auto;display:block;" border="0"
+5.  All content images: width="600" style="width:100%;max-width:600px;height:auto;display:block;" border="0" (exception: a hero image used as a text-overlay background — see LAYOUT INSTRUCTIONS).
 6.  DO NOT use position:absolute anywhere in the email.
 7.  Text-based logo only — no <img> tag for the logo.
 8.  Google Fonts @import must be the first declaration in the <style> block.
 9.  Mobile breakpoint: @media only screen and (max-width:620px)
     - Reduce font sizes for headlines and body
     - Increase padding comfort on mobile
-    - Stack ALL multi-column layouts (including products) to single column
+    - Stack ALL multi-column layouts (including products and zigzag rows) to single column
 10. Hover styles in <style> block for: CTA buttons (color shift + subtle lift), product cards, footer links.
 11. Hidden preheader div (display:none;max-height:0;overflow:hidden;) using the preview text from the copy.
 12. Include: top announcement/navigation bar + branded footer with nav links, copyright, unsubscribe link.
@@ -941,6 +1686,7 @@ TECHNICAL REQUIREMENTS
 14. CTA buttons: use inline styles for base state, hover class in <style> block.
 15. No placeholder lorem ipsum — use only the copy provided.
 16. SEAMLESS IMAGE BLENDING: For every full-width/edge-to-edge image that has a decorative bottom edge (wave, fade, gradient, or graphic divider) meant to dissolve into a solid color, inspect the actual image, identify the exact hex color it fades into, and set the background-color of the section directly below it to that identical hex value — never approximate with a nearby brand tone. A mismatched background here is a visible defect, not a style choice.
+17. LAYOUT NOTES IN THE COPY WIN: any layout direction written in the email copy (hero text overlay, zigzag, columns, etc.) must be implemented exactly as described in LAYOUT INSTRUCTIONS, and the note itself must not appear in the email.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EMAIL COPY
@@ -985,7 +1731,7 @@ Return ONLY the complete valid HTML document. No explanation, no markdown code f
 
         const highlighted = esc
           .replace(/(━+)/g, '<span class="hl-key">$1</span>')
-          .replace(/^(BRAND REFERENCE|ASSETS|TECHNICAL REQUIREMENTS|FEATURED PRODUCTS|EMAIL COPY|OUTPUT)$/gm,
+          .replace(/^(BRAND REFERENCE|SAVED BRAND GUIDE|ASSETS|FEATURED PRODUCTS|LAYOUT INSTRUCTIONS|TECHNICAL REQUIREMENTS|EMAIL COPY|OUTPUT)$/gm,
                    '<span class="hl-key">$&</span>')
           .replace(/(https?:\/\/[^\s\n&]+)/g, '<span class="hl-val">$1</span>');
 
